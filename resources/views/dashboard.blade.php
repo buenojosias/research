@@ -1,3 +1,3 @@
 <x-app-layout>
-    <x-ts-alert text="clique aqui" color="warning" />
+asdf
 </x-app-layout>

@@ -9,14 +9,14 @@
             <x-side-sublink label="Sublink 2" />
         </x-side-link>
     </ul>
-    <ul class="pt-2 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
+    <ul class="pt-2 mt-4 space-y-2 border-t border-gray-200 ">
         <x-side-link label="Pesquisas" :href="route('researches')" :active="request()->routeIs('researches.*')" wire:navigate />
     </ul>
 </div>
 <div
-    class="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-white dark:bg-gray-800 z-20">
+    class="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex z-20">
     <a href="#"
-        class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-600">
+        class="inline-flex justify-center p-2 text-white rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100">
         <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg">
             <path
@@ -25,7 +25,7 @@
         </svg>
     </a>
     <a href="#" data-tooltip-target="tooltip-settings"
-        class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:text-gray-400 dark:hover:text-white hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600">
+        class="inline-flex justify-center p-2 text-white rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100">
         <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"

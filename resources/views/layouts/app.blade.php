@@ -17,10 +17,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="h-full font-sans antialiased" x-data="{ sidebar: false }">
+<body class="h-full font-sans antialiased bg-background-default" x-data="{ sidebar: false }">
     <div>
-        <nav
-            class="px-4 py-2.5 sm:py-2 bg-primary-800 fixed left-0 right-0 top-0 z-50">
+        <nav class="px-4 py-2.5 sm:py-2 bg-primary-800 fixed left-0 right-0 top-0 z-50">
             <div class="sm:flex sm:items-center">
                 <div class="w-full sm:w-64 flex justify-start items-center">
                     <button @click="sidebar = !sidebar"
@@ -56,10 +55,8 @@
 
     <main class="pb-4 md:ml-64 h-auto pt-24 sm:pt-14 md:pt-[52px]">
         @if (isset($header))
-            <header class="bg-white shadow w-full px-4 fixed">
-                <div class="max-w-5xl mx-auto py-4">
-                    {{ $header }}
-                </div>
+            <header class="z-30 bg-white shadow w-full h-14 flex items-center fixed">
+                {{ $header }}
             </header>
         @endif
         {{ $slot }}

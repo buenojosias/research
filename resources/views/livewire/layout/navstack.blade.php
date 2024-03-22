@@ -25,7 +25,7 @@ new class extends Component {
         <x-dropdown width="48">
             <x-slot name="trigger">
                 <button
-                    class="p-2 rounded-full border border-transparent text-sm leading-4 font-medium text-white dark:text-gray-400 bg-white/25 dark:bg-gray-100 hover:bg-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                    class="p-2 rounded-full border border-transparent text-sm leading-4 font-medium text-white bg-white/25 hover:bg-primary-400/60 hover:text-copy-700 focus:outline-none transition ease-in-out duration-150">
                     <div class="hidden" x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name"
                         x-on:profile-updated.window="name = $event.detail.name">
                     </div>
