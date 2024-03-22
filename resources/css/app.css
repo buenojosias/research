@@ -5,3 +5,39 @@
 .with-header {
     @apply mt-14;
 }
+
+section {
+    @apply mt-6 mx-4 md:mx-6;
+}
+
+section .header {
+    @apply flex justify-between items-center mb-6;
+}
+
+h1 {
+    @apply text-2xl font-bold;
+}
+
+table {
+    @apply w-full;
+}
+
+table thead {
+    @apply bg-gray-200;
+}
+
+table thead tr {
+    @apply border-b border-t;
+}
+
+table thead th {
+    @apply text-left font-medium uppercase;
+}
+
+table tbody tr {
+    @apply border-b;
+}
+
+th, td {
+    @apply p-3 text-sm text-nowrap;
+}

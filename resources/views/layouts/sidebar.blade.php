@@ -1,8 +1,8 @@
 <div class="overflow-y-auto pt-5 px-3 pb-16 h-full bg-primary-600">
     <ul class="space-y-2">
         <x-side-link label="Dashboard" :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate />
-        <x-side-link label="Estudantes" :href="route('students')" :active="request()->routeIs('students.*')" wire:navigate />
-        <x-side-link label="Pesquisas" :href="route('researches')" :active="request()->routeIs('researches.*')" wire:navigate />
+        <x-side-link label="Estudantes" :href="route('students')" :active="request()->routeIs('students*')" wire:navigate />
+        <x-side-link label="Pesquisas" :href="route('researches')" :active="request()->routeIs('researches*')" wire:navigate />
 
         <x-side-link label="Teste">
             <x-side-sublink label="Sublink 1" :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate />
