@@ -12,14 +12,15 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <!-- Scripts -->
+    <tallstackui:script />
+    @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="h-full font-sans antialiased" x-data="{ sidebar: false }">
     <div>
         <nav
-            class="px-4 py-2.5 sm:py-2 bg-primary-dark fixed left-0 right-0 top-0 z-50">
+            class="px-4 py-2.5 sm:py-2 bg-primary-800 fixed left-0 right-0 top-0 z-50">
             <div class="sm:flex sm:items-center">
                 <div class="w-full sm:w-64 flex justify-start items-center">
                     <button @click="sidebar = !sidebar"
