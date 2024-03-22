@@ -30,9 +30,9 @@ new class extends Component
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                    <x-nav-link label="Dashboard" :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate />
+                    <x-nav-link label="Estudantes" :href="route('students')" :active="request()->routeIs('students.*')" wire:navigate />
+                    <x-nav-link label="Pesquisas" :href="route('researches')" :active="request()->routeIs('researches.*')" wire:navigate />
                 </div>
             </div>
 
@@ -81,9 +81,9 @@ new class extends Component
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            <x-responsive-nav-link label="Dashboard" :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate />
+            <x-responsive-nav-link label="Estudantes" :href="route('students')" :active="request()->routeIs('students.*')" wire:navigate />
+            <x-responsive-nav-link label="Pesquisas" :href="route('researches')" :active="request()->routeIs('researches.*')" wire:navigate />
         </div>
 
         <!-- Responsive Settings Options -->
@@ -94,15 +94,11 @@ new class extends Component
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile')" wire:navigate>
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
+                <x-responsive-nav-link label="Perfil" :href="route('profile')" wire:navigate />
 
                 <!-- Authentication -->
                 <button wire:click="logout" class="w-full text-start">
-                    <x-responsive-nav-link>
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
+                    <x-responsive-nav-link label="Sair" />
                 </button>
             </div>
         </div>
