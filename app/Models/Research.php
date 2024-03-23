@@ -16,8 +16,9 @@ class Research extends Model
         'student_id',
         'name',
         'repositories',
+        'types',
         'terms',
-        'conditions',
+        'combinations',
         'start_year',
         'end_year',
         'langagues',
@@ -28,8 +29,9 @@ class Research extends Model
     {
         return [
             'repositories' => 'array',
+            'types' => 'array',
             'terms' => 'array',
-            'conditions' => 'array',
+            'combinations' => 'array',
             'languages' => 'array',
             'requested_at' => 'date:Y-m-d',
         ];

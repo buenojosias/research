@@ -19,16 +19,20 @@ class ResearchFactory extends Factory
         $start_year = rand(2015, 2021);
 
         return [
-            'name' => fake()->sentence(),
+            'title' => fake()->sentence(),
             'repositories' => fake()->randomElements([
                     'Scielo', 'Scopus', 'Capes', 'Web of Science'
+                ], rand(1, 2))
+            ,
+            'types' => fake()->randomElements([
+                    'Tese', 'Dissertação', 'Artigo'
                 ], rand(1, 2))
             ,
             'terms' => json_encode([
                 'a' => fake()->word(),
                 'b' => fake()->word()
             ]),
-            'conditions' => json_encode([ 'A', 'B', 'A+B' ]),
+            'combinations' => json_encode([ 'A', 'B', 'A+B' ]),
             'start_year' => $start_year,
             'end_year' => rand($start_year+1, 2024),
             'langagues' => json_encode(['Português']),

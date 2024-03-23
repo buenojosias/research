@@ -30,5 +30,4 @@ class StudentIndex extends Component
 
 // NOT ADMIN: Listar apenas estudantes que pertencem ao usuário
 // ADMIN: mostrar user
-// Mostrar número de pesquisas por estudante
 // Link para formulário de cadastro

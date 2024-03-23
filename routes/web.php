@@ -7,9 +7,7 @@ Route::view('/', 'welcome');
 Route::middleware(['auth'])->group(function() {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::get('estudantes', \App\Livewire\Student\StudentIndex::class )->name('students');
-    Route::get('pesquisas', function() {
-        return 'Pesquisas';
-    })->name('researches');
+    Route::get('pesquisas', \App\Livewire\Research\ResearchIndex::class )->name('researches');
 
     Route::view('profile', 'profile')->name('profile');
 });

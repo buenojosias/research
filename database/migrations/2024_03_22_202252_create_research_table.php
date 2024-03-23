@@ -12,10 +12,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('student_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('name');
+            $table->string('title');
             $table->json('repositories');
+            $table->json('types');
             $table->json('terms');
-            $table->json('conditions')->nullable();
+            $table->json('combinations')->nullable();
             $table->year('start_year');
             $table->year('end_year');
             $table->json('langagues');

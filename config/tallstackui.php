@@ -72,7 +72,7 @@ return [
         | Phosphoricons: thin, light, regular, bold, duotone
         | Google: default
         */
-        'style' => 'solid',
+        'style' => 'outline',
 
         /*
         |----------------------------------
