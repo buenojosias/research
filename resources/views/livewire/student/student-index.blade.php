@@ -16,11 +16,10 @@
                 <tr>
                     <td>{{ $student->name }}</td>
                     <td>{{ $student->user->name }}</td>
-                    <td>{{ rand(0, 10) }}</td>
+                    <td>{{ $student->researches_count }}</td>
                 </tr>
             @endforeach
             </x-slot>
         </x-table>
     </x-ts-card>
-
 </section>

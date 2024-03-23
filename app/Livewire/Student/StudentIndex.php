@@ -17,7 +17,8 @@ class StudentIndex extends Component
     public function render()
     {
         $students = Student::query()
-            ->with(['user'])
+            ->with('user')
+            ->withCount('researches')
             ->when($this->sort_field, function($q) {
                 $q->orderBy($this->sort_field, $this->sort_order ?? 'asc');
             })

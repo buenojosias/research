@@ -2,32 +2,36 @@
 
 namespace App\Models;
 
-use App\Enums\DegreeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Student extends Model
+class Research extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'user_id',
+        'student_id',
         'name',
-        'email',
-        'whatsapp',
-        'institution',
-        'program',
-        'degree',
-        'advisor'
+        'repositories',
+        'terms',
+        'conditions',
+        'start_year',
+        'end_year',
+        'langagues',
+        'requested_at',
     ];
 
     protected function casts(): array
     {
         return [
-            'degree' => DegreeEnum::class,
+            'repositories' => 'array',
+            'terms' => 'array',
+            'conditions' => 'array',
+            'languages' => 'array',
+            'requested_at' => 'date:Y-m-d',
         ];
     }
 
@@ -36,8 +40,8 @@ class Student extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function researches(): HasMany
+    public function student(): BelongsTo
     {
-        return $this->hasMany(Research::class);
+        return $this->belongsTo(Student::class);
     }
 }
