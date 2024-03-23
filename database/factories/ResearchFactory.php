@@ -20,6 +20,7 @@ class ResearchFactory extends Factory
         $start_year = rand(2015, 2021);
 
         return [
+            'pid' => fake()->randomNumber(9),
             'title' => rtrim(fake()->sentence(), '.'),
             'repositories' => fake()
                 ->randomElements(
@@ -44,7 +45,7 @@ class ResearchFactory extends Factory
             'combinations' => ["A", "B", "A+B"],
             'start_year' => $start_year,
             'end_year' => rand($start_year + 1, 2024),
-            'langagues' => fake()
+            'languages' => fake()
                 ->randomElements(
                     [
                         'Português',

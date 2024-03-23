@@ -18,6 +18,10 @@ h1 {
     @apply text-2xl font-bold;
 }
 
+.card-footer {
+    @apply px-4 py-4 space-x-6;
+}
+
 table {
     @apply w-full;
 }
@@ -38,6 +42,28 @@ table tbody tr {
     @apply border-b;
 }
 
+table tbody tr:hover {
+    @apply bg-gray-100;
+}
+
 th, td {
     @apply p-3 text-sm text-nowrap;
+}
+
+.detail {
+    @apply py-2 space-y-4;
+}
+
+.detail>div {
+    @apply flex justify-between items-center;
+}
+
+dl {
+
+}
+dt {
+    @apply text-sm font-semibold text-copy-light;
+}
+dd {
+    @apply font-semibold text-copy-default;
 }

@@ -1,5 +1,28 @@
+@php
+    if(@request()->route()->research->pid)
+        $researchId = request()->route()->research->pid;
+@endphp
+
 <div class="overflow-y-auto pt-5 px-3 pb-16 h-full bg-primary-600">
+    @if (request()->routeIs('researches'))
     <ul class="space-y-2">
+        <x-side-link label="Nova pesquisa" href="#" />
+        <x-side-link label="Compartilhadas" href="#" />
+    </ul>
+    @endif
+
+
+    @if (request()->routeIs('researches.*') && $researchId)
+    <ul class="space-y-2">
+        <x-side-link label="Pesquisa" :href="route('researches.show', $researchId)" :active="request()->routeIs('researches.show')" wire:navigate />
+        <x-side-link label="Publicações" :href="route('researches.publications', $researchId)" :active="request()->routeIs('researches.publications*')" wire:navigate />
+        <x-side-link label="Arquivos" href="#" wire:navigate />
+        <x-side-link label="Ranking de pavavras" href="#" wire:navigate />
+        <x-side-link label="Nuvem de pavavras" href="#" wire:navigate />
+        <x-side-link label="Contagem de pavavras" href="#" wire:navigate />
+    </ul>
+    @endif
+    {{-- <ul class="space-y-2">
         <x-side-link label="Dashboard" :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate />
         <x-side-link label="Estudantes" :href="route('students')" :active="request()->routeIs('students*')" wire:navigate />
         <x-side-link label="Pesquisas" :href="route('researches')" :active="request()->routeIs('researches*')" wire:navigate />
@@ -11,7 +34,7 @@
     </ul>
     <ul class="pt-2 mt-4 space-y-2 border-t border-gray-200 ">
         <x-side-link label="Pesquisas" :href="route('researches')" :active="request()->routeIs('researches.*')" wire:navigate />
-    </ul>
+    </ul> --}}
 </div>
 <div
     class="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex z-20">

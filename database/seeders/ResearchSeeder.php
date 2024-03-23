@@ -13,7 +13,7 @@ class ResearchSeeder extends Seeder
     {
         $students = Student::query()->select(['id', 'user_id'])->get();
 
-        foreach ($students as $student) {
+        $students->each(function (Student $student) {
             Research::factory(rand(1, 2))->create([
                 'user_id' => $student->user_id,
                 'student_id' => $student->id
@@ -21,6 +21,6 @@ class ResearchSeeder extends Seeder
             Research::factory(1)->create([
                 'user_id' => $student->user_id,
             ]);
-        }
+        });
     }
 }

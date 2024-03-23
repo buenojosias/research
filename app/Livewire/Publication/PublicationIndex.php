@@ -19,7 +19,7 @@ class PublicationIndex extends Component
 
     public function render()
     {
-        $publications = $this->research->publications()->paginate();
+        $publications = $this->research->publications()->with('state')->paginate();
 
         return view('livewire.publication.publication-index', compact(['publications']));
     }

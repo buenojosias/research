@@ -53,7 +53,7 @@
         </aside>
     </div>
 
-    <main class="pb-4 md:ml-64 h-auto pt-24 sm:pt-14 md:pt-[52px]">
+    <main class="pb-6 md:ml-64 h-auto pt-24 sm:pt-14 md:pt-[52px]">
         @if (isset($header))
             <header class="z-30 bg-white shadow w-full h-14 flex items-center fixed">
                 {{ $header }}

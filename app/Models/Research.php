@@ -13,6 +13,7 @@ class Research extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'pid',
         'user_id',
         'student_id',
         'name',
@@ -22,7 +23,7 @@ class Research extends Model
         'combinations',
         'start_year',
         'end_year',
-        'langagues',
+        'languages',
         'requested_at',
     ];
 
@@ -33,7 +34,7 @@ class Research extends Model
             'types' => 'array',
             'terms' => 'array',
             'combinations' => 'array',
-            'langagues' => 'array',
+            'languages' => 'array',
             'requested_at' => 'date:Y-m-d',
         ];
     }
