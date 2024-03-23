@@ -14,6 +14,7 @@ class ResearchIndex extends Component
     {
         $researches = Research::query()
             ->with('student')
+            ->withCount('publications')
             ->get();
 
         return view('livewire.research.research-index', compact(['researches']));

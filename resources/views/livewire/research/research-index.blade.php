@@ -18,7 +18,7 @@
                         <td>{{ $research->requested_at->format('d/m//Y') }}</td>
                         <td>{{ $research->title }}</td>
                         <td>{{ $research->student->name ?? '' }}</td>
-                        <td>{{ rand(5, 15) }}</td>
+                        <td>{{ $research->publications_count }}</td>
                     </tr>
                 @endforeach
             </x-slot>

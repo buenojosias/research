@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Research extends Model
@@ -32,7 +33,7 @@ class Research extends Model
             'types' => 'array',
             'terms' => 'array',
             'combinations' => 'array',
-            'languages' => 'array',
+            'langagues' => 'array',
             'requested_at' => 'date:Y-m-d',
         ];
     }
@@ -45,5 +46,10 @@ class Research extends Model
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
+    }
+
+    public function publications(): HasMany
+    {
+        return $this->hasMany(Publication::class);
     }
 }

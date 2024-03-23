@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\PublicationTypeEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,23 +20,39 @@ class ResearchFactory extends Factory
         $start_year = rand(2015, 2021);
 
         return [
-            'title' => fake()->sentence(),
-            'repositories' => fake()->randomElements([
-                    'Scielo', 'Scopus', 'Capes', 'Web of Science'
-                ], rand(1, 2))
+            'title' => rtrim(fake()->sentence(), '.'),
+            'repositories' => fake()
+                ->randomElements(
+                    [
+                        'Scielo',
+                        'Scopus',
+                        'Capes',
+                        'Web of Science'
+                    ],
+                    rand(1, 2)
+                ),
+            'types' => fake()
+                ->randomElements(
+                    PublicationTypeEnum::class,
+                    rand(1, 2)
+                )
             ,
-            'types' => fake()->randomElements([
-                    'Tese', 'Dissertação', 'Artigo'
-                ], rand(1, 2))
-            ,
-            'terms' => json_encode([
+            'terms' => [
                 'a' => fake()->word(),
                 'b' => fake()->word()
-            ]),
-            'combinations' => json_encode([ 'A', 'B', 'A+B' ]),
+            ],
+            'combinations' => ["A", "B", "A+B"],
             'start_year' => $start_year,
-            'end_year' => rand($start_year+1, 2024),
-            'langagues' => json_encode(['Português']),
+            'end_year' => rand($start_year + 1, 2024),
+            'langagues' => fake()
+                ->randomElements(
+                    [
+                        'Português',
+                        'Inglês',
+                        'Espanhol'
+                    ],
+                    rand(1, 2)
+                ),
             'requested_at' => fake()->dateTimeBetween('-30 days', 'now'),
         ];
     }
