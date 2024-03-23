@@ -11,6 +11,7 @@
                 <th>Título</th>
                 <th>Estudante</th>
                 <th>Publicações</th>
+                <th></th>
             </x-slot>
             <x-slot name="body">
                 @foreach ($researches as $research)
@@ -19,6 +20,9 @@
                         <td>{{ $research->title }}</td>
                         <td>{{ $research->student->name ?? '' }}</td>
                         <td>{{ $research->publications_count }}</td>
+                        <td>
+                            <x-ts-link :href="route('researches.publications', $research)" icon="chevron-right" color="copy" />
+                        </td>
                     </tr>
                 @endforeach
             </x-slot>

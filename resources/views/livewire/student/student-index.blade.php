@@ -10,7 +10,7 @@
                 <th>Nome</th>
                 <th>Usuário</th>
                 <th>Pesquisas</th>
-                <th></th>
+                <th width="1%"></th>
             </x-slot>
             <x-slot name="body">
                 @foreach ($students as $student)
@@ -18,7 +18,7 @@
                         <td>{{ $student->name }}</td>
                         <td>{{ $student->user->name }}</td>
                         <td><x-ts-link href="#" :text="$student->researches_count" color="copy" /></td>
-                        <td width="1%">
+                        <td>
                             <x-ts-link href="#" icon="chevron-right" color="copy" />
                         </td>
                     </tr>
