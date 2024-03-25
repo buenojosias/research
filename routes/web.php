@@ -13,7 +13,7 @@ Route::middleware(['auth'])->group(function() {
 
     Route::view('profile', 'profile')->name('profile');
 
-    Route::prefix('{research:pid}')->group(function() {
+    Route::prefix('p{research:pid}')->group(function() {
         Route::get('/', \App\Livewire\Research\ResearchShow::class )->name('researches.show');
         Route::get('pub', \App\Livewire\Publication\PublicationIndex::class)->name('researches.publications');
     });

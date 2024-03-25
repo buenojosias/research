@@ -10,7 +10,6 @@
                 <th>Data</th>
                 <th>Título</th>
                 <th>Estudante</th>
-                <th>Publicações</th>
                 <th></th>
             </x-slot>
             <x-slot name="body">
@@ -21,9 +20,8 @@
                             <a href="{{ route('researches.show', $research) }}">{{ $research->title }}</a>
                         </td>
                         <td>{{ $research->student->name ?? '' }}</td>
-                        <td>{{ $research->publications_count }}</td>
                         <td>
-                            <x-ts-link :href="route('researches.publications', $research)" wire:navigate icon="chevron-right" color="copy" />
+                            <x-ts-link :href="route('researches.publications', $research)" wire:navigate :text="$research->publications_count . ' publicações'" />
                         </td>
                     </tr>
                 @endforeach

@@ -67,7 +67,7 @@ class PublicationFactory extends Factory
             'city' => fake()
                 ->randomElement([
                     null,
-                    fake()->sentence(),
+                    fake()->city(),
                 ]),
             'state_id' => $state_id ?? null,
             'url' => fake()->url(),
