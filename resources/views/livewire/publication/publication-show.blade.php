@@ -56,7 +56,7 @@
                             {{ $slot }}
                         </div> --}}
                     </div>
-                    <x-detail label="Palavras-chave" :value="$publication->keywords->data">
+                    <x-detail label="Palavras-chave" :value="$publication->keywords->data ?? 'Não adicionado'">
                         <x-ts-link href="#" icon="pencil-square" />
                     </x-detail>
                 </div>
@@ -65,15 +65,23 @@
                 </div>
             </x-ts-card>
 
-            <x-ts-card>
-                Arquivo
+            <x-ts-card header="Arquivo PDF">
+                <div class="px-4 py-2 flex items-center justify-between">
+                    @if ($publication->file)
+                        <x-ts-link :href="route('researches.files.show', [$research, $publication])" :text="$publication->file->filename" wire:navigate />
+                        <x-ts-button icon="trash" color="red" />
+                    @else
+                        Nenhum arquivo adicionado
+                        <x-ts-button text="Adicionar" />
+                    @endif
+                </div>
             </x-ts-card>
 
-            <x-ts-card>
-                <div class="p-4 border-b">
+            <x-ts-card class="px-4">
+                <div class="py-3 border-b">
                     <x-ts-link href="#" wire:navigate text="Ranking de palavras" />
                 </div>
-                <div class="p-4 border-b">
+                <div class="py-3 border-b">
                     <x-ts-link href="#" wire:navigate text="Frequência de palavras" />
                 </div>
             </x-ts-card>

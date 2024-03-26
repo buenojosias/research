@@ -6,16 +6,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Internal extends Model
+class File extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'publication_id',
-        'section',
-        'content',
-        'total_words'
+        'filename',
+        'path',
+        'size'
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'size' => 'float'
+        ];
+    }
 
     public function publication(): BelongsTo
     {

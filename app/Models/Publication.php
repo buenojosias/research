@@ -68,4 +68,9 @@ class Publication extends Model
     {
         return $this->hasOne(Keyword::class);
     }
+
+    public function file(): HasOne
+    {
+        return $this->hasOne(File::class);
+    }
 }

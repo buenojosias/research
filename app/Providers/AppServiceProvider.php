@@ -21,7 +21,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         TallStackUi::personalize('card')
-            ->block('body', 'px-0');
+            ->block('body', 'px-0')
+            ->block('header.text', 'text-gray-800 font-semibold');
         TallStackUi::personalize()
             ->button()
             ->block('wrapper.sizes.md', 'text-sm px-3 py-1.5');

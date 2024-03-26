@@ -17,7 +17,7 @@ class PublicationShow extends Component
         $this->research = $research;
         $this->publication = $research
             ->publications()
-            ->with(['state','abstract'])
+            ->with(['state','abstract','file'])
             ->findOrFail($publication);
     }
 
