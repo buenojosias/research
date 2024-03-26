@@ -7,7 +7,8 @@
     </div>
 
     <div class="lg:grid grid-cols-6 gap-6">
-        <div class="col-span-4">
+        <div class="col-span-4 pb-6 lg:pb-0">
+            @if ($file)
             <x-ts-card>
                 <object id="pdf-reader"
                     data="https://static.musixe.com/wp-content/uploads/2022/04/15160110/TECLADO-INICIANTE-MODULO-1.pdf#toolbar=1"
@@ -17,26 +18,35 @@
                         instead.</p>
                 </object>
             </x-ts-card>
+            @else
+            <x-ts-card class="px-4 py-4">
+                Nenhum arquivo adicionado.
+            </x-ts-card>
+            @endif
         </div>
 
         <div class="col-span-2 mb-6 space-y-6">
 
             @if ($file)
-            <x-ts-card class="pt-2" header="Detalhes do arquivo">
-                <div class="detail p-4">
-                    <x-detail label="Nome do arquivo" :value="$file->filename" />
-                    <x-detail label="URL" :value="$file->path" />
-                    <x-detail label="Tamanho" :value="$file->size . ' MB'" />
-                    <x-detail label="Adicionado em" :value="$file->created_at->format('d/m/Y H:i:s')" />
-                </div>
-            </x-ts-card>
+                <x-ts-card class="pt-2" header="Detalhes do arquivo">
+                    <div class="detail p-4">
+                        <x-detail label="Nome do arquivo" :value="$file->filename" />
+                        <x-detail label="URL" :value="$file->path" />
+                        <x-detail label="Tamanho" :value="$file->size . ' MB'" />
+                        <x-detail label="Adicionado em" :value="$file->created_at->format('d/m/Y H:i:s')" />
+                    </div>
+                </x-ts-card>
             @endif
 
             <div class="space-y-2">
-                <x-ts-button text="Adicionar arquivo" color="white" class="w-full" lg />
-                <x-ts-button text="Baixar arquivo" color="white" class="w-full" lg />
-                <x-ts-button text="Excluir arquivo" color="white" class="w-full" lg />
-                <x-ts-button text="Ver conteúdo interno" color="white" class="w-full" lg />
+                @if ($file)
+                    <x-ts-button text="Extrair texto" color="white" class="w-full" lg />
+                    <x-ts-button text="Baixar arquivo" color="white" class="w-full" lg />
+                    <x-ts-button text="Excluir arquivo" color="white" class="w-full" lg />
+                    <x-ts-button text="Ver conteúdo interno" color="white" class="w-full" lg />
+                @else
+                    <x-ts-button text="Adicionar arquivo" color="white" class="w-full" lg />
+                @endif
             </div>
         </div>
     </div>
@@ -51,6 +61,5 @@
         var height = body.clientHeight;
 
         document.getElementById("pdf-reader").style.height = height - y - 32 + 'px';
-        document.getElementById("pdf-reader").style.scrollbar = 'auto';
     </script>
 @endpush
