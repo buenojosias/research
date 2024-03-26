@@ -30,9 +30,7 @@
                         <x-detail label="Progama" :value="$publication->program" />
                     @endif
                     @if ($publication->city)
-                        <x-detail label="Cidade" :value="
-                            $publication->city . ' (' . @$publication->state->abbreviation . ')'
-                        " />
+                        <x-detail label="Cidade" :value="$publication->city . ' (' . @$publication->state->abbreviation . ')'" />
                     @endif
                     @if ($publication->type === 'periódico')
                         <x-detail label="Periódico" :value="$publication->periodical" />
@@ -47,9 +45,21 @@
         </div>
 
         <div class="col-span-3 mb-6 space-y-6">
-            <x-ts-card>
-                Resumo <br>
-                Palavras-chave
+            <x-ts-card class="pt-4">
+                <div class="detail p-4">
+                    <div>
+                        <dl>
+                            <dt>Resumo</dt>
+                            <p>{{ $publication->abstract->content ?? 'Não adicionado' }}</p>
+                        </dl>
+                        {{-- <div>
+                            {{ $slot }}
+                        </div> --}}
+                    </div>
+                    <x-detail label="Palavras-chave" :value="$publication->keywords->data">
+                        <x-ts-link href="#" icon="pencil-square" />
+                    </x-detail>
+                </div>
                 <div class="card-footer">
                     <x-ts-link href="#" wire:navigate text="Ver conteúdo completo" />
                 </div>

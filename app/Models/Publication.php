@@ -6,6 +6,8 @@ use App\Enums\PublicationTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Publication extends Model
@@ -48,5 +50,22 @@ class Publication extends Model
     public function state(): BelongsTo
     {
         return $this->belongsTo(State::class);
+    }
+
+    public function internals(): HasMany
+    {
+        return $this->hasMany(Internal::class);
+    }
+
+    public function abstract(): HasOne
+    {
+        return $this->hasOne(Internal::class)->where(function($query) {
+            $query->where('section', 'abstract');
+        });
+    }
+
+    public function keywords(): HasOne
+    {
+        return $this->hasOne(Keyword::class);
     }
 }

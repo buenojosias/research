@@ -11,20 +11,13 @@ class PublicationShow extends Component
     public $research;
     public $publication;
 
-    // RECURSOS
-    /*
-    - Arquivo
-    - Conteúdo interno
-    - Ranking de palavras
-    */
-
     public function mount(Research $research, $publication)
     {
         // TODO: Verificar se Research será mesmo usado e possivelmente excluir
         $this->research = $research;
         $this->publication = $research
             ->publications()
-            ->with(['state'])
+            ->with(['state','abstract'])
             ->findOrFail($publication);
     }
 

@@ -18,6 +18,5 @@ class PublicationSeeder extends Seeder
                 'research_id' => $research->id,
             ]);
         }
-
     }
 }
