@@ -1,4 +1,4 @@
-@props(['label', 'value'])
+@props(['label', 'value', 'url'])
 
 <div>
     <dl>

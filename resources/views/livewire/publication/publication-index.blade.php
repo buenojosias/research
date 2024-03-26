@@ -50,7 +50,9 @@
                             {{ $publication->author_forename }}
                         </td>
                         <td class="!text-wrap">
-                            {{ $publication->subtitle ? $publication->title . ': ' . $publication->subtitle : $publication->title }}
+                            <a href="{{ route('researches.publications.show', [$research, $publication]) }}" wire:navigate>
+                                {{ $publication->subtitle ? $publication->title . ': ' . $publication->subtitle : $publication->title }}
+                            </a>
                         </td>
                         <td x-show="year">{{ $publication->year }}</td>
                         <td x-show="type">{{ $publication->type }}</td>
@@ -132,4 +134,3 @@
         document.getElementById("scrollable").style.scrollbar = 'auto';
     </script>
 @endpush
-

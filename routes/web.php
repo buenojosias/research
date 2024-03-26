@@ -16,6 +16,8 @@ Route::middleware(['auth'])->group(function() {
     Route::prefix('p{research:pid}')->group(function() {
         Route::get('/', \App\Livewire\Research\ResearchShow::class )->name('researches.show');
         Route::get('pub', \App\Livewire\Publication\PublicationIndex::class)->name('researches.publications');
+        Route::get('pub/{publication}', \App\Livewire\Publication\PublicationShow::class)->name('researches.publications.show');
+        // Route::get('pub/{publication}', function($publication) { return request()->route()->publication; });
     });
 });
 

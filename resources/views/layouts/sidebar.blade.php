@@ -1,6 +1,6 @@
 @php
-    if(@request()->route()->research->pid)
-        $researchId = request()->route()->research->pid;
+    if(@request()->route()->research)
+        $researchId = request()->route()->research->pid ?? request()->route()->research;
 @endphp
 
 <div class="overflow-y-auto pt-5 px-3 pb-16 h-full bg-primary-600">
