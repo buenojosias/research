@@ -80,7 +80,7 @@
         <div class="space-y-3">
             <div class="flex flex-wrap gap-4">
                 @for ($i = $research->start_year; $i <= $research->end_year; $i++)
-                    <x-ts-checkbox wire:model.live="anos" value={{ $i }} :label="$i" />
+                    <x-ts-checkbox name="anos[]" wire:model.live="anos" :value="$i" :label="$i" />
                 @endfor
             </div>
             <x-ts-select.styled label="Repositório" wire:model.live="repo" placeholder="Selecione um repositório"

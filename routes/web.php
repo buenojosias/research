@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function() {
         Route::get('pub', \App\Livewire\Publication\PublicationIndex::class)->name('researches.publications');
         Route::get('pub/{publication}', \App\Livewire\Publication\PublicationShow::class)->name('researches.publications.show');
         Route::get('pub/{publication}/pdf', \App\Livewire\File\FileShow::class)->name('researches.files.show');
+        Route::get('pub/{publication}/conteudo', \App\Livewire\Publication\PublicationContent::class)->name('researches.publications.content');
     });
 });
 

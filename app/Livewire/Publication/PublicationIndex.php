@@ -4,18 +4,14 @@ namespace App\Livewire\Publication;
 
 use App\Enums\RegionEnum;
 use App\Models\Research;
-use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class PublicationIndex extends Component
 {
-    #[Title('Publicações da pesquisa')]
-
     #[Url(except: '')]
     public $q = '';
 
-    #[Url(except: '')]
     public $anos = [];
 
     #[Url(except: '')]
@@ -95,7 +91,8 @@ class PublicationIndex extends Component
                 $this->once = false;
             }
 
-        return view('livewire.publication.publication-index');
+        return view('livewire.publication.publication-index')
+            ->title('Publicações da pesquisa');
     }
 
     public function registerStates()

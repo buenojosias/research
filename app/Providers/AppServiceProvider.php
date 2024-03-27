@@ -26,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
         TallStackUi::personalize()
             ->button()
             ->block('wrapper.sizes.md', 'text-sm px-3 py-1.5');
+        TallStackUi::personalize()
+            ->tab()
+            ->block('base.content', 'p-4');
     }
 }

@@ -39,7 +39,7 @@
                 </div>
                 <div class="card-footer">
                     <x-ts-link href="#" wire:navigate text="Editar" />
-                    <x-ts-link href="#" wire:navigate text="Voltar para pesquisa" />
+                    <x-ts-link :href="route('researches.show', $research)" wire:navigate text="Voltar para pesquisa" />
                 </div>
             </x-ts-card>
         </div>
@@ -61,7 +61,7 @@
                     </x-detail>
                 </div>
                 <div class="card-footer">
-                    <x-ts-link href="#" wire:navigate text="Ver conteúdo completo" />
+                    <x-ts-link :href="route('researches.publications.content', [$research, $publication])" wire:navigate wire:navigate text="Ver conteúdo completo" />
                 </div>
             </x-ts-card>
 

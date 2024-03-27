@@ -27,30 +27,7 @@
         </div>
 
         <div class="col-span-3 space-y-6">
-            <x-ts-card>
-                <h3 class="p-4">Publicações</h3>
-                <x-table>
-                    @slot('header')
-                        <th>Título</th>
-                        <th>Ano</th>
-                    @endslot
-                    @slot('body')
-                        @foreach ($publications as $publication)
-                            <tr>
-                                <td>{{ $publication->title }}</td>
-                                <td>{{ $publication->year }}</td>
-                            </tr>
-                        @endforeach
-                    @endslot
-                </x-table>
-                <div class="card-footer">
-                    <x-ts-link :href="route('researches.publications', $research)" wire:navigate>Ver todas</x-ts-link>
-                    <x-ts-link href="#">Adicionar nova</x-ts-link>
-                </div>
-            </x-ts-card>
-
-            <x-ts-card>
-                <h3 class="p-4">Quantidade de publicações por tipo</h3>
+            <x-ts-card header="Quantidade de publicações por tipo">
                 <x-table>
                     @slot('header')
                         <th>Tipo</th>

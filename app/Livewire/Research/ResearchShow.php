@@ -19,7 +19,6 @@ class ResearchShow extends Component
         $this->research = $research;
         $this->research->period = $research->start_year . ' - '. $research->end_year;
         $this->research->load('student');
-        $this->publications = $research->publications()->take(6)->get();
 
         $this->types = $research->publications()
             ->select('type', \DB::raw('COUNT(*) as count'))

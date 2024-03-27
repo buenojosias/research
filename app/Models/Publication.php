@@ -57,6 +57,11 @@ class Publication extends Model
         return $this->hasMany(Internal::class);
     }
 
+    public function keywords(): HasOne
+    {
+        return $this->hasOne(Keyword::class);
+    }
+
     public function abstract(): HasOne
     {
         return $this->hasOne(Internal::class)->where(function($query) {
@@ -64,9 +69,11 @@ class Publication extends Model
         });
     }
 
-    public function keywords(): HasOne
+    public function body(): HasOne
     {
-        return $this->hasOne(Keyword::class);
+        return $this->hasOne(Internal::class)->where(function($query) {
+            $query->where('section', 'body');
+        });
     }
 
     public function file(): HasOne
