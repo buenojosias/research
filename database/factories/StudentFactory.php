@@ -13,7 +13,7 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => rand(2, 5),
+            'user_id' => rand(2, 3),
             'name' => fake()->name(),
             'email' => fake()->email(),
             'whatsapp' => fake()->phoneNumber(),

@@ -13,7 +13,7 @@
     <div class="header">
         <div>
             <h1>Publicações da pesquisa</h1>
-            <h2>{{ $research->title }}</h2>
+            <h2>{{ $research->theme }}</h2>
         </div>
         <x-ts-button text="Adicionar publicação" />
     </div>

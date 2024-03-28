@@ -11,7 +11,7 @@ class KeywordSeeder extends Seeder
 {
     public function run(): void
     {
-        $publications = Publication::select('id')->inRandomOrder('id')->limit(10)->get();
+        $publications = Publication::select('id')->inRandomOrder('id')->limit(20)->get();
         $publications->each(function (Publication $publication){
             Keyword::factory(1)->create([
                 'publication_id' => $publication->id

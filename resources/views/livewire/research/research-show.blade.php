@@ -1,7 +1,7 @@
 <section>
     <div class="header">
         <div>
-            <h1>{{ $research->title }}</h1>
+            <h1>{{ $research->theme }}</h1>
         </div>
     </div>
 
@@ -14,7 +14,7 @@
                         <x-detail label="Estudante" :value="$research->student->name" />
                     @endif
                     <x-detail label="Repositórios" :value="$research->repositories" />
-                    <x-detail label="Tipos" :value="$research->types" />
+                    <x-detail label="Tipos de publicação" :value="$research->types" />
                     <x-detail label="Termos" :value="$research->terms" />
                     <x-detail label="Combinações" :value="$research->combinations" />
                     <x-detail label="Intervalo de anos" :value="$research->period" />
@@ -27,7 +27,7 @@
         </div>
 
         <div class="col-span-3 space-y-6">
-            <x-ts-card header="Quantidade de publicações por tipo">
+            <x-ts-card header="Publicações">
                 <x-table>
                     @slot('header')
                         <th>Tipo</th>
@@ -47,6 +47,15 @@
                     <x-ts-link href="#">Adicionar nova</x-ts-link>
                 </div>
             </x-ts-card>
+
+            <x-ts-card class="px-4">
+                <div class="py-3 border-b">
+                    <x-ts-link href="#" wire:navigate text="Ranking de palavras" />
+                </div>
+                <div class="py-3 border-b">
+                    <x-ts-link href="#" wire:navigate text="Frequência de palavras" />
+                </div>
+            </x-ts-card>
         </div>
     </div>
 
@@ -56,7 +65,5 @@
         <li>Link para adicionar publicação</li>
         <li>Link para arquivos</li>
         <li>10 palavras mais citadas</li>
-        <li>Link para ranking de palavras</li>
-        <li>Link para contagem de palavras</li>
     </ol>
 </section>

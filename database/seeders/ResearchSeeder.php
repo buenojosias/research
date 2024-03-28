@@ -18,7 +18,7 @@ class ResearchSeeder extends Seeder
                 'user_id' => $student->user_id,
                 'student_id' => $student->id
             ]);
-            Research::factory(1)->create([
+            Research::factory(rand(1, 2))->create([
                 'user_id' => $student->user_id,
             ]);
         });

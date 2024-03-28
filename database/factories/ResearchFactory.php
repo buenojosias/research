@@ -21,7 +21,7 @@ class ResearchFactory extends Factory
 
         return [
             'pid' => fake()->randomNumber(9),
-            'title' => rtrim(fake()->sentence(), '.'),
+            'theme' => rtrim(fake()->sentence(), '.'),
             'repositories' => fake()
                 ->randomElements(
                     [

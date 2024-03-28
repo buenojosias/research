@@ -8,7 +8,7 @@
         <x-table>
             <x-slot name="header">
                 <th>Data</th>
-                <th>Título</th>
+                <th>Tema</th>
                 <th>Estudante</th>
                 <th></th>
             </x-slot>
@@ -17,7 +17,7 @@
                     <tr>
                         <td>{{ $research->requested_at->format('d/m/Y') }}</td>
                         <td>
-                            <a href="{{ route('researches.show', $research) }}">{{ $research->title }}</a>
+                            <a href="{{ route('researches.show', $research) }}">{{ $research->theme }}</a>
                         </td>
                         <td>{{ $research->student->name ?? '' }}</td>
                         <td>

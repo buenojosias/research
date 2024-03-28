@@ -16,7 +16,7 @@ class Research extends Model
         'pid',
         'user_id',
         'student_id',
-        'name',
+        'theme',
         'repositories',
         'types',
         'terms',

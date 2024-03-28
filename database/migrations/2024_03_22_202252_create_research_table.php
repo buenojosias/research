@@ -13,7 +13,7 @@ return new class extends Migration
             $table->bigInteger('pid')->index();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('student_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('title');
+            $table->string('theme');
             $table->json('repositories');
             $table->json('types');
             $table->json('terms');

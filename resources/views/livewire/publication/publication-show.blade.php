@@ -2,7 +2,7 @@
     <div class="header">
         <div>
             <h1>{{ $publication->title }}</h1>
-            <h2>{{ $research->title }}</h2>
+            <h2>{{ $research->theme }}</h2>
         </div>
     </div>
 
@@ -52,9 +52,6 @@
                             <dt>Resumo</dt>
                             <p>{{ $publication->abstract->content ?? 'Não adicionado' }}</p>
                         </dl>
-                        {{-- <div>
-                            {{ $slot }}
-                        </div> --}}
                     </div>
                     <x-detail label="Palavras-chave" :value="$publication->keywords->data ?? 'Não adicionado'">
                         <x-ts-link href="#" icon="pencil-square" />
