@@ -7,8 +7,8 @@
 
     <div class="lg:grid grid-cols-5 gap-6">
         <div class="col-span-2 mb-6">
-            <x-ts-card class="pt-4">
-                <div class="detail px-4">
+            <x-ts-card>
+                <div class="detail">
                     <x-detail label="Data da solicitação" :value="$research->requested_at->format('d/m/Y')" />
                     @if ($research->student)
                         <x-detail label="Estudante" :value="$research->student->name" />
@@ -27,28 +27,26 @@
         </div>
 
         <div class="col-span-3 space-y-6">
-            <x-ts-card header="Publicações">
-                <x-table>
-                    @slot('header')
-                        <th>Tipo</th>
-                        <th>Quantidade</th>
-                    @endslot
-                    @slot('body')
-                        @foreach ($types as $type)
-                            <tr>
-                                <td>{{ $type->type }}</td>
-                                <td>{{ $type->count }}</td>
-                            </tr>
-                        @endforeach
-                    @endslot
-                </x-table>
-                <div class="card-footer">
+            <x-table class="no-padding" label="Publicações">
+                @slot('header')
+                    <th>Tipo</th>
+                    <th>Quantidade</th>
+                @endslot
+                @slot('body')
+                    @foreach ($types as $type)
+                        <tr>
+                            <td>{{ $type->type }}</td>
+                            <td>{{ $type->count }}</td>
+                        </tr>
+                    @endforeach
+                @endslot
+                @slot('footer')
                     <x-ts-link :href="route('researches.publications', $research)" wire:navigate>Ver todas</x-ts-link>
                     <x-ts-link href="#">Adicionar nova</x-ts-link>
-                </div>
-            </x-ts-card>
+                @endslot
+            </x-table>
 
-            <x-ts-card class="px-4">
+            <x-ts-card>
                 <div class="py-3 border-b">
                     <x-ts-link href="#" wire:navigate text="Ranking de palavras" />
                 </div>

@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
             StateSeeder::class,
             PublicationSeeder::class,
             InternalSeeder::class,
-            KeywordSeeder::class,
+            // KeywordSeeder::class,
         ]);
     }
 }

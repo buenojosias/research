@@ -14,7 +14,8 @@ class File extends Model
         'publication_id',
         'filename',
         'path',
-        'size'
+        'size',
+        'pages'
     ];
 
     protected function casts(): array

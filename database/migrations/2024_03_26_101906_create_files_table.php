@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('filename');
             $table->string('path');
             $table->decimal('size', 8, 3)->comment('In megabytes');
+            $table->unsignedInteger('pages')->nullable();
             $table->timestamps();
         });
     }

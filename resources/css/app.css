@@ -23,7 +23,7 @@ h1 {
 }
 
 .card-footer {
-    @apply p-4 space-x-6;
+    @apply mt-2 pt-4 space-x-6;
 }
 
 table {
@@ -35,7 +35,7 @@ table thead {
 }
 
 table thead tr {
-    @apply border-b border-t;
+    @apply border-b;
 }
 
 table thead th {

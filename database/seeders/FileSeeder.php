@@ -21,7 +21,8 @@ class FileSeeder extends Seeder
                 'publication_id' => $publication->id,
                 'filename' => $publication->author_lastname . ' - ' . $faker->sentence() . 'pdf',
                 'path' => $faker->url(),
-                'size' => $faker->randomFloat(2, 1, 50)
+                'size' => $faker->randomFloat(2, 1, 50),
+                'pages' => rand(10, 200)
             ]);
         };
     }

@@ -18,7 +18,7 @@
         <x-ts-button text="Adicionar publicação" />
     </div>
 
-    <x-ts-card id="scrollable" style="overflow-y: auto">
+    <x-table id="scrollable" style="overflow-y: auto">
         <div class="card-header justify-between items-center">
             <div>
                 <x-ts-input wire:model.live.debounce="q" placehoder="Buscar título ou subtítulo" icon="magnifying-glass" />
@@ -28,53 +28,51 @@
                 <x-ts-button icon="eye" outline x-on:click="$slideOpen('columns')" />
             </div>
         </div>
-        <x-table>
-            <x-slot name="header">
-                <th x-show="author">Autor</th>
-                <th>Título</th>
-                <th x-show="year">Ano</th>
-                <th x-show="type">Tipo</th>
-                <th x-show="repository">Repositório</th>
-                <th x-show="therms">Termos pesquisados</th>
-                <th x-show="periodical">Periódico</th>
-                <th x-show="institution">Instituição</th>
-                <th x-show="program">Programa</th>
-                <th x-show="city">Cidade</th>
-                <th x-show="state">UF</th>
-            </x-slot>
-            <x-slot name="body">
-                @foreach ($publications as $publication)
-                    <tr>
-                        <td x-show="author">
-                            {{ Str::upper($publication->author_lastname) }}, <br />
-                            {{ $publication->author_forename }}
-                        </td>
-                        <td class="!text-wrap">
-                            <a href="{{ route('researches.publications.show', [$research, $publication]) }}" wire:navigate>
-                                {{ $publication->subtitle ? $publication->title . ': ' . $publication->subtitle : $publication->title }}
-                            </a>
-                        </td>
-                        <td x-show="year">{{ $publication->year }}</td>
-                        <td x-show="type">{{ $publication->type }}</td>
-                        <td x-show="repository">{{ $publication->repository }}</td>
-                        <td x-show="therms">
-                            @foreach ($publication->searched_terms as $term)
-                                {{ $term }}
-                                @if (!$loop->last)
-                                    +
-                                @endif
-                            @endforeach
-                        </td>
-                        <td x-show="periodical">{{ $publication->periodical }}</td>
-                        <td x-show="institution">{{ $publication->institution }}</td>
-                        <td x-show="program">{{ $publication->program }}</td>
-                        <td x-show="city">{{ $publication->city }}</td>
-                        <td x-show="state">{{ $publication->state->abbreviation ?? '' }}</td>
-                    </tr>
-                @endforeach
-            </x-slot>
-        </x-table>
-    </x-ts-card>
+        <x-slot name="header">
+            <th x-show="author">Autor</th>
+            <th>Título</th>
+            <th x-show="year">Ano</th>
+            <th x-show="type">Tipo</th>
+            <th x-show="repository">Repositório</th>
+            <th x-show="therms">Termos pesquisados</th>
+            <th x-show="periodical">Periódico</th>
+            <th x-show="institution">Instituição</th>
+            <th x-show="program">Programa</th>
+            <th x-show="city">Cidade</th>
+            <th x-show="state">UF</th>
+        </x-slot>
+        <x-slot name="body">
+            @foreach ($publications as $publication)
+                <tr>
+                    <td x-show="author">
+                        {{ Str::upper($publication->author_lastname) }}, <br />
+                        {{ $publication->author_forename }}
+                    </td>
+                    <td class="!text-wrap">
+                        <a href="{{ route('researches.publications.show', [$research, $publication]) }}" wire:navigate>
+                            {{ $publication->subtitle ? $publication->title . ': ' . $publication->subtitle : $publication->title }}
+                        </a>
+                    </td>
+                    <td x-show="year">{{ $publication->year }}</td>
+                    <td x-show="type">{{ $publication->type }}</td>
+                    <td x-show="repository">{{ $publication->repository }}</td>
+                    <td x-show="therms">
+                        @foreach ($publication->searched_terms as $term)
+                            {{ $term }}
+                            @if (!$loop->last)
+                                +
+                            @endif
+                        @endforeach
+                    </td>
+                    <td x-show="periodical">{{ $publication->periodical }}</td>
+                    <td x-show="institution">{{ $publication->institution }}</td>
+                    <td x-show="program">{{ $publication->program }}</td>
+                    <td x-show="city">{{ $publication->city }}</td>
+                    <td x-show="state">{{ $publication->state->abbreviation ?? '' }}</td>
+                </tr>
+            @endforeach
+        </x-slot>
+    </x-table>
 
     <x-ts-slide left title="Filtros" id="filters" size="sm">
         <div class="space-y-3">

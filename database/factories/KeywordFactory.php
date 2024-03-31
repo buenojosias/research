@@ -17,7 +17,7 @@ class KeywordFactory extends Factory
     public function definition(): array
     {
         return [
-            'data' => fake()->words(3)
+            'data' => fake()->words(rand(0, 3))
         ];
     }
 }

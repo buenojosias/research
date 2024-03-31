@@ -8,8 +8,8 @@
 
     <div class="lg:grid grid-cols-5 gap-6">
         <div class="col-span-2 mb-6">
-            <x-ts-card class="pt-4">
-                <div class="detail p-4">
+            <x-ts-card>
+                <div class="detail">
                     <x-detail label="Título" :value="$publication->title" />
                     @if ($publication->subtitle)
                         <x-detail label="Subtítulo" :value="$publication->subtitle" />
@@ -45,8 +45,8 @@
         </div>
 
         <div class="col-span-3 mb-6 space-y-6">
-            <x-ts-card class="pt-4">
-                <div class="detail p-4">
+            <x-ts-card>
+                <div class="detail">
                     <div>
                         <dl>
                             <dt>Resumo</dt>
@@ -63,7 +63,7 @@
             </x-ts-card>
 
             <x-ts-card header="Arquivo PDF">
-                <div class="px-4 py-2 flex items-center justify-between">
+                <div class="flex items-center justify-between">
                     @if ($publication->file)
                         <x-ts-link :href="route('researches.files.show', [$research, $publication])" :text="$publication->file->filename" wire:navigate />
                         <x-ts-button icon="trash" color="red" />
@@ -74,11 +74,11 @@
                 </div>
             </x-ts-card>
 
-            <x-ts-card class="px-4">
-                <div class="py-3 border-b">
+            <x-ts-card>
+                <div class="pb-3 border-b">
                     <x-ts-link href="#" wire:navigate text="Ranking de palavras" />
                 </div>
-                <div class="py-3 border-b">
+                <div class="pt-3">
                     <x-ts-link href="#" wire:navigate text="Frequência de palavras" />
                 </div>
             </x-ts-card>

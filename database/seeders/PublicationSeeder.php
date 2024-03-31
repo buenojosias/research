@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Keyword;
 use App\Models\Publication;
 use App\Models\Research;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -16,7 +17,12 @@ class PublicationSeeder extends Seeder
         foreach ($researches as $research) {
             Publication::factory(rand(1, 12))->create([
                 'research_id' => $research->id,
-            ]);
+            ])
+            ->each(function($publication) {
+                Keyword::factory(1)->create([
+                    'publication_id' => $publication->id
+                ]);
+            });
         }
     }
 }
