@@ -28,5 +28,8 @@ class AppServiceProvider extends ServiceProvider
         TallStackUi::personalize()
             ->tab()
             ->block('base.content', 'p-4');
+        TallStackUi::personalize()
+            ->alert()
+            ->block('wrapper', 'mb-4 rounded-lg p-4');
     }
 }

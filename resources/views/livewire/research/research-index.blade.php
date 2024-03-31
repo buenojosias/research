@@ -1,7 +1,7 @@
 <section>
     <div class="header">
         <h1>Pesquisas</h1>
-        <x-ts-button text="Nova pesquisa" />
+        <x-ts-button text="Nova pesquisa" :href="route('researche.create')" wire:navigate />
     </div>
 
     <x-table>

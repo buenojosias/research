@@ -6,8 +6,8 @@
 <div class="overflow-y-auto pt-5 px-3 pb-16 h-full bg-primary-600">
     @if (request()->routeIs('researches'))
     <ul class="space-y-2">
-        <x-side-link label="Nova pesquisa" href="#" />
-        <x-side-link label="Compartilhadas" href="#" />
+        <x-side-link label="Nova pesquisa" :href="route('researche.create')" wire:navigate />
+        <x-side-link label="Compartilhadas" href="#" wire:navigate />
     </ul>
     @endif
 

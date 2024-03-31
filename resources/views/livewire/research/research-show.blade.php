@@ -4,7 +4,9 @@
             <h1>{{ $research->theme }}</h1>
         </div>
     </div>
-
+    @if (session('status'))
+        <x-ts-alert :text="session('status')" color="green" close />
+    @endif
     <div class="lg:grid grid-cols-5 gap-6">
         <div class="col-span-2 mb-6">
             <x-ts-card>
@@ -21,7 +23,7 @@
                     <x-detail label="Idioma(s)" :value="$research->languages" />
                 </div>
                 <div class="card-footer">
-                    <x-ts-link href="#">Editar</x-ts-link>
+                    <x-ts-link :href="route('researches.edit', $research)" wire:navigate>Editar</x-ts-link>
                 </div>
             </x-ts-card>
         </div>
@@ -56,12 +58,4 @@
             </x-ts-card>
         </div>
     </div>
-
-    <ol>
-        <li>Estudante</li>
-        <li>Botão Compartilhar</li>
-        <li>Link para adicionar publicação</li>
-        <li>Link para arquivos</li>
-        <li>10 palavras mais citadas</li>
-    </ol>
 </section>

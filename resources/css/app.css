@@ -23,7 +23,7 @@ h1 {
 }
 
 .card-footer {
-    @apply mt-2 pt-4 space-x-6;
+    @apply mt-2 py-4 px-4 space-x-6;
 }
 
 table {
