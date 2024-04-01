@@ -15,7 +15,7 @@
             <h1>Publicações da pesquisa</h1>
             <h2>{{ $research->theme }}</h2>
         </div>
-        <x-ts-button text="Adicionar publicação" />
+        <x-ts-button text="Adicionar publicação" :href="route('researches.publications.create', $research)" wire:navigate />
     </div>
 
     <x-table id="scrollable" style="overflow-y: auto">

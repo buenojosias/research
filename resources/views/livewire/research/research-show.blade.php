@@ -44,15 +44,15 @@
                 @endslot
                 @slot('footer')
                     <x-ts-link :href="route('researches.publications', $research)" wire:navigate>Ver todas</x-ts-link>
-                    <x-ts-link href="#">Adicionar nova</x-ts-link>
+                    <x-ts-link :href="route('researches.publications.create', $research)" wire:navigate>Adicionar nova</x-ts-link>
                 @endslot
             </x-table>
 
             <x-ts-card>
-                <div class="py-3 border-b">
+                <div class="pb-3 border-b">
                     <x-ts-link href="#" wire:navigate text="Ranking de palavras" />
                 </div>
-                <div class="py-3 border-b">
+                <div class="pt-3">
                     <x-ts-link href="#" wire:navigate text="Frequência de palavras" />
                 </div>
             </x-ts-card>

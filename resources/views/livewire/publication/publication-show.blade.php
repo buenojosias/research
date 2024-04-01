@@ -5,7 +5,9 @@
             <h2>{{ $research->theme }}</h2>
         </div>
     </div>
-
+    @if (session('status'))
+        <x-ts-alert :text="session('status')" color="green" close />
+    @endif
     <div class="lg:grid grid-cols-5 gap-6">
         <div class="col-span-2 mb-6">
             <x-ts-card>
@@ -15,7 +17,7 @@
                         <x-detail label="Subtítulo" :value="$publication->subtitle" />
                     @endif
                     <x-detail label="Ano" :value="$publication->year" />
-                    <x-detail label="Autor" :value="Str::upper($publication->author_lastname) . ', ' . $publication->author_forename" />
+                    <x-detail label="Autor" :value="$publication->author_lastname . ', ' . $publication->author_forename" />
                     <x-detail label="Tipo" :value="$publication->type" />
                     <x-detail label="Repositório" :value="$publication->repository" />
                     <x-detail label="Link do resultado" :value="$publication->url">
@@ -38,7 +40,7 @@
                     @endif
                 </div>
                 <div class="card-footer">
-                    <x-ts-link href="#" wire:navigate text="Editar" />
+                    <x-ts-link :href="route('researches.publications.edit', [$research, $publication])" wire:navigate text="Editar" />
                     <x-ts-link :href="route('researches.show', $research)" wire:navigate text="Voltar para pesquisa" />
                 </div>
             </x-ts-card>

@@ -5,7 +5,7 @@
             <h2>{{ $publication->title }}</h2>
         </div>
         <div>
-            <x-ts-link :href="route('researches.publications.show', [$research, $publication])" text="Voltar para pubicação" />
+            <x-ts-link :href="route('researches.publications.show', [$research, $publication])" wire:navigate text="Voltar para pubicação" />
         </div>
     </div>
 

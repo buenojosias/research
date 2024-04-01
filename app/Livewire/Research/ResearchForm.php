@@ -6,9 +6,12 @@ use App\Enums\PublicationTypeEnum;
 use App\Models\Research;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use TallStackUi\Traits\Interactions;
 
 class ResearchForm extends Component
 {
+    use Interactions;
+
     public $research;
 
     public $id;
@@ -82,25 +85,33 @@ class ResearchForm extends Component
 
     public function render()
     {
-        return view('livewire.research.research-form');
+        return view('livewire.research.research-form')
+            ->title($this->research ? 'Editar pesquisa' : 'Nova pesquisa');
     }
 
     public function save()
     {
         $data = $this->validate();
-        $data['pid'] = $this->pid ?? substr(time(), 1);
 
-        try {
-            $research = Research::updateOrCreate([
-                'pid' => $this->pid,
-                'user_id' => $this->user_id,
-            ],
-                $data
-            );
-            session()->flash('status', 'Pesquisa salva com sucesso.');
-            $this->redirectRoute('researches.show', $research, navigate: true);
-        } catch (\Throwable $th) {
-            dd($th);
+        if($this->research) {
+            $this->research->update($data);
+            $this->toast()->success('Salvo', 'Informações salvas com sucesso.')->send();
+        } else {
+            $data['pid'] = $this->pid ?? substr(time(), 1);
+            $this->research = Research::create($data);
+            session()->flash('status', 'Pesquisa criada com sucesso.');
+            $this->redirectRoute('researches.show', $this->research, navigate: true);
         }
+
+        // try {
+        //     $research = Research::updateOrCreate([
+        //         'pid' => $this->pid,
+        //         'user_id' => $this->user_id,
+        //     ],
+        //         $data->all()
+        //     );
+        // } catch (\Throwable $th) {
+        //     dd($th);
+        // }
     }
 }

@@ -1,11 +1,12 @@
 <section>
+    <x-ts-toast />
     <div class="header">
         <div>
             <h1>{{ $research ? 'Editar' : 'Nova' }} pesquisa</h1>
         </div>
     </div>
     <form wire:submit="save">
-        <x-ts-card class="lg:grid grid-cols-6 gap-4">
+        <x-ts-card class="lg:grid grid-cols-6 gap-4 lg:space-y-0">
             <div class="col-span-3">
                 <x-ts-select.styled wire:model="student_id" label="Estudante pesquisador" placeholder="Selecione uma opção"
                     :options="$students" select="label:name|value:id" />
@@ -39,6 +40,9 @@
                 <x-ts-date wire:model="requested_at" label="Data da solicitação *" :max-date="now()" />
             </div>
             <x-slot:footer>
+                @if ($research)
+                    <x-ts-button type="button" :href="route('researches.show', $research)" wire:navigate text="Ir para pesquisa" outline />
+                @endif
                 <x-ts-button type="submit" text="Salvar" />
             </x-slot:footer>
         </x-ts-card>

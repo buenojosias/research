@@ -2,7 +2,7 @@
 <div class="bg-white rounded-lg">
     @if ($label)
         <div class="p-4 text-gray-800 font-semibold">
-            Cabeçalho
+            {{ $label }}
         </div>
     @endif
     <div class="overflow-x-auto">
@@ -19,7 +19,7 @@
         </table>
     </div>
     @if (isset($footer))
-        <div class="card-footer">
+        <div class="card-footer px-4 pb-4">
             {{ $footer }}
         </div>
     @endif
