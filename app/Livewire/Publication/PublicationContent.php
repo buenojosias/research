@@ -3,10 +3,14 @@
 namespace App\Livewire\Publication;
 
 use App\Models\Research;
+use Livewire\Attributes\On;
 use Livewire\Component;
+use TallStackUi\Traits\Interactions;
 
 class PublicationContent extends Component
 {
+    use Interactions;
+
     public $tab = 'Palavras-chave';
 
     public $research;
@@ -18,6 +22,8 @@ class PublicationContent extends Component
     public $abstract;
 
     public $body;
+
+    public $editing = false;
 
     public function mount(Research $research, $publication)
     {
@@ -44,8 +50,15 @@ class PublicationContent extends Component
 
     public function loadKeywords()
     {
-        if(!$this->abstract)
+        if(!$this->keywords)
             $this->keywords = $this->publication->keywords ?? [];
+    }
+
+    #[On('keyword-added')]
+    public function reloadKeyWords()
+    {
+        $this->keywords = $this->publication->keywords;
+        $this->toast()->success('Palavra-chave adicionada.')->send();
     }
 
     public function loadAbstract()
@@ -58,6 +71,18 @@ class PublicationContent extends Component
     {
         if(!$this->body)
             $this->body = $this->publication->body ?? 'empty';
+    }
+
+    public function deleteKeyword($keyword)
+    {
+        $object = json_decode($this->keywords, true);
+        $data = $object['data'];
+        array_splice($data, $keyword, 1);
+        $json = $data;
+        $this->keywords->data = $json;
+
+        if($this->keywords->update(['data' => $json]))
+            $this->toast()->success('Palavra-chave removida.')->send();
     }
 
     public function render()

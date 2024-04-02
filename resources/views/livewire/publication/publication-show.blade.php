@@ -56,7 +56,7 @@
                         </dl>
                     </div>
                     <x-detail label="Palavras-chave" :value="$publication->keywords->data ?? 'Não adicionado'">
-                        <x-ts-link href="#" icon="pencil-square" />
+                        <x-ts-link :href="route('researches.publications.abstract', [$research, $publication])" icon="pencil-square" />
                     </x-detail>
                 </div>
                 <div class="card-footer">

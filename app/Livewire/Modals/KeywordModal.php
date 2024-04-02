@@ -13,7 +13,7 @@ class KeywordModal extends Component
 
     public $input;
 
-    public $modal;
+    public $modal = false;
 
     public function mount($publication)
     {
@@ -34,6 +34,8 @@ class KeywordModal extends Component
         $json = $data;
 
         if($this->keywords->update(['data' => $json]))
+            $this->dispatch('keyword-added');
+            $this->reset('input');
             $this->modal = false;
     }
 }

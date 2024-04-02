@@ -71,3 +71,7 @@ dt {
 dd {
     @apply font-semibold text-copy-default;
 }
+
+.screen {
+    height: calc(100vh - 190px);
+}

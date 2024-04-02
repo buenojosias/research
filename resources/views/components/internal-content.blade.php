@@ -1,4 +1,4 @@
-@props(['section', 'content'])
+@props(['section', 'content', 'research', 'publication'])
 
 <div>
     @if ($content !== 'empty')
@@ -9,16 +9,13 @@
 </div>
 
 <div class="pt-4 mt-4 border-t">
+
     @if ($content === 'empty')
-        <x-ts-dropdown>
-            <x-slot:action>
-                <x-ts-button x-on:click="show = !show" sm>
-                    Adicionar {{ $section === 'abstract' ? 'resumo' : 'texto completo' }}
-                </x-ts-button>
-            </x-slot:action>
-            <div class="px-4 py-2 text-sm">Como você deseja adicionar?</div>
-            <x-ts-dropdown.items text="Manualmente (copiar/colar)" separator />
-            <x-ts-dropdown.items text="Extrair do PDF" />
-        </x-ts-dropdown>
+        <x-ts-button :href="route('researches.publications.' . $section, [$research, $publication])">
+            Adicionar {{ $section === 'abstract' ? 'resumo' : 'texto completo' }}
+        </x-ts-button>
+    @else
+        <x-ts-button text="Editar" :href="route('researches.publications.' . $section, [$research, $publication])" />
     @endif
+
 </div>
