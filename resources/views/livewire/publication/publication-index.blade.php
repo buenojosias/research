@@ -18,7 +18,7 @@
         <x-ts-button text="Adicionar publicação" :href="route('researches.publications.create', $research)" wire:navigate />
     </div>
 
-    <x-table id="scrollable" style="overflow-y: auto">
+    <x-table screen style="">
         <div class="card-header justify-between items-center">
             <div>
                 <x-ts-input wire:model.live.debounce="q" placehoder="Buscar título ou subtítulo" icon="magnifying-glass" />
@@ -119,7 +119,7 @@
         </div>
     </x-ts-slide>
 </section>
-@push('scripts')
+{{-- @push('scripts')
     <script type="text/javascript">
         var scrollable = document.getElementById('scrollable');
         var y = scrollable.offsetTop;
@@ -131,4 +131,4 @@
         document.getElementById("scrollable").style.maxHeight = height - y - 16 + 'px';
         document.getElementById("scrollable").style.scrollbar = 'auto';
     </script>
-@endpush
+@endpush --}}

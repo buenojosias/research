@@ -24,7 +24,7 @@
                                         {{ $kw->publication->title }} ({{ $kw->publication->year }})
                                 </td>
                                 </a>
-                                <td>
+                                <td width="40%">
                                     @foreach ($kw->data as $kws)
                                         {{ $kws }}
                                         @if (!$loop->last)
@@ -34,10 +34,14 @@
                                 </td>
                             </tr>
                         @empty
-                            ...
+                            <div class="p-4 border-t">Palavra-chave não encontrada nas publicações.</div>
                         @endforelse
                     </x-slot>
                 </x-table>
+            @else
+                <x-ts-card>
+                    Selecione uma palavra na tabela <span class="lg:hidden">abaixo</span> <span class="hidden lg:inline-flex">ao lado</span> para ver as publicações que a possuem.
+                </x-ts-card>
             @endif
         </div>
         <div class="lg:w-1/3">

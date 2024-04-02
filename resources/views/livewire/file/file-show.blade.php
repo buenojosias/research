@@ -9,7 +9,7 @@
     <div class="lg:grid grid-cols-6 gap-6">
         <div class="col-span-4 pb-6 lg:pb-0">
             @if ($file)
-                <x-ts-card>
+                <x-ts-card class="screen">
                     <object id="pdf-reader" data="{{ asset('uploads/teste.pdf') }}#toolbar=1" type="application/pdf"
                         width="100%" height="100%" page="10">
                         <p>Unable to display PDF file. <a
@@ -30,6 +30,7 @@
                 <x-ts-card class="pt-2" header="Detalhes do arquivo">
                     <div class="detail p-4">
                         <x-detail label="Nome do arquivo" :value="$file->filename" />
+                        <x-detail label="Páginas" :value="$file->pages" />
                         <x-detail label="URL" :value="$file->path" />
                         <x-detail label="Tamanho" :value="$file->size . ' MB'" />
                         <x-detail label="Adicionado em" :value="$file->created_at->format('d/m/Y H:i:s')" />
@@ -57,15 +58,3 @@
         {{ $extracted }}
     </x-ts-card>
 </section>
-@push('scripts')
-    <script type="text/javascript">
-        var scrollable = document.getElementById('pdf-reader');
-        var y = scrollable.offsetTop;
-        var doc = document.body;
-        var body = document.body;
-        var html = document.documentElement;
-        var height = body.clientHeight;
-
-        document.getElementById("pdf-reader").style.height = height - y - 32 + 'px';
-    </script>
-@endpush
