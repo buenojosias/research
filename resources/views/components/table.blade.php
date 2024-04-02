@@ -1,4 +1,4 @@
-@props(['students', 'label' => null])
+@props(['label' => null])
 <div class="bg-white rounded-lg">
     @if ($label)
         <div class="p-4 text-gray-800 font-semibold">

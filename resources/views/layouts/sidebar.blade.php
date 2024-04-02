@@ -17,7 +17,7 @@
         <x-side-link label="Pesquisa" :href="route('researches.show', $researchId)" :active="request()->routeIs('researches.show')" wire:navigate />
         <x-side-link label="Publicações" :href="route('researches.publications', $researchId)" :active="request()->routeIs('researches.publications*')" wire:navigate />
         <x-side-link label="Arquivos" href="#" :active="request()->routeIs('researches.files*')" wire:navigate />
-        <x-side-link label="Palavras-chave" href="#" wire:navigate />
+        <x-side-link label="Palavras-chave" :href="route('researches.keywords.index', $researchId)" :active="request()->routeIs('researches.keywords*')" wire:navigate />
         <x-side-link label="Ranking de pavavras" href="#" wire:navigate />
         <x-side-link label="Nuvem de pavavras" href="#" wire:navigate />
         <x-side-link label="Contagem de pavavras" href="#" wire:navigate />
