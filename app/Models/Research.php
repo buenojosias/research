@@ -59,4 +59,9 @@ class Research extends Model
     {
         return $this->hasManyThrough(Keyword::class, Publication::class);
     }
+
+    public function files(): HasManyThrough
+    {
+        return $this->hasManyThrough(File::class, Publication::class);
+    }
 }

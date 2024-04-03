@@ -3,17 +3,29 @@
 namespace App\Livewire\File;
 
 use App\Models\Research;
+use Livewire\Attributes\On;
 use Livewire\Component;
+use TallStackUi\Traits\Interactions;
 
 class FileShow extends Component
 {
+    use Interactions;
+
     public $research;
 
     public $publication;
 
     public $file;
 
-    public $extracted;
+    public $path;
+
+    #[On('file-uploaded')]
+    public function fileUploaded($file)
+    {
+        $this->file = $this->publication->file()->find($file['id']);
+        $this->path = str_replace('files/', '', $this->file->path);
+        $this->toast()->success('Arquivo enviado com sucesso.')->send();
+    }
 
     public function mount(Research $research, $publication)
     {
@@ -25,34 +37,15 @@ class FileShow extends Component
             ->findOrFail($publication);
 
         $this->file = $this->publication->file;
+
+        // $this->path = storage_path($this->file->path);
+        if ($this->file)
+            $this->path = str_replace('files/', '', $this->file->path);
     }
 
     public function render()
     {
         return view('livewire.file.file-show')
             ->title('Arquivo da publicação');
-    }
-
-    public function extractText()
-    {
-        $first_page = 1;
-        $last_page = 5;
-
-        $parser = new \Smalot\PdfParser\Parser();
-        $pdf = $parser->parseFile('uploads/teste.pdf');
-
-        $text = '';
-
-        // $details = $pdf->getDetails();
-        // $total_pages = $details['Pages'];
-
-        for ($i = $first_page - 1; $i <= $last_page - 1; $i++) {
-            $pages = $pdf->getPages()[$i];
-            $text .= $pages->getText();
-        }
-
-        $text = preg_replace('/\n|\r\n|\r|<br \/>/', '', $text);
-        $extracted = preg_replace('/<br \/>/', '', $text);
-        $this->extracted = $extracted;
     }
 }

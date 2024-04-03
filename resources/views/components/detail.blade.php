@@ -13,7 +13,7 @@
                 @endforeach
             </dd>
         @else
-            <dd>{{ $value }}</dd>
+            <dd class="break-words">{{ $value }}</dd>
         @endif
     </dl>
     @if ($slot)

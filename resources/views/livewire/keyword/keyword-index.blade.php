@@ -8,13 +8,13 @@
         <div class="lg:w-2/3">
             @if ($selectedKeyword && $kw_publ)
                 <x-table>
-                    <div class="px-4 py-2 flex justify-between items-center text-gray-800 font-semibold">
+                    <div class="px-4 py-2 flex justify-between gap-4 items-center text-gray-800 font-semibold">
                         <h4>Publicações com a palavra-chave: {{ $selectedKeyword }}</h4>
                         <x-ts-button wire:click="selectWord('')" icon="x-mark" outline />
                     </div>
                     <x-slot name="header">
                         <th>Título</th>
-                        <th>Palavras-chave</th>
+                        <th width="40%">Palavras-chave</th>
                     </x-slot>
                     <x-slot name="body">
                         @forelse ($kw_publ as $kw)
@@ -22,9 +22,9 @@
                                 <td class="!text-wrap">
                                     <a href="{{ route('researches.publications.show', [$research, $kw->publication]) }}">
                                         {{ $kw->publication->title }} ({{ $kw->publication->year }})
+                                    </a>
                                 </td>
-                                </a>
-                                <td width="40%">
+                                <td class="!text-wrap">
                                     @foreach ($kw->data as $kws)
                                         {{ $kws }}
                                         @if (!$loop->last)

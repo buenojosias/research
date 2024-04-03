@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
+Route::get('files/{path}', [FileController::class, 'show'])->name('files');
 
 Route::middleware(['auth'])->group(function() {
     Route::view('dashboard', 'dashboard')->name('dashboard');
@@ -26,6 +28,8 @@ Route::middleware(['auth'])->group(function() {
         Route::get('pub/{publication}/conteudo', \App\Livewire\Publication\PublicationContent::class)->name('researches.publications.content');
         Route::get('pub/{publication}/resumo', \App\Livewire\Internal\InternalForm::class)->name('researches.publications.abstract');
         Route::get('pub/{publication}/corpo', \App\Livewire\Internal\InternalForm::class)->name('researches.publications.body');
+
+        Route::get('arquivos', \App\Livewire\File\FileIndex::class)->name('researches.files.index');
 
         Route::get('keywords', \App\Livewire\Keyword\KeywordIndex::class)->name('researches.keywords.index');
     });

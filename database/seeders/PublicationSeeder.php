@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Keyword;
-use App\Models\Publication;
 use App\Models\Research;
+use App\Models\Publication;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

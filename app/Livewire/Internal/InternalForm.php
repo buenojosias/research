@@ -3,6 +3,7 @@
 namespace App\Livewire\Internal;
 
 use App\Models\Publication;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use TallStackUi\Traits\Interactions;
@@ -15,15 +16,27 @@ class InternalForm extends Component
 
     public $publication;
 
+    public $file;
+
     public $internal;
 
     public $content;
 
     public $total_words;
 
-    public $first_page;
+    public int $first_page;
 
-    public $last_page;
+    public int $last_page;
+
+    public $path;
+
+    #[On('file-uploaded')]
+    public function fileUploaded($file)
+    {
+        $this->file = $this->publication->file()->find($file['id']);
+        $this->path = str_replace('files/', '', $this->file->path);
+        $this->toast()->success('Arquivo enviado com sucesso.')->send();
+    }
 
     public function mount(Publication $publication)
     {
@@ -36,6 +49,10 @@ class InternalForm extends Component
         }
 
         $this->publication = $publication;
+        $this->file = $this->publication->file;
+
+        if ($this->file)
+            $this->path = str_replace('files/', '', $this->file->path);
 
         $this->internal = $this->publication->internals()
             ->where('section', $this->section)
@@ -48,14 +65,15 @@ class InternalForm extends Component
     public function extractText()
     {
         $this->validate([
-            'first_page' => 'required|integer|min:1',
+            'first_page' => 'required|integer|min:1|lte:file.pages',
         ]);
         $this->validate([
-            'last_page' => 'required|integer|min:' . $this->first_page,
+            'last_page' => 'required|integer|gte:first_page|lte:file.pages',
         ]);
 
+        $path = storage_path('app/'.$this->file->path);
         $parser = new \Smalot\PdfParser\Parser();
-        $pdf = $parser->parseFile('uploads/teste.pdf');
+        $pdf = $parser->parseFile($path);
 
         $text = '';
 
