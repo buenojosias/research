@@ -1,6 +1,6 @@
 @props(['label' => null, 'screen' => null])
 @php
-    $classes = $screen ?? false ? 'screen overflow-y-auto' : '';
+    $classes = $screen ?? false ? 'screen overflow-y-auto' : 'overflow-y-auto';
 @endphp
 <div class="bg-white rounded-lg">
     @if ($label)

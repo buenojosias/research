@@ -119,16 +119,3 @@
         </div>
     </x-ts-slide>
 </section>
-{{-- @push('scripts')
-    <script type="text/javascript">
-        var scrollable = document.getElementById('scrollable');
-        var y = scrollable.offsetTop;
-        var doc = document.body;
-        var body = document.body;
-        var html = document.documentElement;
-        var height = body.clientHeight;
-
-        document.getElementById("scrollable").style.maxHeight = height - y - 16 + 'px';
-        document.getElementById("scrollable").style.scrollbar = 'auto';
-    </script>
-@endpush --}}

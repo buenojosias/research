@@ -55,6 +55,11 @@ class Research extends Model
         return $this->hasMany(Publication::class);
     }
 
+    public function wordCounts(): HasMany
+    {
+        return $this->hasMany(WordCount::class);
+    }
+
     public function keywords(): HasManyThrough
     {
         return $this->hasManyThrough(Keyword::class, Publication::class);
