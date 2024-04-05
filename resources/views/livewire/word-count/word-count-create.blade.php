@@ -4,7 +4,7 @@
     </div>
 
     <x-ts-errors />
-    <div class="px-4 py-2 flex justify-between items-center bg-white">
+    <div class="px-4 py-2 flex justify-between items-center bg-white rounded-t">
         <div class="flex gap-2 items-center">
             <x-ts-input wire:model="word" placeholder="Palavra ou expressão" invalidate />
             <x-ts-dropdown>
@@ -31,7 +31,7 @@
         </div>
         @if ($results && count($results) > 0)
             <div>
-                <x-ts-button wire:click="save" text="Salvar resultado" />
+                <x-ts-button wire:click="save()" text="Salvar resultado" />
             </div>
         @endif
     </div>
@@ -46,18 +46,29 @@
             <th></th>
         </x-slot>
         <x-slot name="body">
-            @foreach ($results as $result)
-                <tr>
-                    <td>{{ $result->publication->title }}</td>
-                    <td>{{ $result->publication->type }}</td>
-                    <td>{{ $result->section === 'abstract' ? 'Resumo' : 'Seção textual' }}</td>
-                    <td>{{ $result->count }}</td>
-                    <td>{{ $result->percentage }}%</td>
-                    <td>
-                        <x-ts-link href="#" text="Ver contexto" />
-                    </td>
-                </tr>
-            @endforeach
+            @if ($results)
+                @foreach ($results as $result)
+                    <tr>
+                        <td>{{ $result->publication->title }}</td>
+                        <td>{{ $result->publication->type }}</td>
+                        <td>{{ $result->section === 'abstract' ? 'Resumo' : 'Seção textual' }}</td>
+                        <td>{{ $result->count }}</td>
+                        <td>{{ $result->percentage }}%</td>
+                        <td>
+                            <x-ts-button outline
+                                wire:click="selectResult"
+                                text="Ver contexto"
+                                wire:click="loadContext({{ $result->id }}, '{{ $result->section }}')"
+                            />
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
         </x-slot>
     </x-table>
+
+    @if ($content)
+        <livewire:word-count.context :$content :$word />
+    @endif
+
 </section>

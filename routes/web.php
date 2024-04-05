@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function() {
 
         Route::get('contagem', \App\Livewire\WordCount\WordCountIndex::class)->name('researches.wordcounts.index');
         Route::get('contagem/nova', \App\Livewire\WordCount\WordCountCreate::class)->name('researches.wordcounts.create');
+        Route::get('contagem/{wordcount}', \App\Livewire\WordCount\WordCountShow::class)->name('researches.wordcounts.show');
 
         Route::get('arquivos', \App\Livewire\File\FileIndex::class)->name('researches.files.index');
 

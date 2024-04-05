@@ -4,7 +4,7 @@
             <h1>Contagem de palavras</h1>
         </div>
         <div>
-            <x-ts-button :href="route('researches.wordcounts.create', $research)" text="Nova contagem" />
+            <x-ts-button :href="route('researches.wordcounts.create', $research)" wire:navigate text="Nova contagem" />
         </div>
     </div>
     <x-table>
@@ -17,7 +17,10 @@
         <x-slot name="body">
             @foreach ($wordcounts as $wc)
                 <tr>
-                    <td class="!text-wrap">{{ $wc->word }}</td>
+                    <td class="!text-wrap">
+                        <a href="{{ route('researches.wordcounts.show', [$research, $wc]) }}" wire:navigate>
+                            {{ $wc->word }}</td>
+                        </a>
                     <td>
                         @foreach ($wc->sections as $section)
                             {{ $section === 'body' ? 'Conteúdo' : 'Resumo' }}
