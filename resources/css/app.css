@@ -30,6 +30,10 @@ table {
     @apply w-full;
 }
 
+.table-header {
+    @apply px-4 py-2 flex items-center text-gray-800 font-semibold;
+}
+
 table thead {
     @apply bg-gray-200;
 }

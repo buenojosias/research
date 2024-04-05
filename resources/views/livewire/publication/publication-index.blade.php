@@ -19,7 +19,7 @@
     </div>
 
     <x-table screen>
-        <div class="card-header flex justify-between items-center">
+        <div class="table-header flex justify-between items-center">
             <div class="w-1/2">
                 <x-ts-input wire:model.live.debounce="q" placehoder="Buscar título ou subtítulo" icon="magnifying-glass" />
             </div>

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Research extends Model
@@ -68,5 +69,10 @@ class Research extends Model
     public function files(): HasManyThrough
     {
         return $this->hasManyThrough(File::class, Publication::class);
+    }
+
+    public function WordAnalysisConfig(): HasOne
+    {
+        return $this->hasOne(WordAnalysisConfig::class);
     }
 }
