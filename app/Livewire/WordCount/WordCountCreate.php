@@ -28,6 +28,10 @@ class WordCountCreate extends Component
 
     public $data = [];
 
+    public $savedModal = false;
+
+    public $savedWordCount;
+
     public function mount(Research $research)
     {
         $this->research = $research;
@@ -40,7 +44,7 @@ class WordCountCreate extends Component
             // ->whereRelation('publication', 'research_id', $this->research->id)
             ->whereHas('publication', fn($query) => $query->whereIn('type', $this->publication_types))
             ->whereIn('section', $this->sections)
-            ->where('content', 'LIKE', '%'. $this->word .'%')
+            ->where('content', 'LIKE', '%' . $this->word . '%')
             ->get();
 
         $this->results = $results->filter(function ($result) {
@@ -107,8 +111,9 @@ class WordCountCreate extends Component
         ];
 
         try {
-            $createdWordCount = WordCount::create($wordCount);
-            dd($createdWordCount);
+            $this->savedWordCount = WordCount::create($wordCount);
+            $this->savedModal = true;
+            $this->reset(['word','results','data']);
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -136,6 +141,6 @@ class WordCountCreate extends Component
 
     public function removeCharacters($value)
     {
-        return preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","a A e E i I o O u U n N"), $value);
+        return preg_replace(array("/(á|à|ã|â|ä)/", "/(Á|À|Ã|Â|Ä)/", "/(é|è|ê|ë)/", "/(É|È|Ê|Ë)/", "/(í|ì|î|ï)/", "/(Í|Ì|Î|Ï)/", "/(ó|ò|õ|ô|ö)/", "/(Ó|Ò|Õ|Ô|Ö)/", "/(ú|ù|û|ü)/", "/(Ú|Ù|Û|Ü)/", "/(ñ)/", "/(Ñ)/"), explode(" ", "a A e E i I o O u U n N"), $value);
     }
 }

@@ -19,11 +19,11 @@ h1 {
 }
 
 .card-header {
-    @apply px-4 py-2 flex;
+    @apply -mx-4 px-4 flex items-center text-gray-800 font-semibold;
 }
 
 .card-footer {
-    @apply mt-2 pt-2 space-x-6;
+    @apply mt-2 pt-2 flex items-center space-x-6;
 }
 
 table {

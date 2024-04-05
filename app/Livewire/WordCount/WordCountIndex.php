@@ -28,6 +28,7 @@ class WordCountIndex extends Component
 
     public function render()
     {
-        return view('livewire.word-count.word-count-index');
+        return view('livewire.word-count.word-count-index')
+            ->title('Contagem de palavras');
     }
 }

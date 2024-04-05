@@ -6,7 +6,7 @@ use App\Models\Internal;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class Context extends Component
+class WordCountContext extends Component
 {
     public $contexts = [];
 
@@ -28,6 +28,7 @@ class Context extends Component
 
         // $this->ctxWord = $word;
         $cleanWord = $this->removeCharacters($word);
+        $cleanWord = strtolower($this->removeCharacters($word));
         $cleanContent = $this->removeCharacters($content);
 
         $this->ctxContent = trim(preg_replace('/\s\s+/', ' ', $content));
@@ -63,7 +64,7 @@ class Context extends Component
 
     public function render()
     {
-        return view('livewire.word-count.context');
+        return view('livewire.word-count.word-count-context');
     }
 
     public function removeCharacters($value)

@@ -3,9 +3,9 @@
         <div class="divide-y">
         @foreach ($contexts as $context)
             <x-ts-card>
-                {{ $context['before'] ?? '' }}
-                <span class="font-bold">{{ $context['word'] }}</span>
-                {{ $context['after'] ?? '' }}
+                [...] {{ $context['before'] ?? '' }}
+                <span class=" text-secondary-600">{{ $context['word'] }}</span>
+                {{ $context['after'] ?? '' }} [...]
             </x-ts-card>
         @endforeach
     </div>

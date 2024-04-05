@@ -55,11 +55,8 @@
                         <td>{{ $result->count }}</td>
                         <td>{{ $result->percentage }}%</td>
                         <td>
-                            <x-ts-button outline
-                                wire:click="selectResult"
-                                text="Ver contexto"
-                                wire:click="loadContext({{ $result->id }}, '{{ $result->section }}')"
-                            />
+                            <x-ts-button outline wire:click="selectResult" text="Ver contexto"
+                                wire:click="loadContext({{ $result->id }}, '{{ $result->section }}')" />
                         </td>
                     </tr>
                 @endforeach
@@ -68,7 +65,18 @@
     </x-table>
 
     @if ($content)
-        <livewire:word-count.context :$content :$word />
+        <livewire:word-count.word-count-context :$content :$word />
+    @endif
+
+    @if ($savedWordCount)
+        <x-ts-modal title="Contagem salva com sucesso" wire="savedModal" size="sm">
+            O que você deseja fazer agora?
+            <div class="mt-4 flex flex-col space-y-2">
+                <x-ts-button wire:click="$toggle('savedModal')" text="Fazer nova contagem" color="white" />
+                <x-ts-button :href="route('researches.wordcounts.show', [$research, $savedWordCount->id])" wire:navigate text="Ir para contagem" color="white" />
+                <x-ts-button :href="route('researches.wordcounts.index', [$research])" wire:navigate text="Voltar para lista" color="white" />
+            </div>
+        </x-ts-modal>
     @endif
 
 </section>
