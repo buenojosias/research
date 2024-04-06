@@ -14,6 +14,9 @@ class WordCountContext extends Component
 
     public $ctxContent;
 
+    public $finalWord;
+    public $finalContent;
+
     public $slide = false;
 
     public function openSlide()
@@ -26,27 +29,41 @@ class WordCountContext extends Component
     {
         $this->slide = false;
 
-        // $this->ctxWord = $word;
+        // Armazenar variável fixa
+        $this->ctxContent = trim(preg_replace('/\s\s+/', ' ', $content));
+        $this->ctxWord = $word;
+
+        // Criar nova variável sem caracteres especiais
         $cleanWord = $this->removeCharacters($word);
-        $cleanWord = strtolower($this->removeCharacters($word));
         $cleanContent = $this->removeCharacters($content);
 
-        $this->ctxContent = trim(preg_replace('/\s\s+/', ' ', $content));
-        $this->ctxContent = str_replace($cleanWord, str_replace(' ', '_', $cleanWord), $this->ctxContent);
-        $this->ctxWord = str_replace(' ', '_', $word);
+        // Criar nova variável em minúscula
+        $lowerWord = strtolower($cleanWord);
+        $lowerContent = strtolower($cleanContent);
+
+        // Converter espaço em underline
+        $noSpaceWord = str_replace(' ', '_', $lowerWord);
+        $noSpaceContent = str_replace($lowerWord, $noSpaceWord, $lowerContent);
+
+        // Armazenar valores em variáveis públicas para usar depois
+        $this->finalWord = $noSpaceWord;
+        $this->finalContent = $noSpaceContent;
+
+        // $this->ctxContent = str_replace($cleanWord, $tmpWord, $this->ctxContent);
+        // $this->ctxWord = str_replace(' ', '_', $word);
+        // dump($this->ctxContent);
 
         $this->openSlide();
     }
 
     public function generateContext()
     {
-        $words = explode(' ', $this->ctxContent);
+        $words = explode(' ', $this->finalContent);
 
         foreach ($words as $index => $word) {
-            $ctxWord = $this->removeCharacters($this->ctxWord);
             $word = $this->removeCharacters($word);
-            $rm_dots = str_replace(['.',',',';','\n','"'], '', $word);
-            if (strcasecmp($rm_dots, $ctxWord) == 0) {
+            $noDotWords = str_replace(['.',',',';','\n','"'], '', $word);
+            if (strcasecmp($noDotWords, $this->finalWord) == 0) {
                 $initialPosition = max(0, $index - 10);
                 $finalPosition = min(count($words) - 1, $index + 10);
 
@@ -54,7 +71,7 @@ class WordCountContext extends Component
                 $contextAfter = array_slice($words, $index + 1, $finalPosition - $index);
 
                 $this->contexts[] = [
-                    'word' => str_replace('_', ' ', $word),
+                    'word' => str_replace('_', ' ', $this->ctxWord),
                     'before' => trim(implode(' ', $contextBefore)),
                     'after' => trim(implode(' ', $contextAfter))
                 ];

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('total_words');
             $table->timestamps();
             $table->softDeletes();
+            $table->fullText('content');
         });
     }
 

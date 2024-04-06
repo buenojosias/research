@@ -40,23 +40,20 @@ class WordCountCreate extends Component
     public function generate()
     {
         $this->validate();
+        $this->word = trim($this->word);
         $results = Internal::query()
             // ->whereRelation('publication', 'research_id', $this->research->id)
             ->whereHas('publication', fn($query) => $query->whereIn('type', $this->publication_types))
             ->whereIn('section', $this->sections)
-            ->where('content', 'LIKE', '%' . $this->word . '%')
+            ->when(strpos($this->word, ' ') !== false, function ($query) {
+                $query->where('content', 'LIKE', "%$this->word%");
+            })
+            ->when(strpos($this->word, ' ') === false, function ($query) {
+                $query->whereFullText('content', $this->word);
+            })
             ->get();
 
-        $this->results = $results->filter(function ($result) {
-            $word = $this->removeCharacters($this->word);
-            $content = $this->removeCharacters($result->content);
-            return preg_match(
-                "/\b$word\b/i",
-                // "/\b$this->word\b/i",
-                "/\b$content\b/i"
-                // $result['content']
-            );
-        });
+        $this->results = $results;
 
         $this->fillInternals();
     }
@@ -113,7 +110,7 @@ class WordCountCreate extends Component
         try {
             $this->savedWordCount = WordCount::create($wordCount);
             $this->savedModal = true;
-            $this->reset(['word','results','data']);
+            $this->reset(['word', 'results', 'data']);
         } catch (\Throwable $th) {
             dd($th);
         }
