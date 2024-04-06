@@ -33,6 +33,10 @@ Route::middleware(['auth'])->group(function() {
         Route::get('contagem/nova', \App\Livewire\WordCount\WordCountCreate::class)->name('researches.wordcounts.create');
         Route::get('contagem/{wordcount}', \App\Livewire\WordCount\WordCountShow::class)->name('researches.wordcounts.show');
 
+        Route::get('ranking', \App\Livewire\WordRanking\WordRankingIndex::class)->name('researches.wordrankings.index');
+        Route::get('ranking/novo', \App\Livewire\WordRanking\WordRankingCreate::class)->name('researches.wordrankings.create');
+        Route::get('ranking/{wordranking}', \App\Livewire\WordRanking\WordRankingShow::class)->name('researches.wordrankings.show');
+
         Route::get('arquivos', \App\Livewire\File\FileIndex::class)->name('researches.files.index');
 
         Route::get('keywords', \App\Livewire\Keyword\KeywordIndex::class)->name('researches.keywords.index');
