@@ -2,15 +2,30 @@
 
 namespace App\Livewire\WordRanking;
 
+use App\Models\Research;
 use Livewire\Component;
 
 class WordRankingIndex extends Component
 {
     public $research;
 
-    public function mount($research)
+    public $wordrankings = [];
+
+    public function mount(Research $research)
     {
-        $this->research = $research;
+        $wordrankings = $research->wordRankings;
+
+        foreach ($wordrankings as $wr) {
+            $wr->publications_count = count($wr->records);
+            $wr->total_count = 0;
+            foreach($wr->records as $record) {
+                $wr->total_count += $record['count'];
+            }
+        }
+
+        $this->wordrankings = $wordrankings;
+
+        // dd($this->wordrankings);
     }
 
     public function render()

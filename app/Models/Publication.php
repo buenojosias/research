@@ -80,4 +80,9 @@ class Publication extends Model
     {
         return $this->hasOne(File::class);
     }
+
+    public function wordRankings(): HasMany
+    {
+        return $this->hasMany(WordRanking::class);
+    }
 }

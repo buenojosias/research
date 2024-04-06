@@ -44,7 +44,7 @@
                 </div>
                 @if ($results && count($results) > 0)
                     <div>
-                        <x-ts-button wire:click="save()" text="Salvar resultado" />
+                        <x-ts-button wire:click="$toggle('savingModal')" text="Salvar resultado" />
                     </div>
                 @endif
             </div>
@@ -86,5 +86,24 @@
         </div>
     </div>
 
+    <x-ts-modal title="Salvar relatório" wire="savingModal" size="sm">
+        <div class="space-y-4">
+            <x-ts-input wire:model="title" label="Título do relatório" hint="Opcional" />
+            <x-ts-textarea wire:model="description" label="Breve descrição" hint="Opcional" />
+        </div>
+        <x-slot:footer>
+            <x-ts-button text="Confirmar" wire:click="save" />
+        </x-slot:footer>
+    </x-ts-modal>
 
+    @if ($savedWordRanking)
+        <x-ts-modal title="Relatório salvo com sucesso" wire="savedModal" size="sm">
+            O que você deseja fazer agora?
+            <div class="mt-4 flex flex-col space-y-2">
+                <x-ts-button wire:click="clear" text="Gerar novo relatório" color="white" />
+                <x-ts-button :href="route('researches.wordrankings.show', [$research, $savedWordRanking->id])" wire:navigate text="Ir para o relatório" color="white" />
+                <x-ts-button :href="route('researches.wordrankings.index', [$research])" wire:navigate text="Voltar para lista" color="white" />
+            </div>
+        </x-ts-modal>
+    @endif
 </section>
