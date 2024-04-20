@@ -13,8 +13,7 @@
                 <div class="screen">
                     <object id="pdf-reader" data="{{ route('files', $path) }}#toolbar=1" type="application/pdf"
                         width="100%" height="100%" page="10">
-                        <p>Unable to display PDF file. <a
-                                href="{{ route('files', $path) }}">Download</a>
+                        <p>Unable to display PDF file. <a href="{{ route('files', $path) }}">Download</a>
                             instead.</p>
                     </object>
                 </div>
@@ -32,7 +31,12 @@
                     <div class="detail">
                         <x-detail label="Nome do arquivo" :value="$file->filename" />
                         <x-detail label="Páginas" :value="$file->pages" />
-                        <x-detail label="URL" :value="route('files', $path)" />
+                        <div>
+                            <dl class="w-full">
+                                <dt>URL</dt>
+                                <dd class="break-words">{{ route('files', $path) }}</dd>
+                            </dl>
+                        </div>
                         <x-detail label="Tamanho" :value="number_format($file->size, 1, ',', '.') . ' MB'" />
                         <x-detail label="Adicionado em" :value="$file->created_at->format('d/m/Y H:i:s')" />
                     </div>

@@ -20,9 +20,19 @@
                     <x-detail label="Autor" :value="$publication->author_lastname . ', ' . $publication->author_forename" />
                     <x-detail label="Tipo" :value="$publication->type" />
                     <x-detail label="Repositório" :value="$publication->repository" />
-                    <x-detail label="Link do resultado" :value="$publication->url">
+                    <div>
+                        <dl class="w-full">
+                            <dt>Link do resultado</dt>
+                            <dd class="w-full">
+                                <span class="break-words">{{ $publication->url }}</span>
+                                <x-ts-link :href="$publication->url" icon="arrow-top-right-on-square" lg blank />
+                            </dd>
+                        </dl>
+                    </div>
+                    {{-- <span class="break-words">{{ $publication->url }}</span> --}}
+                    {{-- <x-detail label="Link do resultado" :value="$publication->url">
                         <x-ts-link :href="$publication->url" icon="arrow-top-right-on-square" lg blank />
-                    </x-detail>
+                    </x-detail> --}}
                     <x-detail label="Idioma" :value="$publication->language" />
                     <x-detail label="Termos pesquisados" :value="$publication->searched_terms" />
                     @if ($publication->institution)

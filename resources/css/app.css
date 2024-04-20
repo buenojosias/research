@@ -79,3 +79,11 @@ dd {
 .screen {
     height: calc(100vh - 190px);
 }
+
+.min-screen {
+    min-height: calc(100vh - 190px);
+}
+
+.max-screen {
+    max-height: calc(100vh - 190px);
+}
