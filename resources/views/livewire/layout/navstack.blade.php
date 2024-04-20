@@ -21,7 +21,8 @@ new class extends Component {
     <x-nav-link label="Pesquisas" :href="route('researches')" :active="request()->routeIs('researches*')" wire:navigate />
 
     <!-- Settings Dropdown -->
-    <div class="absolute right-2 top-2">
+    <div class="absolute right-2 top-2 flex gap-x-4">
+        @include('includes.header-projects')
         <x-dropdown width="48">
             <x-slot name="trigger">
                 <button

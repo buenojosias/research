@@ -1,4 +1,4 @@
-@props(['active', 'label', 'href' => null])
+@props(['active', 'label', 'href' => null, 'icon' => null])
 
 @php
     $classes =
@@ -10,12 +10,9 @@
 @if ($href)
     <li>
         <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes]) }}>
-            <svg aria-hidden="true"
-                class="mr-3 w-6 h-6 text-primary-900 transition duration-75 group-hover:text-primary-800"
-                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-            </svg>
+            @if ($icon)
+                <x-ts-icon name="{{ $icon }}" class="mr-2 w-4" />
+            @endif
             <span class="flex-1">{{ $label }}</span>
             <div
                 class="inline-flex justify-center items-center w-5 h-5 text-xs font-semibold text-primary-800">

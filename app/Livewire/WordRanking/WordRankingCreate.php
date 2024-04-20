@@ -15,21 +15,21 @@ class WordRankingCreate extends Component
     public $publications = [];
 
     #[Validate('required|array')]
-    public $sections = ['abstract'];
+    public $sections = [];
 
     #[Validate('required|array')]
-    public $publication_types = ['Dissertação'];
+    public $publication_types = [];
 
     #[Validate('nullable|array')]
     public $years;
 
     #[Validate('required|integer')]
-    public $minLenght = 4;
+    public $minLenght = 5;
 
     #[Validate('required|integer')]
     public $wordsLimit = 50;
 
-    public $combinedWords = ['fusca azul', 'Odio ullam'];
+    public $combinedWords = ['educação ambiental', 'cenário internacional'];
 
     public $excludedWords = [];
 
@@ -69,7 +69,9 @@ class WordRankingCreate extends Component
 
         $allContent = implode(' ', $internalsContent);
 
-        $words = str_word_count(strtolower($allContent), 1);
+        $allContent = preg_replace('/[^\p{L}\p{N}\s]/u', '', $allContent);
+
+        $words = preg_split('/\s+/', mb_strtolower($allContent, 'UTF-8'), -1, PREG_SPLIT_NO_EMPTY);
 
         $wordCount = [];
         foreach ($words as $word) {
@@ -88,6 +90,7 @@ class WordRankingCreate extends Component
             }
         }
 
+        // Contar as palavras combinadas
         foreach ($this->combinedWords as $combinedWord) {
             $wordParts = explode(' ', $combinedWord);
             $combinedCount = substr_count($allContent, $combinedWord);
@@ -98,7 +101,7 @@ class WordRankingCreate extends Component
                         'id' => rand(00000000, 99999000),
                         'word' => $combinedWord,
                         'count' => $combinedCount,
-                        'internals' => array_keys(array_filter($internalsContent, function ($content) use ($combinedWord) {
+                        'posts' => array_keys(array_filter($internalsContent, function ($content) use ($combinedWord) {
                             return stripos($content, $combinedWord) !== false;
                         }))
                     ];
