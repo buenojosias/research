@@ -8,20 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('internals', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('production_id')->constrained()->cascadeOnDelete();
-            $table->string('section', 12);
-            $table->longText('content');
-            $table->unsignedInteger('total_words');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('student_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('theme');
+            $table->date('requested_at');
             $table->timestamps();
             $table->softDeletes();
-            $table->fullText('content');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('internals');
+        Schema::dropIfExists('projects');
     }
 };

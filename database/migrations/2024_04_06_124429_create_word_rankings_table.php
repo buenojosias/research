@@ -6,15 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('word_rankings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('research_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('publication_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('bibliometric_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('production_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->unsignedInteger('words_limit');
@@ -27,9 +24,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('word_rankings');

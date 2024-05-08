@@ -10,9 +10,9 @@ return new class extends Migration
     {
         Schema::create('word_counts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('research_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('bibliometric_id')->constrained()->cascadeOnDelete();
             $table->string('word', 36);
-            $table->json('publication_types');
+            $table->json('production_types');
             $table->json('records');
             $table->json('sections');
             $table->timestamps();

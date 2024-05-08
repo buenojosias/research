@@ -2,26 +2,16 @@
 
 namespace Database\Factories;
 
-use App\Enums\PublicationTypeEnum;
+use App\Enums\ProductionTypeEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Research>
- */
-class ResearchFactory extends Factory
+class BibliometricFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         $start_year = rand(2015, 2021);
 
         return [
-            'pid' => fake()->randomNumber(9),
-            'theme' => rtrim(fake()->sentence(), '.'),
             'repositories' => fake()
                 ->randomElements(
                     [
@@ -34,7 +24,7 @@ class ResearchFactory extends Factory
                 ),
             'types' => fake()
                 ->randomElements(
-                    PublicationTypeEnum::class,
+                    ProductionTypeEnum::class,
                     rand(1, 2)
                 )
             ,
@@ -54,7 +44,6 @@ class ResearchFactory extends Factory
                     ],
                     rand(1, 2)
                 ),
-            'requested_at' => fake()->dateTimeBetween('-30 days', 'now'),
         ];
     }
 }

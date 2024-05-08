@@ -14,8 +14,8 @@ class State extends Model
         'region'
     ];
 
-    public function publications(): HasMany
+    public function productions(): HasMany
     {
-        return $this->hasMany(Publication::class);
+        return $this->hasMany(Production::class);
     }
 }

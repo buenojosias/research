@@ -1,13 +1,15 @@
 <?php
 
 use App\Http\Controllers\FileController;
+use App\Livewire\Dashboard\DashboardIndex;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 Route::get('files/{path}', [FileController::class, 'show'])->name('files');
 
 Route::middleware(['auth'])->group(function() {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+
+    Route::get('dashboard', DashboardIndex::class)->name('dashboard');
 
     Route::get('estudantes', \App\Livewire\Student\StudentIndex::class )->name('students');
 

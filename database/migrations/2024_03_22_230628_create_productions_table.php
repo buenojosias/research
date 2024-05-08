@@ -8,9 +8,9 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('publications', function (Blueprint $table) {
+        Schema::create('productions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('research_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('bibliometric_id')->constrained()->cascadeOnDelete();
             $table->json('searched_terms');
             $table->string('repository', 32);
             $table->string('type', 24);
@@ -18,14 +18,13 @@ return new class extends Migration
             $table->string('title');
             $table->string('subtitle')->nullable();
             $table->year('year');
-            $table->string('author_forename', 96);
-            $table->string('author_lastname', 24);
+            $table->json('authors');
             $table->string('institution')->nullable();
             $table->string('program')->nullable();
             $table->string('periodical')->nullable();
             $table->string('city')->nullable();
             $table->foreignId('state_id')->nullable();
-            $table->string('url');
+            $table->string('url')->nullable();
             $table->string('doi')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -34,6 +33,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('publications');
+        Schema::dropIfExists('productions');
     }
 };

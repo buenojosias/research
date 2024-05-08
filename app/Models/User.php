@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -43,8 +44,13 @@ class User extends Authenticatable
         return $this->hasMany(Student::class);
     }
 
-    public function researches(): HasMany
+    public function projects(): HasMany
     {
-        return $this->hasMany(Research::class);
+        return $this->hasMany(Project::class);
+    }
+
+    public function bibliometrics(): HasManyThrough
+    {
+        return $this->hasManyThrough(Bibliometric::class, Project::class);
     }
 }

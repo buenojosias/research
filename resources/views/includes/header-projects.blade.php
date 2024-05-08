@@ -1,6 +1,6 @@
-<div class="md:relative" x-data="{ open: false }" @click.outside="open = false">
-    <x-ts-button text="Meus projetos" icon="chevron-down" position="right" @click="open = !open" color="white" class="w-36" outline />
-    <div class="fixed md:absolute -right-7 md:right-0 top-10 md:top-12 z-10 w-screen bg-white pr-1.5 rounded-lg drop-shadow-xl dark:bg-slate-700 md:w-[360px] border"
+<div class="sm:relative" x-data="{ open: false }" @click.outside="open = false">
+    <x-ts-button text="Meus projetos" icon="chevron-down" position="right" @click="open = !open" class="w-36" sm outline />
+    <div class="fixed sm:absolute right-0 sm:right-0 top-12 sm:top-10 w-screen sm:w-[300px] bg-white pr-1.5 rounded-lg drop-shadow-xl border"
         x-show="open" x-transition>
         <!-- heading -->
         <div class="flex items-center justify-between gap-2 p-4 pb-2">
@@ -58,7 +58,7 @@
         </a>
 
         <div
-            class="w-3 h-3 absolute -top-1.5 right-3 bg-white border-l border-t rotate-45 max-md:hidden dark:bg-dark3 dark:border-transparent">
+            class="w-3 h-3 absolute -top-1.5 right-3 bg-white border-l border-t rotate-45 max-sm:hidden dark:bg-dark3 dark:border-transparent">
         </div>
     </div>
 </div>

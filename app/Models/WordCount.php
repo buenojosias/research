@@ -12,9 +12,9 @@ class WordCount extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'research_id',
+        'bibliometric_id',
         'word',
-        'publication_types',
+        'production_types',
         'records',
         'sections'
     ];
@@ -22,14 +22,14 @@ class WordCount extends Model
     protected function casts(): array
     {
         return [
-            'publication_types' => 'array',
+            'production_types' => 'array',
             'records' => 'array',
             'sections' => 'array'
         ];
     }
 
-    public function research(): BelongsTo
+    public function bibliometric(): BelongsTo
     {
-        return $this->belongsTo(Research::class);
+        return $this->belongsTo(Bibliometric::class);
     }
 }

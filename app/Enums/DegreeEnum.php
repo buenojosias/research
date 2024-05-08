@@ -4,8 +4,8 @@ namespace App\Enums;
 
 enum DegreeEnum: string
 {
-    case POSGRADUACAO = "posgraduacao";
-    case MESTRADO = "mestrado";
-    case DOUDORADO = "doutorado";
-    case POSDOUDORADO = "posdoutorado";
+    case POS_GRADUACAO = "Pós graduação";
+    case MESTRADO = "Mestrado";
+    case DOUDORADO = "Doutorado";
+    case POS_DOUDORADO = "Pós doutorado";
 }

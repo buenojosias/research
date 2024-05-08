@@ -17,7 +17,21 @@
                         <x-detail label="Subtítulo" :value="$publication->subtitle" />
                     @endif
                     <x-detail label="Ano" :value="$publication->year" />
-                    <x-detail label="Autor" :value="$publication->author_lastname . ', ' . $publication->author_forename" />
+                    <div>
+                        <dl class="w-full">
+                            <dt>Autor(es)</dt>
+                            <dd>
+                                <ul>
+                                    @foreach ($publication->authors as $author)
+                                        <li>
+                                            {{ $author['lastname'] }},
+                                            {{ $author['forename'] }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </dd>
+                        </dl>
+                    </div>
                     <x-detail label="Tipo" :value="$publication->type" />
                     <x-detail label="Repositório" :value="$publication->repository" />
                     <div>

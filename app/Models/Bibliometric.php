@@ -10,15 +10,12 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Research extends Model
+class Bibliometric extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'pid',
-        'user_id',
-        'student_id',
-        'theme',
+        'project_id',
         'repositories',
         'types',
         'terms',
@@ -26,7 +23,6 @@ class Research extends Model
         'start_year',
         'end_year',
         'languages',
-        'requested_at',
     ];
 
     protected function casts(): array
@@ -37,23 +33,22 @@ class Research extends Model
             'terms' => 'array',
             'combinations' => 'array',
             'languages' => 'array',
-            'requested_at' => 'date:Y-m-d',
         ];
     }
 
-    public function user(): BelongsTo
+    public function project(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Project::class);
     }
 
-    public function student(): BelongsTo
+    public function productions(): HasMany
     {
-        return $this->belongsTo(Student::class);
+        return $this->hasMany(Production::class);
     }
 
-    public function publications(): HasMany
+    public function files(): HasManyThrough
     {
-        return $this->hasMany(Publication::class);
+        return $this->hasManyThrough(File::class, Production::class);
     }
 
     public function wordCounts(): HasMany
@@ -68,12 +63,7 @@ class Research extends Model
 
     public function keywords(): HasManyThrough
     {
-        return $this->hasManyThrough(Keyword::class, Publication::class);
-    }
-
-    public function files(): HasManyThrough
-    {
-        return $this->hasManyThrough(File::class, Publication::class);
+        return $this->hasManyThrough(Keyword::class, Production::class);
     }
 
     public function WordAnalysisConfig(): HasOne

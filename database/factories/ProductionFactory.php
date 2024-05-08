@@ -5,7 +5,7 @@ namespace Database\Factories;
 use App\Enums\ProductionTypeEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PublicationFactory extends Factory
+class ProductionFactory extends Factory
 {
     public function definition(): array
     {
@@ -20,7 +20,7 @@ class PublicationFactory extends Factory
 
         $authors = [];
 
-        for ($i=1; $i <= rand(1, 3); $i++) {
+        for ($i = 1; $i <= rand(1, 3); $i++) {
             array_push($authors, [
                 'forename' => fake()->firstName() . ' ' . fake()->lastName(),
                 'lastname' => fake()->lastName(),

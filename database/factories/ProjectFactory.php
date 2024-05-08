@@ -4,15 +4,13 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Internal>
- */
-class InternalFactory extends Factory
+class ProjectFactory extends Factory
 {
     public function definition(): array
     {
         return [
-            //
+            'theme' => rtrim(fake()->sentence(), '.'),
+            'requested_at' => fake()->dateTimeBetween('-30 days', 'now'),
         ];
     }
 }

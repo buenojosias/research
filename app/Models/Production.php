@@ -2,20 +2,21 @@
 
 namespace App\Models;
 
-use App\Enums\PublicationTypeEnum;
+use App\Enums\ProductionTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Publication extends Model
+class Production extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'research_id',
+        'bibliometric_id',
         'searched_terms',
         'repository',
         'type',
@@ -23,8 +24,7 @@ class Publication extends Model
         'title',
         'subtitle',
         'year',
-        'author_forename',
-        'author_lastname',
+        'authors',
         'institution',
         'program',
         'periodical',
@@ -38,13 +38,14 @@ class Publication extends Model
     {
         return [
             'searched_terms' => 'array',
-            'type' => PublicationTypeEnum::class,
+            'authors' => 'array',
+            'type' => ProductionTypeEnum::class,
         ];
     }
 
-    public function research(): BelongsTo
+    public function bibliometric(): BelongsTo
     {
-        return $this->belongsTo(Research::class);
+        return $this->belongsTo(Bibliometric::class);
     }
 
     public function state(): BelongsTo
@@ -76,9 +77,9 @@ class Publication extends Model
         });
     }
 
-    public function file(): HasOne
+    public function file(): MorphOne
     {
-        return $this->hasOne(File::class);
+        return $this->MorphOne(File::class, 'fileable');
     }
 
     public function wordRankings(): HasMany

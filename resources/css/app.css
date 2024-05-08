@@ -2,20 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-.with-header {
-    @apply mt-14;
+body {
+    @apply antialiased bg-background-default;
+}
+header {
+    @apply sticky top-0 bg-white shadow;
+}
+header .stack {
+    @apply px-4 sm:px-8 py-1.5 flex justify-between border-b border-gray-100;
+}
+header nav {
+    @apply px-4 sm:px-8 flex flex-wrap gap-3 overflow-hidden;
+}
+.nav-item {
+    @apply flex gap-2 pt-3 pb-2 px-1.5 text-nowrap text-sm font-medium border-transparent text-gray-700 hover:text-gray-900 border-b-2;
+}
+.nav-item.active {
+    @apply border-primary-700;
+}
+.nav-item:hover {
+    @apply border-primary-700;
+}
+.nav-dropdown {
+    @apply absolute left-0 sm:left-auto w-full sm:w-44 text-sm rounded-b py-1 bg-white border-t shadow;
+}
+.nav-dropdown a {
+    @apply flex w-full my-1 py-1.5 px-2 border-l-2 border-transparent hover:bg-gray-50 hover:border-primary-700;
 }
 
-section {
-    @apply mt-6 mx-4 md:mx-6;
+main {
+    @apply p-4 sm:p-6;
 }
 
-section .header {
+main .header {
     @apply flex justify-between items-center mb-6;
 }
 
 h1 {
-    @apply text-2xl font-bold;
+    @apply text-xl font-bold;
 }
 
 .card-header {
@@ -62,7 +86,7 @@ th, td {
     @apply py-2 space-y-4;
 }
 
-.detail>div {
+.detail > div {
     @apply flex justify-between items-center;
 }
 
@@ -76,6 +100,16 @@ dd {
     @apply font-semibold text-copy-default;
 }
 
+
+/*
+.with-header {
+    @apply mt-14;
+}
+
+section {
+    @apply mt-6 mx-4 md:mx-6;
+}
+
 .screen {
     height: calc(100vh - 190px);
 }
@@ -87,3 +121,4 @@ dd {
 .max-screen {
     max-height: calc(100vh - 190px);
 }
+*/

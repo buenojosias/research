@@ -12,14 +12,14 @@ class WordRanking extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'research_id',
-        'publication_id',
+        'bibliometric_id',
+        'production_id',
         'title',
         'description',
         'words_limit',
         'filters',
         'records',
-        'publications_flag',
+        'productions_flag',
         'config_flag',
     ];
 
@@ -28,18 +28,18 @@ class WordRanking extends Model
         return [
             'filters' => 'array',
             'records' => 'array',
-            'publication_flag' => 'boolean',
+            'production_flag' => 'boolean',
             'config_flag' => 'boolean',
         ];
     }
 
-    public function research(): BelongsTo
+    public function bibliometric(): BelongsTo
     {
-        return $this->belongsTo(Research::class);
+        return $this->belongsTo(Bibliometric::class);
     }
 
-    public function publication(): BelongsTo
+    public function production(): BelongsTo
     {
-        return $this->belongsTo(Publication::class);
+        return $this->belongsTo(Production::class);
     }
 }

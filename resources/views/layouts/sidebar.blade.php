@@ -14,13 +14,13 @@
 
     @if (request()->routeIs('researches.*') && $researchId)
     <ul class="space-y-2">
-        <x-side-link label="Pesquisa" :href="route('researches.show', $researchId)" :active="request()->routeIs('researches.show')" wire:navigate />
-        <x-side-link label="Publicações" :href="route('researches.publications', $researchId)" :active="request()->routeIs('researches.publications*')" wire:navigate />
+        <x-side-link label="Pesquisa" icon="document-magnifying-glass" :href="route('researches.show', $researchId)" :active="request()->routeIs('researches.show')" wire:navigate />
+        <x-side-link label="Publicações" icon="book-open" :href="route('researches.publications', $researchId)" :active="request()->routeIs('researches.publications*')" wire:navigate />
         <x-side-link label="Arquivos" icon="document" :href="route('researches.files.index', $researchId)" :active="request()->routeIs('researches.files*')" wire:navigate />
-        <x-side-link label="Palavras-chave" :href="route('researches.keywords.index', $researchId)" :active="request()->routeIs('researches.keywords*')" wire:navigate />
+        <x-side-link label="Palavras-chave" icon="hashtag" :href="route('researches.keywords.index', $researchId)" :active="request()->routeIs('researches.keywords*')" wire:navigate />
         <x-side-link label="Ranking de palavras" icon="chart-bar" :href="route('researches.wordrankings.index', $researchId)" :active="request()->routeIs('researches.wordrankings*')" wire:navigate />
         <x-side-link label="Nuvem de palavras" icon="cloud" href="#" wire:navigate />
-        <x-side-link label="Contagem de palavras" :href="route('researches.wordcounts.index', $researchId)" :active="request()->routeIs('researches.wordcounts*')" wire:navigate />
+        <x-side-link label="Contagem de palavras" icon="arrow-trending-up" :href="route('researches.wordcounts.index', $researchId)" :active="request()->routeIs('researches.wordcounts*')" wire:navigate />
     </ul>
     @endif
     {{-- <ul class="space-y-2">

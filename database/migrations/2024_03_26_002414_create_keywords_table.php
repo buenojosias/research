@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('keywords', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('publication_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('production_id')->constrained()->cascadeOnDelete();
             $table->json('data');
             $table->timestamps();
         });

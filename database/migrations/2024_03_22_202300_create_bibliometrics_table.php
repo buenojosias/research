@@ -8,12 +8,9 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('research', function (Blueprint $table) {
+        Schema::create('bibliometrics', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('pid')->index();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('student_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('theme');
+            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->json('repositories');
             $table->json('types');
             $table->json('terms');
@@ -21,7 +18,6 @@ return new class extends Migration
             $table->year('start_year');
             $table->year('end_year');
             $table->json('languages');
-            $table->date('requested_at');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +25,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('research');
+        Schema::dropIfExists('bibliometrics');
     }
 };

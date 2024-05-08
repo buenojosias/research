@@ -13,14 +13,14 @@ class Internal extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'publication_id',
+        'production_id',
         'section',
         'content',
         'total_words'
     ];
 
-    public function publication(): BelongsTo
+    public function productoin(): BelongsTo
     {
-        return $this->belongsTo(Publication::class);
+        return $this->belongsTo(Production::class);
     }
 }

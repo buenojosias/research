@@ -7,60 +7,51 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ @$title ? @$title . ' - ' : '' }} {{ config('app.name', 'Research') }}</title>
-
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
     <tallstackui:script />
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="h-full font-sans antialiased bg-background-default" x-data="{ sidebar: false }">
-    <div>
-        <nav class="px-4 py-2.5 sm:py-2 bg-primary-800 fixed left-0 right-0 top-0 z-50">
-            <div class="sm:flex sm:items-center">
-                <div class="w-full sm:w-64 flex justify-start items-center">
-                    <button @click="sidebar = !sidebar"
-                        class="p-2 mr-2 text-gray-600 rounded-lg cursor-pointer md:hidden hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100">
-                        <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        <svg aria-hidden="true" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        <span class="sr-only">Toggle sidebar</span>
-                    </button>
-                    <a href="#" class="flex items-center justify-between mr-4">
-                        <x-application-logo class="w-8 fill-white" />
-                        <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Research</span>
-                    </a>
-                </div>
-                <livewire:layout.navstack />
+<body>
+    <header>
+        <div class="stack">
+            <div class="flex gap-4">
+                <x-application-logo class="h-8" />
+                <div class="text-lg font-medium text-gray-700">Entrevistas</div>
             </div>
+            <div class="flex gap-2">
+                @include('includes.header-projects')
+                <x-ts-avatar :model="auth()->user()" sm />
+            </div>
+        </div>
+        <nav>
+            <x-nav-link label="Projeto" href="#" />
+            <x-nav-link label="Bibliometria" href="#" />
+            <x-nav-link label="Entrevistas" href="#" />
+            <x-nav-link label="Produções" href="#" />
+            <x-nav-link label="Arquivos" href="#" :active="request()->routeIs('bibliometrics.files*')" />
+            <x-nav-link label="Códigos" href="#" />
+            <x-nav-dropdown label="Inserir">
+                <a href="#">Produção</a>
+                <a href="#">Entrevista</a>
+                <a href="#">Arquivo</a>
+            </x-nav-dropdown>
+            <x-nav-dropdown label="Relatórios">
+                <a href="#">Palavras-chave</a>
+                <a href="#">Contagem de palavras</a>
+                <a href="#">Ranking de palavras</a>
+                <a href="#">Nuvem de palavras</a>
+            </x-nav-dropdown>
         </nav>
-        <aside
-            class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 sm:pt-10 transition-transform  bg-white border-r border-gray-200"
-            :class="sidebar ? '' : '-translate-x-full md:translate-x-0'" aria-label="Sidenav" id="drawer-navigation">
-            @include('layouts.sidebar')
-        </aside>
-    </div>
+    </header>
 
-    <main class="pb-6 md:ml-64 h-auto pt-24 sm:pt-14 md:pt-[52px]">
-        @if (isset($header))
-            <header class="z-30 bg-white shadow w-full h-14 flex items-center fixed">
-                {{ $header }}
-            </header>
-        @endif
+    <main>
         {{ $slot }}
     </main>
+
+    @livewireScripts
     @stack('scripts')
 </body>
 

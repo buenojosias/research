@@ -29,7 +29,7 @@
             </div>
         </div>
         <x-slot name="header">
-            <th x-show="author">Autor</th>
+            <th x-show="author">Autor(es)</th>
             <th>Título</th>
             <th x-show="year">Ano</th>
             <th x-show="type">Tipo</th>
@@ -45,8 +45,13 @@
             @foreach ($publications as $publication)
                 <tr>
                     <td x-show="author">
-                        {{ Str::upper($publication->author_lastname) }}, <br />
-                        {{ $publication->author_forename }}
+                        <ul>
+                            @foreach ($publication->authors as $author)
+                                <li>
+                                    {{ $author['lastname'] }}, {{ $author['forename'] }}
+                                </li>
+                            @endforeach
+                        </ul>
                     </td>
                     <td class="!text-wrap">
                         <a href="{{ route('researches.publications.show', [$research, $publication]) }}" wire:navigate>

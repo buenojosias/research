@@ -11,7 +11,7 @@ class Keyword extends Model
     use HasFactory;
 
     protected $fillable = [
-        'publication_id',
+        'production_id',
         'data'
     ];
 
@@ -22,8 +22,8 @@ class Keyword extends Model
         ];
     }
 
-    public function publication(): BelongsTo
+    public function production(): BelongsTo
     {
-        return $this->belongsTo(Publication::class);
+        return $this->belongsTo(Production::class);
     }
 }

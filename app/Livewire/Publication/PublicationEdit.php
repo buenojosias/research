@@ -17,6 +17,8 @@ class PublicationEdit extends Component
     public $years = [];
     public $states = [];
     public $terms = [];
+    public $author = [];
+    public $authors_display = [];
 
     #[Validate('required|url')]
     public $url;
@@ -33,11 +35,8 @@ class PublicationEdit extends Component
     #[Validate('required|integer|digits:4|in_array:years.*')]
     public $year;
 
-    #[Validate('required|string')]
-    public $author_forename;
-
-    #[Validate('required|string')]
-    public $author_lastname;
+    #[Validate('required|array')]
+    public $authors = [];
 
     // #[Validate('required|string|in_array:research.types.*')]
     #[Validate('required')]
@@ -85,8 +84,7 @@ class PublicationEdit extends Component
         $this->title = $this->publication->title;
         $this->subtitle = $this->publication->subtitle;
         $this->year = $this->publication->year;
-        $this->author_forename = $this->publication->author_forename;
-        $this->author_lastname = $this->publication->author_lastname;
+        $this->authors = $this->publication->authors;
         $this->type = $this->publication->type;
         $this->language = $this->publication->language;
         $this->searched_terms = $this->publication->searched_terms;
@@ -96,6 +94,10 @@ class PublicationEdit extends Component
         $this->state_id = $this->publication->state_id;
         $this->periodical = $this->publication->periodical;
         $this->doi = $this->publication->doi;
+
+        foreach($this->authors as $author) {
+            array_push($this->authors_display, ' ' . $author['forename'] .' '. $author['lastname']);
+        }
     }
 
     public function save()
@@ -113,5 +115,22 @@ class PublicationEdit extends Component
     {
         return view('livewire.publication.publication-edit')
             ->title('Editar publicação');
+    }
+
+    public function addAuthor()
+    {
+        $this->validate([
+            'author.forename' => 'required|string',
+            'author.lastname' => 'required|string',
+        ]);
+        array_push($this->authors, [ 'forename' => $this->author['forename'], 'lastname' => $this->author['lastname'] ]);
+        array_push($this->authors_display, ' ' . $this->author['forename'] .' '. $this->author['lastname']);
+        $this->reset('author');
+    }
+
+    public function removeAuthor($key)
+    {
+        array_splice($this->authors, $key, 1);
+        array_splice($this->authors_display, $key, 1);
     }
 }

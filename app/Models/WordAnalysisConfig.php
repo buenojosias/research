@@ -11,7 +11,7 @@ class WordAnalysisConfig extends Model
     use HasFactory;
 
     protected $fillable = [
-        'research_id',
+        'bibliometric_id',
         'min_lenght',
         'combinations',
         'excluded_words',
@@ -25,8 +25,8 @@ class WordAnalysisConfig extends Model
         ];
     }
 
-    public function research(): BelongsTo
+    public function bibliometric(): BelongsTo
     {
-        return $this->belongsTo(Research::class);
+        return $this->belongsTo(Bibliometric::class);
     }
 }

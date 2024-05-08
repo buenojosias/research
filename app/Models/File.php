@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class File extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'publication_id',
+        'fileable',
         'filename',
         'path',
         'size',
@@ -25,8 +26,13 @@ class File extends Model
         ];
     }
 
-    public function publication(): BelongsTo
+    public function fileable(): MorphTo
     {
-        return $this->belongsTo(Publication::class);
+        return $this->morphTo();
     }
+
+    // public function production(): BelongsTo
+    // {
+    //     return $this->belongsTo(Production::class);
+    // }
 }

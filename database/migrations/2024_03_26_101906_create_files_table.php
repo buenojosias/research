@@ -10,7 +10,8 @@ return new class extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('publication_id')->constrained()->cascadeOnDelete();
+            $table->morphs('fileable');
+            // $table->foreignId('production_id')->constrained()->cascadeOnDelete();
             $table->string('filename');
             $table->string('path');
             $table->decimal('size', 8, 3)->comment('In megabytes');
