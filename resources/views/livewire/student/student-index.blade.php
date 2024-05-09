@@ -7,7 +7,7 @@
         <x-slot name="header">
             <th>Nome</th>
             <th>Usuário</th>
-            <th>Pesquisas</th>
+            <th>Projetos</th>
             <th width="1%"></th>
         </x-slot>
         <x-slot name="body">
@@ -15,7 +15,7 @@
                 <tr>
                     <td>{{ $student->name }}</td>
                     <td>{{ $student->user->name }}</td>
-                    <td><x-ts-link href="#" :text="$student->researches_count" color="copy" /></td>
+                    <td><x-ts-link href="#" :text="$student->projects_count" color="copy" /></td>
                     <td>
                         <x-ts-link href="#" icon="chevron-right" color="copy" />
                     </td>

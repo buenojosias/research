@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire\Research;
+namespace App\Livewire\Bibliometric;
 
 use App\Models\Publication;
 use App\Models\Research;
 use Livewire\Component;
 
-class ResearchShow extends Component
+class BibliometricShow extends Component
 {
     public $research;
 
@@ -28,7 +28,7 @@ class ResearchShow extends Component
 
     public function render()
     {
-        return view('livewire.research.research-show')
+        return view('livewire.bibliometric.bibliometric-show')
             ->title($this->research->title);
     }
 }

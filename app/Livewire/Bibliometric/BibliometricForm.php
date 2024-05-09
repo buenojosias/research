@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Research;
+namespace App\Livewire\Bibliometric;
 
 use App\Enums\PublicationTypeEnum;
 use App\Models\Research;
@@ -8,7 +8,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use TallStackUi\Traits\Interactions;
 
-class ResearchForm extends Component
+class BibliometricForm extends Component
 {
     use Interactions;
 
@@ -85,7 +85,7 @@ class ResearchForm extends Component
 
     public function render()
     {
-        return view('livewire.research.research-form')
+        return view('livewire.bibliometric.bibliometric-form')
             ->title($this->research ? 'Editar pesquisa' : 'Nova pesquisa');
     }
 

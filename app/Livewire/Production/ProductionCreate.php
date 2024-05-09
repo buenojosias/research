@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire\Publication;
+namespace App\Livewire\Production;
 
 use App\Models\Research;
 use App\Models\State;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
-class PublicationCreate extends Component
+class ProductionCreate extends Component
 {
     public $research;
     public $repositories;
@@ -123,7 +123,7 @@ class PublicationCreate extends Component
 
     public function render()
     {
-        return view('livewire.publication.publication-create')
+        return view('livewire.production.production-create')
             ->title('Nova publicação');
     }
 }

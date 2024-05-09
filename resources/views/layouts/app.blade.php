@@ -19,7 +19,13 @@
         <div class="stack">
             <div class="flex gap-4">
                 <x-application-logo class="h-8" />
-                <div class="text-lg font-medium text-gray-700">Entrevistas</div>
+                <div class="text-lg font-medium text-gray-700">
+                    @if (request()->routeIs('*bibliometric*'))
+                        Bibliometria
+                    @elseif (request()->routeIs('*interview*'))
+                        Entrevistas
+                    @endif
+                </div>
             </div>
             <div class="flex gap-2">
                 @include('includes.header-projects')
@@ -27,23 +33,36 @@
             </div>
         </div>
         <nav>
-            <x-nav-link label="Projeto" href="#" />
-            <x-nav-link label="Bibliometria" href="#" />
-            <x-nav-link label="Entrevistas" href="#" />
-            <x-nav-link label="Produções" href="#" />
-            <x-nav-link label="Arquivos" href="#" :active="request()->routeIs('bibliometrics.files*')" />
-            <x-nav-link label="Códigos" href="#" />
-            <x-nav-dropdown label="Inserir">
-                <a href="#">Produção</a>
-                <a href="#">Entrevista</a>
-                <a href="#">Arquivo</a>
-            </x-nav-dropdown>
-            <x-nav-dropdown label="Relatórios">
-                <a href="#">Palavras-chave</a>
-                <a href="#">Contagem de palavras</a>
-                <a href="#">Ranking de palavras</a>
-                <a href="#">Nuvem de palavras</a>
-            </x-nav-dropdown>
+            @if (request()->routeIs('project.*'))
+                <x-nav-link label="Projetos" :href="route('projects.index')" />
+            @endif
+            @if (request()->routeIs('*bibliometric*'))
+                <x-nav-link label="Produções" href="#" />
+                <x-nav-link label="Arquivos" href="#" :active="request()->routeIs('bibliometrics.files*')" />
+                <x-nav-link label="Códigos" href="#" />
+                <x-nav-dropdown label="Inserir">
+                    <a href="#">Produção</a>
+                    <a href="#">Entrevista</a>
+                    <a href="#">Arquivo</a>
+                </x-nav-dropdown>
+                <x-nav-dropdown label="Relatórios">
+                    <a href="#">Palavras-chave</a>
+                    <a href="#">Contagem de palavras</a>
+                    <a href="#">Ranking de palavras</a>
+                    <a href="#">Nuvem de palavras</a>
+                </x-nav-dropdown>
+            @endif
+            @if (request()->routeIs('project.show'))
+                <x-nav-link label="Entrevistas" href="#" />
+                <x-nav-link label="Bibliometria" href="#" />
+            @elseif (request()->routeIs('project.bibliometric*'))
+                <x-nav-link label="Entrevistas" href="#" />
+            @elseif (request()->routeIs('project.interview*'))
+                <x-nav-link label="Bibliometria" href="#" />
+            @else
+                <x-nav-link label="Estudantes" href="{{ route('students.index') }}" />
+                <x-nav-link label="Projetos" href="{{ route('projects.index') }}" />
+            @endif
         </nav>
     </header>
 

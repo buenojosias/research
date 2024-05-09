@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ProjectScope;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+#[ScopedBy(ProjectScope::class)]
 class Project extends Model
 {
     use HasFactory, SoftDeletes;
@@ -38,8 +40,13 @@ class Project extends Model
         return $this->belongsTo(Student::class);
     }
 
-    public function bibliometrics(): HasMany
+    public function bibliometric(): HasOne
     {
-        return $this->hasMany(Bibliometric::class);
+        return $this->hasOne(Bibliometric::class);
+    }
+
+    public function productions(): HasManyThrough
+    {
+        return $this->hasManyThrough(Production::class, Bibliometric::class);
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire\Publication;
+namespace App\Livewire\Production;
 
 use App\Models\Publication;
 use App\Models\Research;
 use Livewire\Component;
 
-class PublicationShow extends Component
+class ProductionShow extends Component
 {
     public $research;
     public $publication;
@@ -23,7 +23,7 @@ class PublicationShow extends Component
 
     public function render()
     {
-        return view('livewire.publication.publication-show')
+        return view('livewire.production.production-show')
             ->title($this->publication->title);
     }
 }

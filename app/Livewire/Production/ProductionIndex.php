@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire\Publication;
+namespace App\Livewire\Production;
 
 use App\Enums\RegionEnum;
 use App\Models\Research;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
-class PublicationIndex extends Component
+class ProductionIndex extends Component
 {
     #[Url(except: '')]
     public $q = '';
@@ -91,7 +91,7 @@ class PublicationIndex extends Component
                 $this->once = false;
             }
 
-        return view('livewire.publication.publication-index')
+        return view('livewire.production.production-index')
             ->title('Publicações da pesquisa');
     }
 

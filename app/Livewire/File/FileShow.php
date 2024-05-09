@@ -31,7 +31,7 @@ class FileShow extends Component
     {
         $this->research = $research;
 
-        $this->publication = $research->publications()
+        $this->publication = $research->productions()
             ->select(['id', 'title', 'subtitle', 'year', 'author_lastname'])
             ->with('file')
             ->findOrFail($publication);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Publication;
+namespace App\Livewire\Production;
 
 use App\Models\Research;
 use App\Models\State;
@@ -8,7 +8,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use TallStackUi\Traits\Interactions;
 
-class PublicationEdit extends Component
+class ProductionEdit extends Component
 {
     use Interactions;
 
@@ -113,7 +113,7 @@ class PublicationEdit extends Component
     }
     public function render()
     {
-        return view('livewire.publication.publication-edit')
+        return view('livewire.production.production-edit')
             ->title('Editar publicação');
     }
 

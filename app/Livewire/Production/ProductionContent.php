@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire\Publication;
+namespace App\Livewire\Production;
 
 use App\Models\Research;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use TallStackUi\Traits\Interactions;
 
-class PublicationContent extends Component
+class ProductionContent extends Component
 {
     use Interactions;
 
@@ -87,6 +87,6 @@ class PublicationContent extends Component
 
     public function render()
     {
-        return view('livewire.publication.publication-content');
+        return view('livewire.production.production-content');
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire\Research;
+namespace App\Livewire\Bibliometric;
 
 use App\Models\Research;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-class ResearchIndex extends Component
+class BibliometricIndex extends Component
 {
     #[Title('Pesquisas')]
 
@@ -17,7 +17,7 @@ class ResearchIndex extends Component
             ->withCount('publications')
             ->get();
 
-        return view('livewire.research.research-index', compact(['researches']));
+        return view('livewire.bibliometric.bibliometric-index', compact(['researches']));
     }
 }
 
