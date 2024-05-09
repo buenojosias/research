@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Scopes\ProjectScope;
+use App\Models\Scopes\UserScope;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-#[ScopedBy(ProjectScope::class)]
+#[ScopedBy(UserScope::class)]
 class Project extends Model
 {
     use HasFactory, SoftDeletes;

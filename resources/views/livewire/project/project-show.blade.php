@@ -14,6 +14,9 @@
                     @if ($project->student)
                         <x-detail label="Estudante" :value="$project->student->name" />
                     @endif
+                    @if (auth()->user()->admin)
+                        <x-detail label="Usuário" :value="$project->user->name" />
+                    @endif
                 </div>
                 <div class="card-footer">
                     {{-- <x-ts-link :href="route('researches.edit', $research)" wire:navigate>Editar</x-ts-link> --}}

@@ -13,6 +13,7 @@ class ProjectIndex extends Component
     {
         $this->projects = Project::query()
             ->with('student')
+            ->when(auth()->user()->admin, fn($q) => $q->with('user'))
             ->withCount('bibliometric')
             ->get();
     }

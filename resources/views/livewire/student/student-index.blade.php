@@ -6,7 +6,9 @@
     <x-table>
         <x-slot name="header">
             <th>Nome</th>
-            <th>Usuário</th>
+            @if (auth()->user()->admin)
+                <th>Usuário</th>
+            @endif
             <th>Projetos</th>
             <th width="1%"></th>
         </x-slot>
@@ -14,7 +16,9 @@
             @foreach ($students as $student)
                 <tr>
                     <td>{{ $student->name }}</td>
-                    <td>{{ $student->user->name }}</td>
+                    @if (auth()->user()->admin)
+                        <td>{{ $student->user->name }}</td>
+                    @endif
                     <td><x-ts-link href="#" :text="$student->projects_count" color="copy" /></td>
                     <td>
                         <x-ts-link href="#" icon="chevron-right" color="copy" />

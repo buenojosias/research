@@ -8,18 +8,11 @@ use Livewire\Component;
 
 class StudentIndex extends Component
 {
-    public $sort_field;
-
-    public $sort_order;
-
     public function render()
     {
         $students = Student::query()
-            ->with('user')
             ->withCount('projects')
-            ->when($this->sort_field, function($q) {
-                $q->orderBy($this->sort_field, $this->sort_order ?? 'asc');
-            })
+            ->when(auth()->user()->admin, fn($q) => $q->with('user'))
             ->get();
 
         return view('livewire.student.student-index', compact(['students']))

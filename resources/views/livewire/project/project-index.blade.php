@@ -9,6 +9,9 @@
             <th>Data</th>
             <th>Tema</th>
             <th>Estudante</th>
+            @if (auth()->user()->admin)
+                <th>Usuário</th>
+            @endif
             <th width="1"></th>
         </x-slot>
         <x-slot name="body">
@@ -19,6 +22,9 @@
                         <a href="{{ route('project.show', $project) }}">{{ $project->theme }}</a>
                     </td>
                     <td>{{ $project->student->name ?? '' }}</td>
+                    @if (auth()->user()->admin)
+                        <td>{{ $project->user->name }}</td>
+                    @endif
                     <td class="flex space-x-2">
                         @if ($project->bibliometric_count > 0)
                             <x-ts-link href="#" icon="book-open" />
