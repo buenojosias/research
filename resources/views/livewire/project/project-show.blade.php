@@ -36,15 +36,13 @@
                         <x-detail label="Resultados encontrados" :value="$project->productions_count" />
                     </div>
                     <div class="card-footer">
-                        {{-- <x-ts-link :href="route('researches.edit', $research)" wire:navigate>Editar</x-ts-link> --}}
-                        <x-ts-link href="#" wire:navigate>Acessar</x-ts-link>
-                        <x-ts-link href="#" wire:navigate>Editar</x-ts-link>
+                        <x-ts-link :href="route('project.bibliometrics.show', $project)" wire:navigate>Acessar</x-ts-link>
+                        <x-ts-link :href="route('project.bibliometrics.edit', $project)" wire:navigate>Editar</x-ts-link>
                     </div>
                 @else
                     Bibliometria não encontrada
                     <div class="card-footer">
-                        {{-- <x-ts-link :href="route('researches.edit', $research)" wire:navigate>Editar</x-ts-link> --}}
-                        <x-ts-link href="#" wire:navigate>Adicionar bibliometria</x-ts-link>
+                        <x-ts-link :href="route('project.bibliometrics.create', $project)" wire:navigate>Adicionar bibliometria</x-ts-link>
                     </div>
                 @endif
             </x-ts-card>

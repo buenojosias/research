@@ -27,7 +27,7 @@
                     @endif
                     <td class="flex space-x-2">
                         @if ($project->bibliometric_count > 0)
-                            <x-ts-link href="#" icon="book-open" />
+                            <x-ts-link :href="route('project.bibliometrics.show', $project)" icon="book-open" />
                         @else
                             <x-ts-icon name="book-open" class="h-4" color="gray" />
                         @endif

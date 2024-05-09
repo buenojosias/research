@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\FileController;
+use App\Livewire\Bibliometric\BibliometricForm;
+use App\Livewire\Bibliometric\BibliometricShow;
 use App\Livewire\Dashboard\DashboardIndex;
 use App\Livewire\Project\ProjectCreate;
 use App\Livewire\Project\ProjectIndex;
@@ -19,10 +21,12 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('projetos', ProjectIndex::class)->name('projects.index');
     Route::get('p/{project}', ProjectShow::class)->name('project.show');
-    // Route::get('p/{project}/bibliometria')->name('project.bibliometric');
 
-    Route::name('project.bibliometric.')->prefix('p/{project}/b/{bibliometric}')->group(function() {
-        Route::get('/', function() { return 'hi'; })->name('index');
+    Route::get('p/{project}/bibiometria', BibliometricShow::class)->name('project.bibliometrics.show');
+
+    Route::name('project.bibliometrics.')->prefix('p/{project}/b')->group(function() {
+        Route::get('nova', BibliometricForm::class)->name('create');
+        Route::get('editar', BibliometricForm::class)->name('edit');
     });
 
     // Route::get('pesquisas', \App\Livewire\Research\ResearchIndex::class )->name('researches');

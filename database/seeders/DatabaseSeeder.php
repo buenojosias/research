@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             StateSeeder::class,
             StudentSeeder::class,
             ProjectSeeder::class,
+            BibliometricSeeder::class,
             ProductionSeeder::class,
             InternalSeeder::class,
         ]);

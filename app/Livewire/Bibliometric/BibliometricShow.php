@@ -2,25 +2,25 @@
 
 namespace App\Livewire\Bibliometric;
 
-use App\Models\Publication;
-use App\Models\Research;
+use App\Models\Project;
 use Livewire\Component;
 
 class BibliometricShow extends Component
 {
-    public $research;
+    public $project;
+    public $bibliometric;
 
-    public $publications;
+    public $productions;
 
     public $types;
 
-    public function mount(Research $research)
+    public function mount(Project $project)
     {
-        $this->research = $research;
-        $this->research->period = $research->start_year . ' - '. $research->end_year;
-        $this->research->load('student');
+        $this->project = $project;
+        $this->bibliometric = $project->bibliometric;
+        $this->bibliometric->period = $this->bibliometric->start_year . ' - '. $this->bibliometric->end_year;
 
-        $this->types = $research->publications()
+        $this->types = $this->bibliometric->productions()
             ->select('type', \DB::raw('COUNT(*) as count'))
             ->groupBy('type')
             ->get();
@@ -29,6 +29,6 @@ class BibliometricShow extends Component
     public function render()
     {
         return view('livewire.bibliometric.bibliometric-show')
-            ->title($this->research->title);
+            ->title('Bibliometria');
     }
 }

@@ -37,6 +37,7 @@
                 <x-nav-link label="Projetos" :href="route('projects.index')" />
             @endif
             @if (request()->routeIs('*bibliometric*'))
+                <x-nav-link label="Projeto" :href="route('project.show', request()->route()->project)" />
                 <x-nav-link label="Produções" href="#" />
                 <x-nav-link label="Arquivos" href="#" :active="request()->routeIs('bibliometrics.files*')" />
                 <x-nav-link label="Códigos" href="#" />
@@ -54,12 +55,13 @@
             @endif
             @if (request()->routeIs('project.show'))
                 <x-nav-link label="Entrevistas" href="#" />
-                <x-nav-link label="Bibliometria" href="#" />
+                <x-nav-link label="Bibliometria" :href="route('project.bibliometrics.show', request()->route()->project)" />
             @elseif (request()->routeIs('project.bibliometric*'))
                 <x-nav-link label="Entrevistas" href="#" />
             @elseif (request()->routeIs('project.interview*'))
-                <x-nav-link label="Bibliometria" href="#" />
+                <x-nav-link label="Bibliometria" :href="route('project.bibliometrics.show', request()->route()->project)" />
             @else
+                <x-nav-link label="Dashboard" href="{{ route('dashboard') }}" />
                 <x-nav-link label="Estudantes" href="{{ route('students.index') }}" />
                 <x-nav-link label="Projetos" href="{{ route('projects.index') }}" />
             @endif

@@ -2,18 +2,12 @@
     <x-ts-toast />
     <div class="header">
         <div>
-            <h1>{{ $research ? 'Editar' : 'Nova' }} pesquisa</h1>
+            <h1>{{ $bibliometric ? 'Editar' : 'Adicionar' }} bibliometria</h1>
         </div>
     </div>
+    <x-ts-errors />
     <form wire:submit="save">
         <x-ts-card class="lg:grid grid-cols-6 gap-4 lg:space-y-0">
-            <div class="col-span-3">
-                <x-ts-select.styled wire:model="student_id" label="Estudante pesquisador" placeholder="Selecione uma opção"
-                    :options="$students" select="label:name|value:id" />
-            </div>
-            <div class="col-span-3">
-                <x-ts-input wire:model="theme" label="Tema da pesquisa *" />
-            </div>
             <div class="col-span-3">
                 <x-ts-tag wire:model="repositories" label="Repositórios *" hint="Separe os itens com vírgula" />
             </div>
@@ -22,7 +16,7 @@
                     :options="$avaliable_types" multiple />
             </div>
             <div class="col-span-6">
-                <x-ts-tag wire:model="terms" label="Termos para pesquisar *" hint="Separe os itens com vírgula" />
+                <x-ts-tag wire:model="terms" label="Palavras pesquisadas *" hint="Separe os itens com vírgula" />
             </div>
             <div class="col-span-3">
                 <x-ts-tag wire:model="combinations" label="Combinações *" hint="Ex: A+B, A+C, B+C" />
@@ -36,12 +30,9 @@
             <div class="col-span-2">
                 <x-ts-number wire:model="end_year" label="Ano final *" />
             </div>
-            <div class="col-span-2">
-                <x-ts-date wire:model="requested_at" label="Data da solicitação *" :max-date="now()" />
-            </div>
             <x-slot:footer>
-                @if ($research)
-                    <x-ts-button type="button" :href="route('researches.show', $research)" wire:navigate text="Ir para pesquisa" outline />
+                @if ($bibliometric)
+                    <x-ts-button type="button" :href="route('project.bibliometrics.show', $bibliometric)" wire:navigate text="Ir para bibliometria" outline />
                 @endif
                 <x-ts-button type="submit" text="Salvar" />
             </x-slot:footer>

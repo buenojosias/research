@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('bibliometrics', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->json('repositories');
             $table->json('types');
             $table->json('terms');

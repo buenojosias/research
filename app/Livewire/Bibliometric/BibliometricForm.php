@@ -2,8 +2,9 @@
 
 namespace App\Livewire\Bibliometric;
 
-use App\Enums\PublicationTypeEnum;
-use App\Models\Research;
+use App\Enums\ProductionTypeEnum;
+use App\Models\Project;
+use App\Models\Student;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use TallStackUi\Traits\Interactions;
@@ -12,20 +13,14 @@ class BibliometricForm extends Component
 {
     use Interactions;
 
-    public $research;
+    public $project;
+
+    public $bibliometric;
 
     public $id;
 
-    public $pid;
-
     #[Validate('required|integer')]
     public $user_id;
-
-    #[Validate('nullable|integer')]
-    public $student_id;
-
-    #[Validate('required|string|min:5')]
-    public $theme;
 
     #[Validate('required:array')]
     public $repositories = [];
@@ -48,59 +43,51 @@ class BibliometricForm extends Component
     #[Validate('required|array')]
     public $languages = ['Portugês'];
 
-    #[Validate('required|date|before_or_equal:now')]
-    public $requested_at;
 
-    public $students = [];
     public $avaliable_types = [];
     public int $current_year;
 
-    public function mount($research = null)
+    public function mount(Project $project)
     {
+        $this->project = $project;
         $this->user_id = auth()->user()->id;
 
-        if($research) {
-            $this->research = Research::where('pid', $research)->firstOrFail();
-            $this->id = $this->research->id;
-            $this->pid = $this->research->pid;
-            $this->student_id = $this->research->student_id;
-            $this->theme = $this->research->theme;
-            $this->repositories = $this->research->repositories;
-            $this->types = $this->research->types;
-            $this->terms = $this->research->terms;
-            $this->combinations = $this->research->combinations;
-            $this->start_year = $this->research->start_year;
-            $this->end_year = $this->research->end_year;
-            $this->languages = $this->research->languages;
-            $this->requested_at = $this->research->requested_at;
+        if($this->bibliometric = $project->bibliometric) {
+            $this->id = $this->bibliometric->id;
+            $this->student_id = $this->bibliometric->student_id;
+            $this->repositories = $this->bibliometric->repositories;
+            $this->types = $this->bibliometric->types;
+            $this->terms = $this->bibliometric->terms;
+            $this->combinations = $this->bibliometric->combinations;
+            $this->start_year = $this->bibliometric->start_year;
+            $this->end_year = $this->bibliometric->end_year;
+            $this->languages = $this->bibliometric->languages;
         } else {
-            $this->research = null;
+            $this->bibliometric = null;
             $this->requested_at = date('Y-m-d');
         }
 
-        $this->students = auth()->user()->students()->select(['id', 'name'])->get()->toArray();
-        $this->avaliable_types = PublicationTypeEnum::cases();
+        $this->avaliable_types = ProductionTypeEnum::cases();
         $this->current_year = intval(date('Y'));
     }
 
     public function render()
     {
         return view('livewire.bibliometric.bibliometric-form')
-            ->title($this->research ? 'Editar pesquisa' : 'Nova pesquisa');
+            ->title($this->bibliometric ? 'Editar bibliometria' : 'Adicionar bibliometria');
     }
 
     public function save()
     {
         $data = $this->validate();
 
-        if($this->research) {
-            $this->research->update($data);
-            $this->toast()->success('Salvo', 'Informações salvas com sucesso.')->send();
+        if($this->bibliometric) {
+            $this->bibliometric->update($data);
+            $this->toast()->success('Salvo', 'Bibliometria salva com sucesso.')->send();
         } else {
-            $data['pid'] = $this->pid ?? substr(time(), 1);
-            $this->research = Research::create($data);
-            session()->flash('status', 'Pesquisa criada com sucesso.');
-            $this->redirectRoute('researches.show', $this->research, navigate: true);
+            $this->bibliometric = $this->project->bibliometric()->create($data);
+            session()->flash('status', 'Bibliometria adicionada com sucesso.');
+            $this->redirectRoute('project.bibliometrics.show', $this->project, navigate: true);
         }
 
         // try {

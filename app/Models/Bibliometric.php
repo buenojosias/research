@@ -16,6 +16,7 @@ class Bibliometric extends Model
 
     protected $fillable = [
         'project_id',
+        'user_id',
         'repositories',
         'types',
         'terms',
@@ -39,6 +40,11 @@ class Bibliometric extends Model
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function productions(): HasMany
@@ -66,7 +72,7 @@ class Bibliometric extends Model
         return $this->hasManyThrough(Keyword::class, Production::class);
     }
 
-    public function WordAnalysisConfig(): HasOne
+    public function wordAnalysisConfig(): HasOne
     {
         return $this->hasOne(WordAnalysisConfig::class);
     }

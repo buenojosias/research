@@ -1,29 +1,27 @@
 <section>
     <div class="header">
         <div>
-            <h1>{{ $research->theme }}</h1>
+            <h1>Bibliometria</h1>
+            <h2>{{ $project->theme }}</h2>
         </div>
     </div>
     @if (session('status'))
-        <x-ts-alert :text="session('status')" color="green" close />
+        <x-ts-alert :text="session('status')" color="teal" close />
     @endif
     <div class="lg:grid grid-cols-5 gap-6">
         <div class="col-span-2 mb-6">
             <x-ts-card>
                 <div class="detail">
-                    <x-detail label="Data da solicitação" :value="$research->requested_at->format('d/m/Y')" />
-                    @if ($research->student)
-                        <x-detail label="Estudante" :value="$research->student->name" />
-                    @endif
-                    <x-detail label="Repositórios" :value="$research->repositories" />
-                    <x-detail label="Tipos de publicação" :value="$research->types" />
-                    <x-detail label="Termos" :value="$research->terms" />
-                    <x-detail label="Combinações" :value="$research->combinations" />
-                    <x-detail label="Intervalo de anos" :value="$research->period" />
-                    <x-detail label="Idioma(s)" :value="$research->languages" />
+                    <x-detail label="Data da solicitação" :value="$project->requested_at->format('d/m/Y')" />
+                    <x-detail label="Repositórios" :value="$bibliometric->repositories" />
+                    <x-detail label="Tipos de publicação" :value="$bibliometric->types" />
+                    <x-detail label="Termos" :value="$bibliometric->terms" />
+                    <x-detail label="Combinações" :value="$bibliometric->combinations" />
+                    <x-detail label="Intervalo de anos" :value="$bibliometric->period" />
+                    <x-detail label="Idioma(s)" :value="$bibliometric->languages" />
                 </div>
                 <div class="card-footer">
-                    <x-ts-link :href="route('researches.edit', $research)" wire:navigate>Editar</x-ts-link>
+                    {{-- <x-ts-link :href="route('researches.edit', $research)" wire:navigate>Editar</x-ts-link> --}}
                 </div>
             </x-ts-card>
         </div>
@@ -43,8 +41,8 @@
                     @endforeach
                 @endslot
                 @slot('footer')
-                    <x-ts-link :href="route('researches.publications', $research)" wire:navigate>Ver todas</x-ts-link>
-                    <x-ts-link :href="route('researches.publications.create', $research)" wire:navigate>Adicionar nova</x-ts-link>
+                    {{-- <x-ts-link :href="route('researches.publications', $research)" wire:navigate>Ver todas</x-ts-link> --}}
+                    {{-- <x-ts-link :href="route('researches.publications.create', $research)" wire:navigate>Adicionar nova</x-ts-link> --}}
                 @endslot
             </x-table>
 
