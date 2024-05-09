@@ -3,11 +3,19 @@
 namespace App\Livewire\Project;
 
 use App\Models\Project;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class ProjectShow extends Component
 {
     public $project;
+
+    #[On('project-updated')]
+    public function projectUpdated()
+    {
+        session()->flash('status', 'Projeto atualizado com sucesso.');
+        $this->dispatch('$refresh');
+    }
 
     public function mount($project)
     {
@@ -16,7 +24,8 @@ class ProjectShow extends Component
             ->withCount('productions')
             ->findOrFail($project);
 
-        $this->project->bibliometric->period = $this->project->bibliometric->start_year . ' - '. $this->project->bibliometric->end_year;
+        if (isset($project->bibliometric))
+            $this->project->bibliometric->period = $this->project->bibliometric->start_year . ' - '. $this->project->bibliometric->end_year;
     }
 
     public function render()

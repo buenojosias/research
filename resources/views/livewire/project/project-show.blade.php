@@ -1,7 +1,10 @@
 <section>
     <x-page-header title="Projeto" :subtitle="$project->theme">
-        <x-ts-button text="Editar" href="#" wire:navigate />
+        <x-ts-button text="Editar" x-on:click="$wire.dispatch('open-form-modal')" />
     </x-page-header>
+    @if (session('status'))
+        <x-ts-alert :text="session('status')" color="teal" close />
+    @endif
     <div class="lg:grid grid-cols-3 gap-6">
         <div class="mb-6">
             <x-ts-card header="Sobre o projeto">
@@ -17,7 +20,6 @@
                 </div>
             </x-ts-card>
         </div>
-
         <div class="mb-6">
             <x-ts-card header="Bibliometria">
                 @if ($project->bibliometric)
@@ -51,4 +53,5 @@
             </x-ts-card>
         </div>
     </div>
+    @livewire('project.project-form', ['project' => $project])
 </section>

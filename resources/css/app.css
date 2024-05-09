@@ -83,7 +83,7 @@ th, td {
 }
 
 .detail {
-    @apply py-2 space-y-4;
+    @apply space-y-4;
 }
 
 .detail > div {

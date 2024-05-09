@@ -1,7 +1,7 @@
 <div>
     <div class="header">
         <h1>Projetos</h1>
-        <x-ts-button text="Novo projeto" :href="route('projects.create')" wire:navigate />
+        <x-ts-button text="Novo projeto" x-on:click="$wire.dispatch('open-form-modal')" />
     </div>
 
     <x-table>
@@ -31,4 +31,5 @@
             @endforeach
         </x-slot>
     </x-table>
+    @livewire('project.project-form')
 </div>

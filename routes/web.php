@@ -18,7 +18,6 @@ Route::middleware(['auth'])->group(function() {
     Route::get('estudantes', StudentIndex::class )->name('students.index');
 
     Route::get('projetos', ProjectIndex::class)->name('projects.index');
-    Route::get('projetos/novo', ProjectCreate::class)->name('projects.create');
     Route::get('p/{project}', ProjectShow::class)->name('project.show');
     // Route::get('p/{project}/bibliometria')->name('project.bibliometric');
 
