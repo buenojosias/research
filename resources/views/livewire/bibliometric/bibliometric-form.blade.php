@@ -1,10 +1,6 @@
 <section>
     <x-ts-toast />
-    <div class="header">
-        <div>
-            <h1>{{ $bibliometric ? 'Editar' : 'Adicionar' }} bibliometria</h1>
-        </div>
-    </div>
+    <x-page-header :title="$bibliometric ? 'Editar bibliometria' : 'Adicionar bibliometria'" />
     <x-ts-errors />
     <form wire:submit="save">
         <x-ts-card class="lg:grid grid-cols-6 gap-4 lg:space-y-0">

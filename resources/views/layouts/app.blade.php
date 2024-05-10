@@ -38,11 +38,11 @@
             @endif
             @if (request()->routeIs('*bibliometric*'))
                 <x-nav-link label="Projeto" :href="route('project.show', request()->route()->project)" />
-                <x-nav-link label="Produções" href="#" />
+                <x-nav-link label="Produções" :href="route('project.bibliometrics.productions.index', request()->route()->project)" :active="request()->routeIs('*productions*')" />
                 <x-nav-link label="Arquivos" href="#" :active="request()->routeIs('bibliometrics.files*')" />
                 <x-nav-link label="Códigos" href="#" />
                 <x-nav-dropdown label="Inserir">
-                    <a href="#">Produção</a>
+                    <a href="{{ route('project.bibliometrics.productions.create', request()->route()->project) }}">Produção</a>
                     <a href="#">Entrevista</a>
                     <a href="#">Arquivo</a>
                 </x-nav-dropdown>

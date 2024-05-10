@@ -2,22 +2,26 @@
 
 namespace App\Livewire\Production;
 
-use App\Models\Research;
+use App\Models\Project;
 use App\Models\State;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class ProductionCreate extends Component
 {
-    public $research;
+    public $project;
+    public $bibliometric;
     public $repositories;
     public $years = [];
     public $states = [];
 
-    #[Validate('required|url')]
+    public $author = [];
+    public $authors_display = [];
+
+    #[Validate('nullable|url')]
     public $url;
 
-    #[Validate('required|string|in_array:research.repositories.*')]
+    #[Validate('nullable|string|in_array:bibliometric.repositories.*')]
     public $repository;
 
     #[Validate('required|string')]
@@ -29,16 +33,19 @@ class ProductionCreate extends Component
     #[Validate('required|integer|digits:4|in_array:years.*')]
     public $year;
 
-    #[Validate('required|string')]
-    public $author_forename;
+    #[Validate('required|array')]
+    public $authors = [];
 
-    #[Validate('required|string')]
-    public $author_lastname;
+    // #[Validate('required|string')]
+    // public $author_forename;
 
-    #[Validate('required|string|in_array:research.types.*')]
+    // #[Validate('required|string')]
+    // public $author_lastname;
+
+    #[Validate('required|string|in_array:bibliometric.types.*')]
     public $type;
 
-    #[Validate('required|string|in_array:research.languages.*')]
+    #[Validate('required|string|in_array:bibliometric.languages.*')]
     public $language;
 
     #[Validate('required|array')]
@@ -66,11 +73,12 @@ class ProductionCreate extends Component
 
     public $abstract;
 
-    public function mount(Research $research)
+    public function mount(Project $project)
     {
-        // $this->research = $research;
+        $this->project = $project;
+        $this->bibliometric = $project->bibliometric;
 
-        for($i = $this->research->start_year; $i <= $this->research->end_year; $i++) {
+        for($i = intval($this->bibliometric->start_year); $i <= $this->bibliometric->end_year; $i++) {
             array_push($this->years, $i);
         }
 
@@ -84,15 +92,15 @@ class ProductionCreate extends Component
         // $abstract = $this->abstract ?? null;
 
         \DB::beginTransaction();
-        $createdPublication = $this->research->publications()->create($data);
-        $createdKeywords = $createdPublication->keywords()->create(['data' => $keywords]);
+        $createdProduction = $this->bibliometric->productions()->create($data);
+        $createdKeywords = $createdProduction->keywords()->create(['data' => $keywords]);
         if($abstractData = $this->serializeAbstract())
-            $createdAbstract = $createdPublication->abstract()->create($abstractData);
+            $createdAbstract = $createdProduction->abstract()->create($abstractData);
 
-        if($createdPublication && $createdKeywords) {
+        if($createdProduction && $createdKeywords) {
             \DB::commit();
-            session()->flash('status', 'Publicação salva com sucesso.');
-            $this->redirectRoute('researches.publications.show', [$this->research, $createdPublication], navigate: true);
+            session()->flash('status', 'Produção adicionada com sucesso.');
+            $this->redirectRoute('project.bibliometrics.productions.show', [$this->project, $createdProduction], navigate: true);
         } else {
             \DB::rollBack();
             dump('deu ruim');
@@ -113,7 +121,7 @@ class ProductionCreate extends Component
             return null;
 
         $data = [];
-        $data['section'] = 'abstract';
+        $data['section'] = 'Resumo';
         $data['content'] = $this->abstract ?? null;
         $diacritics = 'aàȁáâǎãāăȃȧäåẚảạḁąᶏậặầằắấǻẫẵǡǟẩẳⱥæǽǣᴂꬱꜳꜵꜷꜹꜻꜽɐɑꭤᶐꬰɒͣᵃªᵄᵆᵅᶛᴬᴭᴀᴁₐbḃƅƀᵬɓƃḅḇᶀꞗȸßẞꞵꞛꞝᵇᵝᴮᴯʙᴃᵦcćĉčċƈçḉɕꞔꞓȼ¢ʗᴐᴒɔꜿᶗꝢꝣ©ͨᶜᶝᵓᴄdďḋᵭðđɗᶑḓḍḏḑᶁɖȡꝱǳʣǆʤʥȸǲǅꝺẟƍƌͩᵈᶞᵟᴰᴅᴆeèȅéēêěȇĕẽėëẻḙḛẹȩęᶒⱸệḝềḕếḗễểɇəǝɘɚᶕꬲꬳꬴᴔꭁꭂ•ꜫɛᶓȝꜣꝫɜᴈᶔɝɞƩͤᵉᵊᵋᵌᶟᴱᴲᴇⱻₑₔfẜẝƒꬵḟẛᶂᵮꞙꝭꝼʩꟻﬀﬁﬂﬃﬄᶠꜰgǵḡĝǧğġģǥꬶᵷɡᶃɠꞡᵍᶢᴳɢʛhħĥȟḣḧɦɧḫḥẖḩⱨꜧꞕƕɥʮʯͪʰʱꭜᶣᵸꟸᴴʜₕiìȉíīĩîǐȋĭïỉɨḭịįᶖḯıɩɪꭠꭡᴉᵻᵼĳỻİꟾꟷͥⁱᶤᶦᵎᶧᶥᴵᵢjȷĵǰɉɟʝĳʲᶡᶨᴶᴊⱼkḱǩꝁꝃꝅƙḳḵⱪķᶄꞣʞĸᵏᴷᴋₖlĺľŀłꝉƚⱡɫꬷꬸɬꬹḽḷḻļɭȴᶅꝲḹꞎꝇꞁỻǈǉʪʫɮˡᶩᶪꭝꭞᶫᴸʟᴌₗmḿṁᵯṃɱᶆꝳꬺꭑᴟɯɰꟺꟿꟽͫᵐᶬᶭᴹᴍₘnǹńñňŉṅᵰṇṉṋņŋɳɲƞꬻꬼȵᶇꝴꞃꞑꞥᴝᴞǋǌⁿᵑᶯᶮᶰᴺᴻɴᴎₙoᴏᴑòȍóǿőōõôȏǒŏȯöỏơꝍọǫⱺꝋɵøᴓǭộợồṑờốṍṓớỗỡṏȭȱȫổởœɶƣɸƍꝏʘꬽꬾꬿꭀꭁꭂꭃꭄꭢꭣ∅ͦᵒᶱºꟹᶲᴼᴽₒpṕṗꝕꝓᵽᵱᶈꝑþꝥꝧƥƪƿȹꟼᵖᴾᴘᴩᵨₚqʠɋꝙꝗȹꞯʘθᶿrŕȑřȓṙɍᵲꝵꞧṛŗṟᶉꞅɼɽṝɾᵳᴦɿſⱹɹɺɻ®ꝶꭇꭈꭉꭊꭋꭌͬʳʶʴʵᴿʀʁᴙᴚꭆᵣsśŝšṡᵴꞩṣşșȿʂᶊṩṥṧƨʃʄʆᶋᶘꭍʅƪﬅﬆˢᶳᶴꜱₛtťṫẗƭⱦᵵŧꝷṱṯṭţƫʈțȶʇꞇꜩʦʧʨᵺͭᵗᶵᵀᴛₜuùȕúűūũûǔȗŭüůủưꭒʉꞹṷṵụṳųᶙɥựǜừṹǘứǚữṻǖửʊᵫᵿꭎꭏꭐꭑͧᵘᶶᶷᵙᶸꭟᵁᴜᵾᵤvṽⱱⱴꝟṿᶌʋʌͮᵛⱽᶹᶺᴠᵥwẁẃŵẇẅẘⱳẉꝡɯɰꟽꟿʍʬꞶꞷʷᵚᶭᵂᴡxẋẍᶍ×ꭓꭔꭕꭖꭗꭘꭙˣ˟ᵡₓᵪyỳýȳỹŷẏÿẙỷƴɏꭚỵỿɣɤꝩʎƛ¥ʸˠᵞʏᵧzźẑžżƶᵶẓẕʐᶎʑȥⱬɀʒǯʓƺᶚƹꝣᵹᶻᶼᶽᶾᴢᴣ';
         $data['total_words'] = str_word_count($abstract, 0, $diacritics);
@@ -124,6 +132,24 @@ class ProductionCreate extends Component
     public function render()
     {
         return view('livewire.production.production-create')
-            ->title('Nova publicação');
+            ->title('Adicionar produção');
     }
+
+    public function addAuthor()
+    {
+        $this->validate([
+            'author.forename' => 'required|string',
+            'author.lastname' => 'required|string',
+        ]);
+        array_push($this->authors, [ 'forename' => $this->author['forename'], 'lastname' => $this->author['lastname'] ]);
+        array_push($this->authors_display, ' ' . $this->author['forename'] .' '. $this->author['lastname']);
+        $this->reset('author');
+    }
+
+    public function removeAuthor($key)
+    {
+        array_splice($this->authors, $key, 1);
+        array_splice($this->authors_display, $key, 1);
+    }
+
 }

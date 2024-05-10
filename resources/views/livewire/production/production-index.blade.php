@@ -10,13 +10,9 @@
     city: false,
     state: false,
 }">
-    <div class="header">
-        <div>
-            <h1>Publicações da pesquisa</h1>
-            <h2>{{ $research->theme }}</h2>
-        </div>
-        <x-ts-button text="Adicionar publicação" :href="route('researches.publications.create', $research)" wire:navigate />
-    </div>
+    <x-page-header title="Produções encontradas" :subtitle="$project->theme ">
+        <x-ts-button text="Adicionar produção" :href="route('project.bibliometrics.productions.create', $project)" wire:navigate />
+    </x-page-header>
 
     <x-table screen>
         <div class="table-header flex justify-between items-center">
@@ -42,11 +38,11 @@
             <th x-show="state">UF</th>
         </x-slot>
         <x-slot name="body">
-            @foreach ($publications as $publication)
+            @foreach ($productions as $production)
                 <tr>
                     <td x-show="author">
                         <ul>
-                            @foreach ($publication->authors as $author)
+                            @foreach ($production->authors as $author)
                                 <li>
                                     {{ $author['lastname'] }}, {{ $author['forename'] }}
                                 </li>
@@ -54,26 +50,26 @@
                         </ul>
                     </td>
                     <td class="!text-wrap">
-                        <a href="{{ route('researches.publications.show', [$research, $publication]) }}" wire:navigate>
-                            {{ $publication->subtitle ? $publication->title . ': ' . $publication->subtitle : $publication->title }}
+                        <a href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}" wire:navigate>
+                            {{ $production->subtitle ? $production->title . ': ' . $production->subtitle : $production->title }}
                         </a>
                     </td>
-                    <td x-show="year">{{ $publication->year }}</td>
-                    <td x-show="type">{{ $publication->type }}</td>
-                    <td x-show="repository">{{ $publication->repository }}</td>
+                    <td x-show="year">{{ $production->year }}</td>
+                    <td x-show="type">{{ $production->type }}</td>
+                    <td x-show="repository">{{ $production->repository }}</td>
                     <td x-show="therms">
-                        @foreach ($publication->searched_terms as $term)
+                        @foreach ($production->searched_terms as $term)
                             {{ $term }}
                             @if (!$loop->last)
                                 +
                             @endif
                         @endforeach
                     </td>
-                    <td x-show="periodical">{{ $publication->periodical }}</td>
-                    <td x-show="institution">{{ $publication->institution }}</td>
-                    <td x-show="program">{{ $publication->program }}</td>
-                    <td x-show="city">{{ $publication->city }}</td>
-                    <td x-show="state">{{ $publication->state->abbreviation ?? '' }}</td>
+                    <td x-show="periodical">{{ $production->periodical }}</td>
+                    <td x-show="institution">{{ $production->institution }}</td>
+                    <td x-show="program">{{ $production->program }}</td>
+                    <td x-show="city">{{ $production->city }}</td>
+                    <td x-show="state">{{ $production->state->abbreviation ?? '' }}</td>
                 </tr>
             @endforeach
         </x-slot>
@@ -82,16 +78,16 @@
     <x-ts-slide left title="Filtros" id="filters" size="sm">
         <div class="space-y-3">
             <div class="flex flex-wrap gap-4">
-                @for ($i = $research->start_year; $i <= $research->end_year; $i++)
+                @for ($i = $bibliometric->start_year; $i <= $bibliometric->end_year; $i++)
                     <x-ts-checkbox name="anos[]" wire:model.live="anos" :value="$i" :label="$i" />
                 @endfor
             </div>
             <x-ts-select.styled label="Repositório" wire:model.live="repo" placeholder="Selecione um repositório"
-                :options="$research->repositories" />
+                :options="$bibliometric->repositories" />
             <x-ts-select.styled label="Tipo" wire:model.live="tipo" placeholder="Selecione um tipo"
-                :options="$research->types" />
+                :options="$bibliometric->types" />
             <x-ts-select.styled label="Idioma" wire:model.live="idioma" placeholder="Selecione um idioma"
-                :options="$research->languages" />
+                :options="$bibliometric->languages" />
             @if ($has_monographies)
                 <x-ts-select.styled label="Estado" wire:model.live="uf" placeholder="Selecione um estado"
                     :options="$states" />

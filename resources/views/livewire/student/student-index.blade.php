@@ -1,8 +1,7 @@
 <section>
-    <div class="header">
-        <h1>Estudantes</h1>
-        <x-ts-button md text="Novo" />
-    </div>
+    <x-page-header title="Estudantes">
+        <x-ts-button text="Novo" />
+    </x-page-header>
     <x-table>
         <x-slot name="header">
             <th>Nome</th>

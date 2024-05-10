@@ -2,28 +2,27 @@
 
 namespace App\Livewire\Production;
 
-use App\Models\Publication;
-use App\Models\Research;
+use App\Models\Project;
 use Livewire\Component;
 
 class ProductionShow extends Component
 {
-    public $research;
-    public $publication;
+    public $project;
+    public $production;
 
-    public function mount(Research $research, $publication)
+    public function mount(Project $project, $production)
     {
         // TODO: Verificar se Research será mesmo usado e possivelmente excluir
-        $this->research = $research;
-        $this->publication = $research
-            ->publications()
-            ->with(['state','abstract','file'])
-            ->findOrFail($publication);
+        $this->project = $project;
+        $this->production = $project
+            ->productions()
+            ->with('state','abstract','file')
+            ->findOrFail($production);
     }
 
     public function render()
     {
         return view('livewire.production.production-show')
-            ->title($this->publication->title);
+            ->title($this->production->title);
     }
 }

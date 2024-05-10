@@ -3,7 +3,7 @@
 namespace App\Livewire\Production;
 
 use App\Enums\RegionEnum;
-use App\Models\Research;
+use App\Models\Project;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -31,8 +31,11 @@ class ProductionIndex extends Component
     #[Url(except: '')]
     public $periodico = '';
 
-    public $research;
-    public $publications;
+    public $project;
+
+    public $bibliometric;
+
+    public $productions;
 
     public $has_monographies;
     public $has_periodicals;
@@ -41,17 +44,18 @@ class ProductionIndex extends Component
     public $states;
     public $regions;
 
-    public function mount(Research $research)
+    public function mount(Project $project)
     {
         $this->once = true;
 
-        $this->research = $research;
+        $this->project = $project;
+        $this->bibliometric = $project->bibliometric;
 
-        $this->has_monographies = in_array('dissertação', $this->research->types) ||
-            in_array('tese', $this->research->types) ||
-            in_array('artigoCientífico', $this->research->types);
+        $this->has_monographies = in_array('dissertação', $this->bibliometric->types) ||
+            in_array('tese', $this->bibliometric->types) ||
+            in_array('artigoCientífico', $this->bibliometric->types);
 
-        $this->has_periodicals = in_array('periódico', $this->research->types);
+        $this->has_periodicals = in_array('periódico', $this->bibliometric->types);
         $this->regions = RegionEnum::cases();
 
         // TODO: criar filtro por termos pesquisados
@@ -59,7 +63,7 @@ class ProductionIndex extends Component
 
     public function render()
     {
-        $this->publications = $this->research->publications()
+        $this->productions = $this->bibliometric->productions()
             ->whereAny(['title', 'subtitle'], 'like', "%$this->q%")
             ->when($this->anos, function ($query) {
                 $query->whereIn('year', $this->anos);
@@ -92,12 +96,12 @@ class ProductionIndex extends Component
             }
 
         return view('livewire.production.production-index')
-            ->title('Publicações da pesquisa');
+            ->title('Produções encontradas');
     }
 
     public function registerStates()
     {
-        $this->states = $this->publications
+        $this->states = $this->productions
             ->pluck('state.abbreviation')
             ->whereNotNull()
             ->unique()
@@ -106,7 +110,7 @@ class ProductionIndex extends Component
 
     public function registerPeriodicals()
     {
-        $this->periodicals = $this->publications
+        $this->periodicals = $this->productions
             ->pluck('periodical')
             ->whereNotNull()
             ->unique()

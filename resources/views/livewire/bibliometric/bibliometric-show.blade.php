@@ -1,10 +1,5 @@
 <section>
-    <div class="header">
-        <div>
-            <h1>Bibliometria</h1>
-            <h2>{{ $project->theme }}</h2>
-        </div>
-    </div>
+    <x-page-header title="Bibliometria" :subtitle="$project->theme" />
     @if (session('status'))
         <x-ts-alert :text="session('status')" color="teal" close />
     @endif
@@ -21,15 +16,15 @@
                     <x-detail label="Idioma(s)" :value="$bibliometric->languages" />
                 </div>
                 <div class="card-footer">
-                    {{-- <x-ts-link :href="route('researches.edit', $research)" wire:navigate>Editar</x-ts-link> --}}
+                    <x-ts-link :href="route('project.bibliometrics.edit', $project)" wire:navigate>Editar</x-ts-link>
                 </div>
             </x-ts-card>
         </div>
 
         <div class="col-span-3 space-y-6">
-            <x-table class="no-padding" label="Publicações">
+            <x-table class="no-padding" label="Resultados">
                 @slot('header')
-                    <th>Tipo</th>
+                    <th>Tipo de produção</th>
                     <th>Quantidade</th>
                 @endslot
                 @slot('body')
@@ -41,7 +36,7 @@
                     @endforeach
                 @endslot
                 @slot('footer')
-                    {{-- <x-ts-link :href="route('researches.publications', $research)" wire:navigate>Ver todas</x-ts-link> --}}
+                    <x-ts-link :href="route('project.bibliometrics.productions.index', $project)" wire:navigate>Ver todas</x-ts-link>
                     {{-- <x-ts-link :href="route('researches.publications.create', $research)" wire:navigate>Adicionar nova</x-ts-link> --}}
                 @endslot
             </x-table>

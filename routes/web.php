@@ -4,6 +4,10 @@ use App\Http\Controllers\FileController;
 use App\Livewire\Bibliometric\BibliometricForm;
 use App\Livewire\Bibliometric\BibliometricShow;
 use App\Livewire\Dashboard\DashboardIndex;
+use App\Livewire\Production\ProductionCreate;
+use App\Livewire\Production\ProductionEdit;
+use App\Livewire\Production\ProductionIndex;
+use App\Livewire\Production\ProductionShow;
 use App\Livewire\Project\ProjectCreate;
 use App\Livewire\Project\ProjectIndex;
 use App\Livewire\Project\ProjectShow;
@@ -24,24 +28,20 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('p/{project}/bibiometria', BibliometricShow::class)->name('project.bibliometrics.show');
 
-    Route::name('project.bibliometrics.')->prefix('p/{project}/b')->group(function() {
-        Route::get('nova', BibliometricForm::class)->name('create');
-        Route::get('editar', BibliometricForm::class)->name('edit');
-    });
+    Route::name('project.bibliometrics.')->prefix('p/{project}')->group(function() {
+        Route::get('b/nova', BibliometricForm::class)->name('create');
+        Route::get('b/editar', BibliometricForm::class)->name('edit');
 
-    // Route::get('pesquisas', \App\Livewire\Research\ResearchIndex::class )->name('researches');
-    // Route::get('pesquisas/nova', \App\Livewire\Research\ResearchForm::class )->name('researche.create');
+        Route::get('producoes', ProductionIndex::class)->name('productions.index');
+        Route::get('producoes/nova', ProductionCreate::class)->name('productions.create');
+        Route::get('producoes/{production}', ProductionShow::class)->name('productions.show');
+        Route::get('producoes/{production}/editar', ProductionEdit::class)->name('productions.edit');
+    });
 
     // Route::view('profile', 'profile')->name('profile');
 
     // Route::prefix('p{research:pid}')->group(function() {
-    //     Route::get('/', \App\Livewire\Research\ResearchShow::class )->name('researches.show');
-    //     Route::get('editar', \App\Livewire\Research\ResearchForm::class)->name('researches.edit');
 
-    //     Route::get('pub', \App\Livewire\Production\ProductionIndex::class)->name('researches.publications');
-    //     Route::get('pub/nova', \App\Livewire\Production\ProductionCreate::class)->name('researches.publications.create');
-    //     Route::get('pub/{publication}', \App\Livewire\Production\ProductionShow::class)->name('researches.publications.show');
-    //     Route::get('pub/{publication}/editar', \App\Livewire\Production\ProductionEdit::class)->name('researches.publications.edit');
     //     Route::get('pub/{publication}/pdf', \App\Livewire\File\FileShow::class)->name('researches.files.show');
     //     Route::get('pub/{publication}/conteudo', \App\Livewire\Production\ProductionContent::class)->name('researches.publications.content');
     //     Route::get('pub/{publication}/resumo', \App\Livewire\Internal\InternalForm::class)->name('researches.publications.abstract');

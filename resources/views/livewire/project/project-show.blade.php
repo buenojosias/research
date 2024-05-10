@@ -37,6 +37,7 @@
                     </div>
                     <div class="card-footer">
                         <x-ts-link :href="route('project.bibliometrics.show', $project)" wire:navigate>Acessar</x-ts-link>
+                        <x-ts-link :href="route('project.bibliometrics.productions.index', $project)" wire:navigate>Produções</x-ts-link>
                         <x-ts-link :href="route('project.bibliometrics.edit', $project)" wire:navigate>Editar</x-ts-link>
                     </div>
                 @else

@@ -1,9 +1,7 @@
 <div>
-    <div class="header">
-        <h1>Projetos</h1>
+    <x-page-header title="Projetos">
         <x-ts-button text="Novo projeto" x-on:click="$wire.dispatch('open-form-modal')" />
-    </div>
-
+    </x-page-header>
     <x-table>
         <x-slot name="header">
             <th>Data</th>

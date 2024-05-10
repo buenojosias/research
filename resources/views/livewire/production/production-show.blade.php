@@ -1,28 +1,24 @@
 <section>
-    <div class="header">
-        <div>
-            <h1>{{ $publication->title }}</h1>
-            <h2>{{ $research->theme }}</h2>
-        </div>
+    <x-page-header :title="$production->title" :subtitle="$project->theme" />
     </div>
     @if (session('status'))
-        <x-ts-alert :text="session('status')" color="green" close />
+        <x-ts-alert :text="session('status')" color="teal" close />
     @endif
     <div class="lg:grid grid-cols-5 gap-6">
         <div class="col-span-2 mb-6">
             <x-ts-card>
                 <div class="detail">
-                    <x-detail label="Título" :value="$publication->title" />
-                    @if ($publication->subtitle)
-                        <x-detail label="Subtítulo" :value="$publication->subtitle" />
+                    <x-detail label="Título" :value="$production->title" />
+                    @if ($production->subtitle)
+                        <x-detail label="Subtítulo" :value="$production->subtitle" />
                     @endif
-                    <x-detail label="Ano" :value="$publication->year" />
+                    <x-detail label="Ano" :value="$production->year" />
                     <div>
                         <dl class="w-full">
                             <dt>Autor(es)</dt>
                             <dd>
                                 <ul>
-                                    @foreach ($publication->authors as $author)
+                                    @foreach ($production->authors as $author)
                                         <li>
                                             {{ $author['lastname'] }},
                                             {{ $author['forename'] }}
@@ -32,40 +28,40 @@
                             </dd>
                         </dl>
                     </div>
-                    <x-detail label="Tipo" :value="$publication->type" />
-                    <x-detail label="Repositório" :value="$publication->repository" />
+                    <x-detail label="Tipo" :value="$production->type" />
+                    <x-detail label="Repositório" :value="$production->repository" />
                     <div>
                         <dl class="w-full">
                             <dt>Link do resultado</dt>
                             <dd class="w-full">
-                                <span class="break-words">{{ $publication->url }}</span>
-                                <x-ts-link :href="$publication->url" icon="arrow-top-right-on-square" lg blank />
+                                <span class="break-words">{{ $production->url }}</span>
+                                <x-ts-link :href="$production->url" icon="arrow-top-right-on-square" lg blank />
                             </dd>
                         </dl>
                     </div>
-                    {{-- <span class="break-words">{{ $publication->url }}</span> --}}
-                    {{-- <x-detail label="Link do resultado" :value="$publication->url">
-                        <x-ts-link :href="$publication->url" icon="arrow-top-right-on-square" lg blank />
+                    {{-- <span class="break-words">{{ $production->url }}</span> --}}
+                    {{-- <x-detail label="Link do resultado" :value="$production->url">
+                        <x-ts-link :href="$production->url" icon="arrow-top-right-on-square" lg blank />
                     </x-detail> --}}
-                    <x-detail label="Idioma" :value="$publication->language" />
-                    <x-detail label="Termos pesquisados" :value="$publication->searched_terms" />
-                    @if ($publication->institution)
-                        <x-detail label="Instituição" :value="$publication->institution" />
+                    <x-detail label="Idioma" :value="$production->language" />
+                    <x-detail label="Palavras pesquisadas" :value="$production->searched_terms" />
+                    @if ($production->institution)
+                        <x-detail label="Instituição" :value="$production->institution" />
                     @endif
-                    @if ($publication->program)
-                        <x-detail label="Progama" :value="$publication->program" />
+                    @if ($production->program)
+                        <x-detail label="Progama" :value="$production->program" />
                     @endif
-                    @if ($publication->city)
-                        <x-detail label="Cidade" :value="$publication->city . ' (' . @$publication->state->abbreviation . ')'" />
+                    @if ($production->city)
+                        <x-detail label="Cidade" :value="$production->city . ' (' . @$production->state->abbreviation . ')'" />
                     @endif
-                    @if ($publication->type === 'periódico')
-                        <x-detail label="Periódico" :value="$publication->periodical" />
-                        <x-detail label="DOI" :value="$publication->doi" />
+                    @if ($production->type === 'periódico')
+                        <x-detail label="Periódico" :value="$production->periodical" />
+                        <x-detail label="DOI" :value="$production->doi" />
                     @endif
                 </div>
                 <div class="card-footer">
-                    <x-ts-link :href="route('researches.publications.edit', [$research, $publication])" wire:navigate text="Editar" />
-                    <x-ts-link :href="route('researches.show', $research)" wire:navigate text="Voltar para pesquisa" />
+                    <x-ts-link :href="route('project.bibliometrics.productions.edit', [$project, $production])" wire:navigate text="Editar" />
+                    <x-ts-link :href="route('project.bibliometrics.productions.index', $project)" wire:navigate text="Voltar para resultados" />
                 </div>
             </x-ts-card>
         </div>
@@ -76,24 +72,24 @@
                     <div>
                         <dl>
                             <dt>Resumo</dt>
-                            <p>{{ $publication->abstract->content ?? 'Não adicionado' }}</p>
+                            <p>{{ $production->abstract->content ?? 'Não adicionado' }}</p>
                         </dl>
                     </div>
-                    <x-detail label="Palavras-chave" :value="$publication->keywords->data ?? 'Não adicionado'">
-                        <x-ts-link :href="route('researches.publications.abstract', [$research, $publication])" icon="pencil-square" />
+                    <x-detail label="Palavras-chave" :value="$production->keywords->data ?? 'Não adicionado'">
+                        {{-- <x-ts-link :href="route('projects.productions.abstract', [$project, $production])" icon="pencil-square" /> --}}
                     </x-detail>
                 </div>
                 <div class="card-footer">
-                    <x-ts-link text="Ver mais" :href="route('researches.publications.content', [$research, $publication])" wire:navigate />
-                    <x-ts-link text="Editar resumo" :href="route('researches.publications.abstract', [$research, $publication])" wire:navigate />
-                    <x-ts-link text="Editar conteúdo" :href="route('researches.publications.body', [$research, $publication])" wire:navigate />
+                    {{-- <x-ts-link text="Ver mais" :href="route('projects.productions.content', [$project, $production])" wire:navigate /> --}}
+                    {{-- <x-ts-link text="Editar resumo" :href="route('projects.productions.abstract', [$project, $production])" wire:navigate /> --}}
+                    {{-- <x-ts-link text="Editar conteúdo" :href="route('projects.productions.body', [$project, $production])" wire:navigate /> --}}
                 </div>
             </x-ts-card>
 
             <x-ts-card header="Arquivo PDF">
                 <div class="flex items-center justify-between">
-                    @if ($publication->file)
-                        <x-ts-link :href="route('researches.files.show', [$research, $publication])" :text="$publication->file->filename" wire:navigate />
+                    @if ($production->file)
+                        {{-- <x-ts-link :href="route('projects.files.show', [$project, $production])" :text="$production->file->filename" wire:navigate /> --}}
                         <x-ts-button icon="trash" color="red" />
                     @else
                         Nenhum arquivo adicionado

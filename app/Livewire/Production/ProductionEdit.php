@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Production;
 
+use App\Models\Project;
 use App\Models\Research;
 use App\Models\State;
 use Livewire\Attributes\Validate;
@@ -12,18 +13,19 @@ class ProductionEdit extends Component
 {
     use Interactions;
 
-    public $research;
-    public $publication;
+    public $project;
+    public $bibliometric;
+    public $production;
     public $years = [];
     public $states = [];
     public $terms = [];
     public $author = [];
     public $authors_display = [];
 
-    #[Validate('required|url')]
+    #[Validate('nullable|url')]
     public $url;
 
-    #[Validate('required|string|in_array:research.repositories.*')]
+    #[Validate('required|string|in_array:bibliometric.repositories.*')]
     public $repository;
 
     #[Validate('required|string')]
@@ -38,11 +40,10 @@ class ProductionEdit extends Component
     #[Validate('required|array')]
     public $authors = [];
 
-    // #[Validate('required|string|in_array:research.types.*')]
-    #[Validate('required')]
+    #[Validate('required|string|in_array:bibliometric.types.*')]
     public $type;
 
-    #[Validate('required|string|in_array:research.languages.*')]
+    #[Validate('required|string|in_array:bibliometric.languages.*')]
     public $language;
 
     #[Validate('required|array')]
@@ -66,34 +67,33 @@ class ProductionEdit extends Component
     #[Validate('nullable|string')]
     public $doi;
 
-    public function mount(Research $research, $publication)
+    public function mount(Project $project, $production)
     {
-        $this->research = $research;
-        $this->publication = $research->publications()->findOrFail($publication);
+        $this->project = $project;
+        $this->bibliometric = $project->bibliometric;
+        $this->production = $project->productions()->findOrFail($production);
 
-        for($i = $this->research->start_year; $i <= $this->research->end_year; $i++) {
+        for($i = intval($this->bibliometric->start_year); $i <= $this->bibliometric->end_year; $i++) {
             array_push($this->years, $i);
         }
 
         $this->states = State::select('id', 'abbreviation')->orderBy('abbreviation')->get()->toArray();
-
-        $this->terms = $this->research->terms;
-
-        $this->url = $this->publication->url;
-        $this->repository = $this->publication->repository;
-        $this->title = $this->publication->title;
-        $this->subtitle = $this->publication->subtitle;
-        $this->year = $this->publication->year;
-        $this->authors = $this->publication->authors;
-        $this->type = $this->publication->type;
-        $this->language = $this->publication->language;
-        $this->searched_terms = $this->publication->searched_terms;
-        $this->institution = $this->publication->institution;
-        $this->program = $this->publication->program;
-        $this->city = $this->publication->city;
-        $this->state_id = $this->publication->state_id;
-        $this->periodical = $this->publication->periodical;
-        $this->doi = $this->publication->doi;
+        $this->terms = $this->bibliometric->terms;
+        $this->url = $this->production->url;
+        $this->repository = $this->production->repository;
+        $this->title = $this->production->title;
+        $this->subtitle = $this->production->subtitle;
+        $this->year = $this->production->year;
+        $this->authors = $this->production->authors;
+        $this->type = $this->production->type->value;
+        $this->language = $this->production->language;
+        $this->searched_terms = $this->production->searched_terms;
+        $this->institution = $this->production->institution;
+        $this->program = $this->production->program;
+        $this->city = $this->production->city;
+        $this->state_id = $this->production->state_id;
+        $this->periodical = $this->production->periodical;
+        $this->doi = $this->production->doi;
 
         foreach($this->authors as $author) {
             array_push($this->authors_display, ' ' . $author['forename'] .' '. $author['lastname']);
@@ -105,16 +105,16 @@ class ProductionEdit extends Component
         $data = $this->validate();
 
         try {
-            $this->publication->update($data);
+            $this->production->update($data);
         } catch (\Throwable $th) {
             dump($th);
         }
-        $this->toast()->success('Salvo', 'Informações salvas com sucesso.')->send();
+        $this->toast()->success('Salvo', 'Produção atualizada com sucesso.')->send();
     }
     public function render()
     {
         return view('livewire.production.production-edit')
-            ->title('Editar publicação');
+            ->title('Editar produção');
     }
 
     public function addAuthor()

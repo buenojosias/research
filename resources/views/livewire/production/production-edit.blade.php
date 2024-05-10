@@ -1,18 +1,13 @@
 <section>
     <x-ts-toast />
-    <div class="header">
-        <div>
-            <h1>Editar publicação</h1>
-            <h2>{{ $publication->title }}</h2>
-        </div>
-    </div>
+    <x-page-header title="Adicionar produção" :subtitle="$production->title" />
     <form wire:submit="save">
         <x-ts-card class="lg:grid grid-cols-6 gap-4 space-y-4 lg:space-y-0">
             <div class="col-span-4">
                 <x-ts-input label="URL do resultado" wire:model="url" />
             </div>
             <div class="col-span-2">
-                <x-ts-select.styled label="Repositório *" wire:model="repository" :options="$research->repositories" />
+                <x-ts-select.styled label="Repositório *" wire:model="repository" :options="$bibliometric->repositories" />
             </div>
             <div class="col-span-3">
                 <x-ts-input label="Título *" wire:model="title" />
@@ -34,19 +29,19 @@
                 <x-ts-input label="Autor (último nome) *" wire:model="author_lastname" />
             </div> --}}
             <div class="col-span-2">
-                <x-ts-select.styled label="Tipo *" wire:model="type" :options="$research->types" />
+                <x-ts-select.styled label="Tipo *" wire:model="type" :options="$bibliometric->types" />
             </div>
             <div>
-                <x-ts-select.styled label="Idioma *" wire:model="language" :options="$research->languages" />
+                <x-ts-select.styled label="Idioma *" wire:model="language" :options="$bibliometric->languages" />
             </div>
             <div class="col-span-3">
                 <x-ts-select.styled label="Termos pesquisados *" wire:model="searched_terms" :options="$terms"
                     multiple />
             </div>
 
-            @if (in_array('Tese', $research->types) ||
-                    in_array('Dissertação', $research->types) ||
-                    in_array('Artigo científico', $research->types))
+            @if (in_array('Tese', $bibliometric->types) ||
+                    in_array('Dissertação', $bibliometric->types) ||
+                    in_array('Artigo científico', $bibliometric->types))
                 <div class="col-span-3">
                     <x-ts-input label="Instituição (universidade)" wire:model="institution" />
                 </div>
@@ -55,7 +50,7 @@
                 </div>
             @endif
 
-            @if (in_array('Periódico', $research->types))
+            @if (in_array('Periódico', $bibliometric->types))
                 <div class="col-span-3">
                     <x-ts-input label="Periódico" wire:model="periodical" />
                 </div>
@@ -73,7 +68,7 @@
             </div>
 
             <x-slot:footer>
-                <x-ts-button type="button" :href="route('researches.publications.show', [$research, $publication])" wire:navigate text="Ir para publicação" outline />
+                <x-ts-button type="button" :href="route('project.bibliometrics.productions.show', [$project, $production])" wire:navigate text="Ir para produção" outline />
                 <x-ts-button type="submit" text="Salvar" />
             </x-slot:footer>
         </x-ts-card>
@@ -92,8 +87,7 @@
         @endforeach
         <div class="mt-6 grid grid-cols-6 gap-4">
             <div class="col-span-4">
-                <x-ts-input label="Adicionar autor(a)" wire:model="author.forename"
-                    placeholder="Exceto último nome" />
+                <x-ts-input label="Adicionar autor(a)" wire:model="author.forename" placeholder="Exceto último nome" />
             </div>
             <div class="col-span-2 flex items-center">
                 <x-ts-input label="Último nome" wire:model="author.lastname" />

@@ -1,4 +1,7 @@
 <section>
+    <x-page-header title="Bibliometrias">
+
+    </x-page-header>
     <div class="header">
         <h1>Pesquisas</h1>
         <x-ts-button text="Nova pesquisa" :href="route('researche.create')" wire:navigate />
