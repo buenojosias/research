@@ -45,8 +45,11 @@ class WordCountCreate extends Component
         $this->validate();
         $this->word = trim($this->word);
         $results = Internal::query()
-            // ->whereRelation('publication', 'research_id', $this->research->id)
-            ->whereHas('production', fn($query) => $query->whereIn('type', $this->production_types))
+            ->with('production')
+            ->whereHas('production', function($query) {
+                $query->whereIn('type', $this->production_types)
+                    ->where('bibliometric_id', $this->bibliometric->id);
+            })
             ->whereIn('section', $this->sections)
             ->when(strpos($this->word, ' ') !== false, function ($query) {
                 $query->where('content', 'LIKE', "%$this->word%");
@@ -63,8 +66,6 @@ class WordCountCreate extends Component
 
     public function fillInternals()
     {
-        $this->results->load('productions');
-
         $this->results->map(function ($result) {
             $word = $this->removeCharacters($this->word);
             $content = $this->removeCharacters($result->content);
@@ -80,18 +81,17 @@ class WordCountCreate extends Component
     public function save()
     {
         foreach ($this->results as $result) {
-            // $count = substr_count(strtoupper($result['content']), strtoupper($this->word));
             $count = preg_match_all('/\b' . preg_quote($this->word, '/') . '\b/i', $result->content);
             $percent = $count * 100 / $result->total_words;
             $percentage = number_format($percent, 2, '.', ',');
             $record = [
                 // Aqui são os dados retornados
-                'publication' => [
-                    'id' => $result->publication->id,
-                    'type' => $result->publication->type,
-                    'title' => $result->publication->title,
-                    'year' => $result->publication->year,
-                    'author_lastname' => $result->publication->author_lastname,
+                'production' => [
+                    'id' => $result->production->id,
+                    'type' => $result->production->type,
+                    'title' => $result->production->title,
+                    'year' => $result->production->year,
+                    'authors' => $result->production->authors,
                 ],
                 'internal_id' => $result->id,
                 'section' => $result->section,
@@ -103,9 +103,9 @@ class WordCountCreate extends Component
         }
 
         $wordCount = [
-            'research_id' => $this->research->id,
+            'bibliometric_id' => $this->bibliometric->id,
             'word' => $this->word,
-            'publication_types' => $this->publication_types,
+            'production_types' => $this->production_types,
             'sections' => $this->sections,
             'records' => $this->data,
         ];

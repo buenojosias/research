@@ -1,8 +1,5 @@
 <section>
-    <div class="header">
-        <h1>Contagem de palavras</h1>
-    </div>
-
+    <x-page-header title="Contagem de palavras" />
     <x-ts-errors />
     <div class="px-4 py-2 flex justify-between items-center bg-white rounded-t">
         <div class="flex gap-2 items-center">
@@ -20,10 +17,10 @@
                 @endforeach
                 <p class="p-2 font-semibold border-b text-sm text-gray-800">Seções</p>
                 <x-ts-dropdown.items>
-                    <x-ts-checkbox name="sections[]" wire:model="sections" value="abstract" label="Resumo" invalidate />
+                    <x-ts-checkbox name="sections[]" wire:model="sections" value="Resumo" label="Resumo" invalidate />
                 </x-ts-dropdown.items>
                 <x-ts-dropdown.items>
-                    <x-ts-checkbox name="sections[]" wire:model="sections" value="body" label="Conteúdo textual"
+                    <x-ts-checkbox name="sections[]" wire:model="sections" value="Textual" label="Conteúdo textual"
                         invalidate />
                 </x-ts-dropdown.items>
             </x-ts-dropdown>
@@ -49,10 +46,10 @@
             @if ($results)
                 @foreach ($results as $result)
                     <tr>
-                        <td>{{ $result->publication->title }}</td>
-                        <td>{{ $result->publication->type }}</td>
-                        <td>{{ $result->section === 'abstract' ? 'Resumo' : 'Seção textual' }}</td>
-                        <td>{{ $result->count }}</td>
+                        <td>{{ $result->production->title }}</td>
+                        <td>{{ $result->production->type }}</td>
+                        <td>{{ $result->section }}</td>
+                        <td>{{ $result->count }} / {{ $result->total_words }}</td>
                         <td>{{ $result->percentage }}%</td>
                         <td>
                             <x-ts-button outline wire:click="selectResult" text="Ver contexto"
@@ -73,8 +70,8 @@
             O que você deseja fazer agora?
             <div class="mt-4 flex flex-col space-y-2">
                 <x-ts-button wire:click="$toggle('savedModal')" text="Fazer nova contagem" color="white" />
-                <x-ts-button :href="route('researches.wordcounts.show', [$research, $savedWordCount->id])" wire:navigate text="Ir para contagem" color="white" />
-                <x-ts-button :href="route('researches.wordcounts.index', [$research])" wire:navigate text="Voltar para lista" color="white" />
+                <x-ts-button :href="route('project.bibliometrics.wordcounts.show', [$project, $savedWordCount->id])" wire:navigate text="Ir para contagem" color="white" />
+                <x-ts-button :href="route('project.bibliometrics.wordcounts.index', [$project])" wire:navigate text="Voltar para lista" color="white" />
             </div>
         </x-ts-modal>
     @endif

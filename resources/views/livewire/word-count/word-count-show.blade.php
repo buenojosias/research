@@ -2,7 +2,7 @@
     <div class="header">
         <div>
             <h1>Contagem de palavras</h1>
-            <h2></h2>
+            <h2>{{ $word }}</h2>
         </div>
     </div>
     <div class="lg:grid grid-cols-2 gap-6">
@@ -10,9 +10,9 @@
             <x-ts-card>
                 <div class="detail">
                     <x-detail label="Palavra ou expressão pesquisada" :value="$wordcount->word" />
-                    <x-detail label="Tipos de publicação" :value="$wordcount->publication_types" />
+                    <x-detail label="Tipos de publicação" :value="$wordcount->production_types" />
                     <x-detail label="Seções pesquisadas" :value="$wordcount->sections" />
-                    <x-detail label="Publicações encontrados" :value="count($wordcount->records)" />
+                    <x-detail label="Produções encontrados" :value="count($wordcount->records)" />
                     <x-detail label="Data do relatório" :value="$wordcount->created_at->format('d/m/Y')" />
                 </div>
                 <div class="card-footer">
@@ -28,14 +28,15 @@
         </div>
 
         <div x-show="showdetails" x-transition class="mb-6 space-y-4">
-            <h2 class="mb-4 font-semibold">Publicações encontradas</h2>
+            <h2 class="mb-4 font-semibold">Produções encontradas</h2>
             @foreach ($wordcount->records as $record)
                 <x-ts-card x-data="{ details: false }">
-                    <div @click="details = !details" class="card-header justify-between" :class="details ? 'pb-4 mb-2 border-b' : ''">
+                    <div @click="details = !details" class="card-header justify-between"
+                        :class="details ? 'pb-4 mb-2 border-b' : ''">
                         <div class="cursor-pointer">
-                            {{ $record['publication']['author_lastname'] }},
-                            {{ $record['publication']['year'] }}.
-                            {{ $record['publication']['title'] }}
+                            {{-- {{ $record['production']['author_lastname'] }}, --}}
+                            {{ $record['production']['year'] }}.
+                            {{ $record['production']['title'] }}
                         </div>
                         <div>
                             <x-ts-button color="white">
@@ -44,8 +45,23 @@
                         </div>
                     </div>
                     <div class="detail" x-show="details" x-transition>
-                        <x-detail label="Publicação" :value="$record['publication']['title']" />
-                        <x-detail label="Tipo de publicação" :value="$record['publication']['type']" />
+                        <x-detail label="Título da produção" :value="$record['production']['title']" />
+                        <div>
+                            <dl class="w-full">
+                                <dt>Autor(es)</dt>
+                                <dd>
+                                    <ul>
+                                        @foreach ($record['production']['authors'] as $author)
+                                            <li>
+                                                {{ $author['lastname'] }},
+                                                {{ $author['forename'] }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div>
+                        <x-detail label="Tipo de produção" :value="$record['production']['type']" />
                         <x-detail label="Seção encontrada" :value="$record['section']" />
                         <x-detail label="Contagem de palavas" :value="$record['count'] .
                             ' / ' .
@@ -59,23 +75,25 @@
                             <x-ts-button
                                 wire:click="loadContext({{ $record['internal_id'] }}, '{{ $record['section'] }}')"
                                 text="Ver contexto" outline />
-                            <x-ts-button :href="route('researches.publications.content', [
+                            {{-- <x-ts-button :href="route('researches.productions.content', [
                                 $research,
-                                $record['publication']['id'],
-                            ])" wire:navigate text="Ler conteúdo" outline />
-                            <x-ts-button :href="route('researches.publications.show', [$research, $record['publication']['id']])" wire:navigate text="Abrir publicação" outline />
+                                $record['production']['id'],
+                            ])" wire:navigate text="Ler conteúdo" outline /> --}}
+                            <x-ts-button :href="route('project.bibliometrics.productions.show', [
+                                $project,
+                                $record['production']['id'],
+                            ])" wire:navigate text="Abrir produção" outline />
                         </div>
                     </div>
                 </x-ts-card>
-                {{-- @dump($record) --}}
             @endforeach
         </div>
     </div>
 
     <div x-show="showtable" x-transition>
-        <x-table label="Publicações encontradas">
+        <x-table label="Produções encontradas">
             <x-slot name="header">
-                <th>Publicação</th>
+                <th>produção</th>
                 <th>Tipo</th>
                 <th>Seção</th>
                 <th>Contagem</th>
@@ -84,9 +102,14 @@
             <x-slot name="body">
                 @foreach ($records as $record)
                     <tr>
-                        <td>{{ $record['publication']['title'] }}</td>
-                        <td>{{ $record['publication']['type'] }}</td>
-                        <td>{{ $record['section'] === 'abstract' ? 'Resumo' : 'Seção textual' }}</td>
+                        <td>
+                            <a
+                                href="{{ route('project.bibliometrics.productions.show', [$project, $record['production']['id']]) }}">
+                                {{ $record['production']['title'] }}
+                            </a>
+                        </td>
+                        <td>{{ $record['production']['type'] }}</td>
+                        <td>{{ $record['section'] }}</td>
                         <td>{{ $record['count'] }}</td>
                         <td>{{ $record['percentage'] }}%</td>
                     </tr>

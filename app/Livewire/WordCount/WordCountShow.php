@@ -3,13 +3,16 @@
 namespace App\Livewire\WordCount;
 
 use App\Models\Internal;
+use App\Models\Project;
 use App\Models\WordCount;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class WordCountShow extends Component
 {
-    public $research;
+    public $project;
+
+    public $bibliometric;
 
     public $wordcount;
 
@@ -20,12 +23,14 @@ class WordCountShow extends Component
     public $content = '';
 
 
-    public function mount($research, $wordcount)
+    public function mount(Project $project, $wordcount)
     {
-        $this->research = $research;
+        $this->project = $project;
+
+        $this->bibliometric = $project->bibliometric;
 
         $this->wordcount = WordCount::query()
-            // ->where('research_id', $research)
+            ->where('bibliometric_id', $this->bibliometric->id)
             ->findOrFail($wordcount);
 
         $this->records = $this->wordcount->records;
