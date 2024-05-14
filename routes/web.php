@@ -12,6 +12,9 @@ use App\Livewire\Project\ProjectCreate;
 use App\Livewire\Project\ProjectIndex;
 use App\Livewire\Project\ProjectShow;
 use App\Livewire\Student\StudentIndex;
+use App\Livewire\WordCount\WordCountCreate;
+use App\Livewire\WordCount\WordCountIndex;
+use App\Livewire\WordCount\WordCountShow;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -36,6 +39,10 @@ Route::middleware(['auth'])->group(function() {
         Route::get('producoes/nova', ProductionCreate::class)->name('productions.create');
         Route::get('producoes/{production}', ProductionShow::class)->name('productions.show');
         Route::get('producoes/{production}/editar', ProductionEdit::class)->name('productions.edit');
+
+        Route::get('rel/contagem', WordCountIndex::class)->name('wordcounts.index');
+        Route::get('rel/contagem/nova', WordCountCreate::class)->name('wordcounts.create');
+        Route::get('rel/contagem/{wordcount}', WordCountShow::class)->name('wordcounts.show');
     });
 
     // Route::view('profile', 'profile')->name('profile');

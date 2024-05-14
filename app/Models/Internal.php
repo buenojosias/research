@@ -19,7 +19,7 @@ class Internal extends Model
         'total_words'
     ];
 
-    public function productoin(): BelongsTo
+    public function production(): BelongsTo
     {
         return $this->belongsTo(Production::class);
     }

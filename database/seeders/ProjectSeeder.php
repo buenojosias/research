@@ -16,11 +16,13 @@ class ProjectSeeder extends Seeder
 
         $students->each(function (Student $student) {
             Project::factory(rand(0, 1))
+                ->has(Bibliometric::factory())
                 ->create([
                     'user_id' => $student->user_id,
                     'student_id' => $student->id
                 ]);
             Project::factory(rand(1, 1))
+                ->has(Bibliometric::factory())
                 ->create([
                     'user_id' => $student->user_id,
                 ]);

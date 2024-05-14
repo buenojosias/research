@@ -3,7 +3,7 @@
 namespace App\Livewire\WordCount;
 
 use App\Models\Internal;
-use App\Models\Research;
+use App\Models\Project;
 use App\Models\WordCount;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
@@ -11,7 +11,9 @@ use Livewire\Component;
 
 class WordCountCreate extends Component
 {
-    public $research;
+    public $project;
+
+    public $bibliometric;
 
     public $content = '';
 
@@ -22,7 +24,7 @@ class WordCountCreate extends Component
     public $sections = [];
 
     #[Validate('required|array')]
-    public $publication_types = [];
+    public $production_types = [];
 
     public $results = [];
 
@@ -32,9 +34,10 @@ class WordCountCreate extends Component
 
     public $savedWordCount;
 
-    public function mount(Research $research)
+    public function mount(Project $project)
     {
-        $this->research = $research;
+        $this->project = $project;
+        $this->bibliometric = $project->bibliometric;
     }
 
     public function generate()
@@ -43,7 +46,7 @@ class WordCountCreate extends Component
         $this->word = trim($this->word);
         $results = Internal::query()
             // ->whereRelation('publication', 'research_id', $this->research->id)
-            ->whereHas('publication', fn($query) => $query->whereIn('type', $this->publication_types))
+            ->whereHas('production', fn($query) => $query->whereIn('type', $this->production_types))
             ->whereIn('section', $this->sections)
             ->when(strpos($this->word, ' ') !== false, function ($query) {
                 $query->where('content', 'LIKE', "%$this->word%");
@@ -60,7 +63,7 @@ class WordCountCreate extends Component
 
     public function fillInternals()
     {
-        $this->results->load('publication');
+        $this->results->load('productions');
 
         $this->results->map(function ($result) {
             $word = $this->removeCharacters($this->word);

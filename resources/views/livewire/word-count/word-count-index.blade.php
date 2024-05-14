@@ -4,21 +4,21 @@
             <h1>Contagem de palavras</h1>
         </div>
         <div>
-            <x-ts-button :href="route('researches.wordcounts.create', $research)" wire:navigate text="Nova contagem" />
+            <x-ts-button :href="route('project.bibliometrics.wordcounts.create', $project)" wire:navigate text="Nova contagem" />
         </div>
     </div>
     <x-table>
         <x-slot name="header">
-            <th>Termo buscado</th>
+            <th>Palavra consultada</th>
             <th>Seções</th>
-            <th>Publicações</th>
+            <th>Resultados</th>
             <th>Contagem</th>
         </x-slot>
         <x-slot name="body">
             @foreach ($wordcounts as $wc)
                 <tr>
                     <td class="!text-wrap">
-                        <a href="{{ route('researches.wordcounts.show', [$research, $wc]) }}" wire:navigate>
+                        <a href="{{ route('project.bibliometrics.wordcounts.show', [$project, $wc]) }}" wire:navigate>
                             {{ $wc->word }}</td>
                         </a>
                     <td>
@@ -29,7 +29,7 @@
                             @endif
                         @endforeach
                     </td>
-                    <td>{{ $wc->publications_count }}</td>
+                    <td>{{ $wc->productions_count }}</td>
                     <td>{{ $wc->total_count }}</td>
                 </tr>
             @endforeach

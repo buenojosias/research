@@ -48,7 +48,7 @@
                 </x-nav-dropdown>
                 <x-nav-dropdown label="Relatórios">
                     <a href="#">Palavras-chave</a>
-                    <a href="#">Contagem de palavras</a>
+                    <a href="{{ route('project.bibliometrics.wordcounts.index', request()->route()->project) }}">Contagem de palavras</a>
                     <a href="#">Ranking de palavras</a>
                     <a href="#">Nuvem de palavras</a>
                 </x-nav-dropdown>

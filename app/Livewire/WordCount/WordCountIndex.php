@@ -2,21 +2,25 @@
 
 namespace App\Livewire\WordCount;
 
-use App\Models\Research;
+use App\Models\Project;
 use Livewire\Component;
 
 class WordCountIndex extends Component
 {
-    public $research;
+    public $project;
+
+    public $bibliometric;
 
     public $wordcounts = [];
 
-    public function mount(Research $research)
+    public function mount(Project $project)
     {
-        $wordcounts = $research->wordCounts;
+        $this->project = $project;
+        $this->bibliometric = $project->bibliometric;
+        $wordcounts = $this->bibliometric->wordCounts;
 
         foreach ($wordcounts as $wc) {
-            $wc->publications_count = count($wc->records);
+            $wc->productoins_count = count($wc->records);
             $wc->total_count = 0;
             foreach($wc->records as $record) {
                 $wc->total_count += $record['count'];

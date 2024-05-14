@@ -19,9 +19,6 @@ class BibliometricForm extends Component
 
     public $id;
 
-    #[Validate('required|integer')]
-    public $user_id;
-
     #[Validate('required:array')]
     public $repositories = [];
 
@@ -50,7 +47,6 @@ class BibliometricForm extends Component
     public function mount(Project $project)
     {
         $this->project = $project;
-        $this->user_id = auth()->user()->id;
 
         if($this->bibliometric = $project->bibliometric) {
             $this->id = $this->bibliometric->id;

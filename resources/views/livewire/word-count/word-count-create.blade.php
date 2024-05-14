@@ -11,10 +11,10 @@
                 <x-slot:action>
                     <x-ts-button x-on:click="show = !show" sm outline>Definições</x-ts-button>
                 </x-slot:action>
-                <p class="p-2 font-semibold border-b text-sm text-gray-800">Tipos de publicação</p>
-                @foreach ($research->types as $type)
+                <p class="p-2 font-semibold border-b text-sm text-gray-800">Tipos de produção</p>
+                @foreach ($bibliometric->types as $type)
                     <x-ts-dropdown.items>
-                        <x-ts-checkbox name="publication_types[]" wire:model="publication_types" :value="$type"
+                        <x-ts-checkbox name="production_types[]" wire:model="production_types" :value="$type"
                             :label="$type" invalidate />
                     </x-ts-dropdown.items>
                 @endforeach
