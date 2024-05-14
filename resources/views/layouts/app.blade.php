@@ -49,7 +49,7 @@
                 <x-nav-dropdown label="Relatórios">
                     <a href="#">Palavras-chave</a>
                     <a href="{{ route('project.bibliometrics.wordcounts.index', request()->route()->project) }}">Contagem de palavras</a>
-                    <a href="#">Ranking de palavras</a>
+                    <a href="{{ route('project.bibliometrics.wordrankings.index', request()->route()->project) }}">Ranking de palavras</a>
                     <a href="#">Nuvem de palavras</a>
                 </x-nav-dropdown>
             @endif

@@ -1,8 +1,5 @@
 <section>
-    <div class="header">
-        <h1>Gerar ranking de palavras</h1>
-    </div>
-
+    <x-page-header title="Gerar ranking de palavras" />
     <div class="lg:grid grid-cols-5 gap-6">
         <div class="col-span-2 mb-6">
             <x-ts-errors />
@@ -10,11 +7,11 @@
                 <div class="flex gap-2 items-center">
                     <x-ts-dropdown>
                         <x-slot:action>
-                            <x-ts-button x-on:click="show = !show" sm outline>Tipos de publicação</x-ts-button>
+                            <x-ts-button x-on:click="show = !show" sm outline>Tipos de produção</x-ts-button>
                         </x-slot:action>
-                        @foreach ($research->types as $type)
+                        @foreach ($bibliometric->types as $type)
                             <x-ts-dropdown.items>
-                                <x-ts-checkbox name="publication_types[]" wire:model="publication_types" :value="$type"
+                                <x-ts-checkbox name="production_types[]" wire:model="production_types" :value="$type"
                                     :label="$type" invalidate />
                             </x-ts-dropdown.items>
                         @endforeach
@@ -24,11 +21,11 @@
                             <x-ts-button x-on:click="show = !show" sm outline>Seções</x-ts-button>
                         </x-slot:action>
                         <x-ts-dropdown.items>
-                            <x-ts-checkbox name="sections[]" wire:model="sections" value="abstract" label="Resumo"
+                            <x-ts-checkbox name="sections[]" wire:model="sections" value="Resumo" label="Resumo"
                                 invalidate />
                         </x-ts-dropdown.items>
                         <x-ts-dropdown.items>
-                            <x-ts-checkbox name="sections[]" wire:model="sections" value="body"
+                            <x-ts-checkbox name="sections[]" wire:model="sections" value="Textual"
                                 label="Conteúdo textual" invalidate />
                         </x-ts-dropdown.items>
                     </x-ts-dropdown>
@@ -52,7 +49,7 @@
                 <x-slot name="header">
                     <th>Palavra</th>
                     <th>Ocorrências</th>
-                    <th>Publicações</th>
+                    <th>Produções</th>
                     <th width="1"></th>
                 </x-slot>
                 <x-slot name="body">
@@ -66,7 +63,7 @@
                                     <x-ts-dropdown text="Ações" position="bottom-end">
                                         <x-ts-dropdown.items text="Ver contexto" />
                                         <x-ts-dropdown.items wire:click="selectResult({{ $result['id'] }})"
-                                            text="Listar publicações" />
+                                            text="Listar produções" />
                                         <x-ts-dropdown.items text="Exluir" separator />
                                     </x-ts-dropdown>
                                 </td>
@@ -80,7 +77,7 @@
         <div class="col-span-3">
             @if ($selectedResult)
                 {{-- {{ $selectedResult }} --}}
-                {{-- <livewire:word-ranking.word-ranking-publications :$selectedResult /> --}}
+                {{-- <livewire:word-ranking.word-ranking-productions :$selectedResult /> --}}
                 {{ $foo }}
             @endif
         </div>
@@ -101,8 +98,8 @@
             O que você deseja fazer agora?
             <div class="mt-4 flex flex-col space-y-2">
                 <x-ts-button wire:click="clear" text="Gerar novo relatório" color="white" />
-                <x-ts-button :href="route('researches.wordrankings.show', [$research, $savedWordRanking->id])" wire:navigate text="Ir para o relatório" color="white" />
-                <x-ts-button :href="route('researches.wordrankings.index', [$research])" wire:navigate text="Voltar para lista" color="white" />
+                <x-ts-button :href="route('project.bibliometrics.wordrankings.show', [$project, $savedWordRanking->id])" wire:navigate text="Ir para o relatório" color="white" />
+                <x-ts-button :href="route('project.bibliometrics.wordrankings.index', [$project])" wire:navigate text="Voltar para lista" color="white" />
             </div>
         </x-ts-modal>
     @endif

@@ -3,22 +3,24 @@
 namespace App\Livewire\WordRanking;
 
 use App\Models\Internal;
-use App\Models\Research;
+use App\Models\Project;
 use App\Models\WordRanking;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class WordRankingCreate extends Component
 {
-    public $research;
+    public $project;
 
-    public $publications = [];
+    public $bibliometric;
+
+    public $productions = [];
 
     #[Validate('required|array')]
     public $sections = [];
 
     #[Validate('required|array')]
-    public $publication_types = [];
+    public $production_types = [];
 
     #[Validate('nullable|array')]
     public $years;
@@ -51,18 +53,19 @@ class WordRankingCreate extends Component
 
     public $savedWordRanking;
 
-    public function mount(Research $research)
+    public function mount(Project $project)
     {
-        $this->research = $research;
+        $this->project = $project;
+        $this->bibliometric = $project->bibliometric;
     }
 
     public function generate()
     {
         $internalsContent = Internal::query()
-            ->whereRelation('publication', fn($q) => $q->whereIn('type', $this->publication_types))
+            ->whereRelation('production', fn($q) => $q->whereIn('type', $this->production_types))
             ->whereIn('section', $this->sections)
-            ->when($this->publications, function ($q) {
-                $q->whereIn('publication_id', $this->publications);
+            ->when($this->productions, function ($q) {
+                $q->whereIn('production_id', $this->productions);
             })
             ->pluck('content')
             ->toArray();
@@ -124,14 +127,14 @@ class WordRankingCreate extends Component
         // $this->reset('selectedResult');
         // sleep(2);
         // $this->selectedResult = $this->results->where('id', $id)->first();
-        // $this->dispatch('load-publications', $data = $this->selectedResult);
+        // $this->dispatch('load-productions', $data = $this->selectedResult);
     }
 
     public function save()
     {
         $filters = [
             'min_lenght' => $this->minLenght,
-            'publication_types' => $this->publication_types,
+            'production_types' => $this->production_types,
             'internal_sections' => $this->sections,
             'years' => $this->years,
         ];
@@ -147,7 +150,7 @@ class WordRankingCreate extends Component
         }
 
         $wordRanking = [
-            'research_id' => $this->research->id,
+            'bibliometric_id' => $this->bibliometric->id,
             'title' => $this->title,
             'description' => $this->description,
             'words_limit' => $this->wordsLimit,

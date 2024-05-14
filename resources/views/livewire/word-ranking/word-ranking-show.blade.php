@@ -1,9 +1,5 @@
 <section>
-    <div class="header">
-        <div>
-            <h1>Ranking de palavras</h1>
-        </div>
-    </div>
+    <x-page-header title="Ranking de palavras" />
     <div class="lg:grid grid-cols-5 gap-6">
         <div class="mb-6 col-span-2">
             <x-ts-card>
@@ -11,7 +7,7 @@
                     @if ($wordranking->title)
                         <x-detail label="Título do relatório" :value="$wordranking->title" />
                     @endif
-                    <x-detail label="Tipos de publicação" :value="$wordranking->filters['publication_types']" />
+                    <x-detail label="Tipos de produção" :value="$wordranking->filters['production_types']" />
                     <x-detail label="Seções pesquisadas" :value="$wordranking->filters['internal_sections']" />
                     <x-detail label="Largura mínima das palavras" :value="$wordranking->filters['min_lenght']" />
                     <x-detail label="Limite de palavras" :value="$wordranking->words_limit" />
@@ -35,7 +31,7 @@
                 <x-slot name="header">
                     <th>Palavra</th>
                     <th>Ocorrências</th>
-                    <th>Publicações</th>
+                    <th>Produções</th>
                     <th width="1"></th>
                 </x-slot>
                 <x-slot name="body">

@@ -15,23 +15,26 @@ use App\Livewire\Student\StudentIndex;
 use App\Livewire\WordCount\WordCountCreate;
 use App\Livewire\WordCount\WordCountIndex;
 use App\Livewire\WordCount\WordCountShow;
+use App\Livewire\WordRanking\WordRankingCreate;
+use App\Livewire\WordRanking\WordRankingIndex;
+use App\Livewire\WordRanking\WordRankingShow;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 Route::get('files/{path}', [FileController::class, 'show'])->name('files');
 
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth'])->group(function () {
 
     Route::get('dashboard', DashboardIndex::class)->name('dashboard');
 
-    Route::get('estudantes', StudentIndex::class )->name('students.index');
+    Route::get('estudantes', StudentIndex::class)->name('students.index');
 
     Route::get('projetos', ProjectIndex::class)->name('projects.index');
     Route::get('p/{project}', ProjectShow::class)->name('project.show');
 
     Route::get('p/{project}/bibiometria', BibliometricShow::class)->name('project.bibliometrics.show');
 
-    Route::name('project.bibliometrics.')->prefix('p/{project}')->group(function() {
+    Route::name('project.bibliometrics.')->prefix('p/{project}')->group(function () {
         Route::get('b/nova', BibliometricForm::class)->name('create');
         Route::get('b/editar', BibliometricForm::class)->name('edit');
 
@@ -43,6 +46,10 @@ Route::middleware(['auth'])->group(function() {
         Route::get('rel/contagem', WordCountIndex::class)->name('wordcounts.index');
         Route::get('rel/contagem/nova', WordCountCreate::class)->name('wordcounts.create');
         Route::get('rel/contagem/{wordcount}', WordCountShow::class)->name('wordcounts.show');
+
+        Route::get('rel/ranking', WordRankingIndex::class)->name('wordrankings.index');
+        Route::get('rel/ranking/novo', WordRankingCreate::class)->name('wordrankings.create');
+        Route::get('rel/ranking/{wordranking}', WordRankingShow::class)->name('wordrankings.show');
     });
 
     // Route::view('profile', 'profile')->name('profile');
@@ -54,18 +61,10 @@ Route::middleware(['auth'])->group(function() {
     //     Route::get('pub/{publication}/resumo', \App\Livewire\Internal\InternalForm::class)->name('researches.publications.abstract');
     //     Route::get('pub/{publication}/corpo', \App\Livewire\Internal\InternalForm::class)->name('researches.publications.body');
 
-    //     Route::get('contagem', \App\Livewire\WordCount\WordCountIndex::class)->name('researches.wordcounts.index');
-    //     Route::get('contagem/nova', \App\Livewire\WordCount\WordCountCreate::class)->name('researches.wordcounts.create');
-    //     Route::get('contagem/{wordcount}', \App\Livewire\WordCount\WordCountShow::class)->name('researches.wordcounts.show');
-
-    //     Route::get('ranking', \App\Livewire\WordRanking\WordRankingIndex::class)->name('researches.wordrankings.index');
-    //     Route::get('ranking/novo', \App\Livewire\WordRanking\WordRankingCreate::class)->name('researches.wordrankings.create');
-    //     Route::get('ranking/{wordranking}', \App\Livewire\WordRanking\WordRankingShow::class)->name('researches.wordrankings.show');
-
     //     Route::get('arquivos', \App\Livewire\File\FileIndex::class)->name('researches.files.index');
 
     //     Route::get('keywords', \App\Livewire\Keyword\KeywordIndex::class)->name('researches.keywords.index');
     // });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

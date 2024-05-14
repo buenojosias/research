@@ -2,12 +2,15 @@
 
 namespace App\Livewire\WordRanking;
 
+use App\Models\Project;
 use App\Models\WordRanking;
 use Livewire\Component;
 
 class WordRankingShow extends Component
 {
-    public $research;
+    public $project;
+
+    public $bibliometric;
 
     public $wordranking;
 
@@ -15,19 +18,21 @@ class WordRankingShow extends Component
 
     public $records = [];
 
-    public function mount($research, $wordranking)
+    public function mount(Project $project, $wordranking)
     {
-        $this->research = $research;
+        $this->project = $project;
+
+        $this->bibliometric = $project->bibliometric;
 
         $this->wordranking = WordRanking::query()
-            // ->where('research_id', $research)
+            ->where('bibliometric_id', $this->bibliometric->id)
             ->findOrFail($wordranking);
 
         $this->records = $this->wordranking->records;
 
         $this->totalCount = 0;
 
-        foreach($this->records as $record) {
+        foreach ($this->records as $record) {
             $this->totalCount += $record['count'];
         }
     }
