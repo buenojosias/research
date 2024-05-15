@@ -16,7 +16,7 @@ class Production extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'bibliometric_id',
+        'project_id',
         'searched_terms',
         'repository',
         'type',
@@ -43,9 +43,9 @@ class Production extends Model
         ];
     }
 
-    public function bibliometric(): BelongsTo
+    public function project(): BelongsTo
     {
-        return $this->belongsTo(Bibliometric::class);
+        return $this->belongsTo(Project::class);
     }
 
     public function state(): BelongsTo

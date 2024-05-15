@@ -12,8 +12,6 @@ class WordCountShow extends Component
 {
     public $project;
 
-    public $bibliometric;
-
     public $wordcount;
 
     public $records = [];
@@ -22,15 +20,12 @@ class WordCountShow extends Component
 
     public $content = '';
 
-
     public function mount(Project $project, $wordcount)
     {
         $this->project = $project;
 
-        $this->bibliometric = $project->bibliometric;
-
         $this->wordcount = WordCount::query()
-            ->where('bibliometric_id', $this->bibliometric->id)
+            ->where('project_id', $project->id)
             ->findOrFail($wordcount);
 
         $this->records = $this->wordcount->records;

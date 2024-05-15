@@ -37,6 +37,7 @@ class WordCountCreate extends Component
     public function mount(Project $project)
     {
         $this->project = $project;
+
         $this->bibliometric = $project->bibliometric;
     }
 
@@ -48,7 +49,7 @@ class WordCountCreate extends Component
             ->with('production')
             ->whereHas('production', function($query) {
                 $query->whereIn('type', $this->production_types)
-                    ->where('bibliometric_id', $this->bibliometric->id);
+                    ->where('project_id', $this->project->id);
             })
             ->whereIn('section', $this->sections)
             ->when(strpos($this->word, ' ') !== false, function ($query) {
@@ -103,7 +104,7 @@ class WordCountCreate extends Component
         }
 
         $wordCount = [
-            'bibliometric_id' => $this->bibliometric->id,
+            'project_id' => $this->project->id,
             'word' => $this->word,
             'production_types' => $this->production_types,
             'sections' => $this->sections,

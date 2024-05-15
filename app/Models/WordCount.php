@@ -12,7 +12,7 @@ class WordCount extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'bibliometric_id',
+        'project_id',
         'word',
         'production_types',
         'records',
@@ -28,8 +28,8 @@ class WordCount extends Model
         ];
     }
 
-    public function bibliometric(): BelongsTo
+    public function project(): BelongsTo
     {
-        return $this->belongsTo(Bibliometric::class);
+        return $this->belongsTo(Project::class);
     }
 }

@@ -36,12 +36,6 @@ class ProductionCreate extends Component
     #[Validate('required|array')]
     public $authors = [];
 
-    // #[Validate('required|string')]
-    // public $author_forename;
-
-    // #[Validate('required|string')]
-    // public $author_lastname;
-
     #[Validate('required|string|in_array:bibliometric.types.*')]
     public $type;
 
@@ -76,6 +70,7 @@ class ProductionCreate extends Component
     public function mount(Project $project)
     {
         $this->project = $project;
+
         $this->bibliometric = $project->bibliometric;
 
         for($i = intval($this->bibliometric->start_year); $i <= $this->bibliometric->end_year; $i++) {
@@ -92,10 +87,10 @@ class ProductionCreate extends Component
         // $abstract = $this->abstract ?? null;
 
         \DB::beginTransaction();
-        $createdProduction = $this->bibliometric->productions()->create($data);
+        $createdProduction = $this->project->productions()->create($data);
         $createdKeywords = $createdProduction->keywords()->create(['data' => $keywords]);
         if($abstractData = $this->serializeAbstract())
-            $createdAbstract = $createdProduction->abstract()->create($abstractData);
+            $createdProduction->abstract()->create($abstractData);
 
         if($createdProduction && $createdKeywords) {
             \DB::commit();

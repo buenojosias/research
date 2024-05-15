@@ -9,17 +9,13 @@ class FileIndex extends Component
 {
     public $project;
 
-    public $bibliometric;
-
     public $files = [];
 
     public function mount(Project $project)
     {
         $this->project = $project;
 
-        $this->bibliometric = $project->bibliometric;
-
-        $this->files = $this->bibliometric->productions()
+        $this->files = $project->productions()
             ->has('file')
             ->with('file')
             ->get();

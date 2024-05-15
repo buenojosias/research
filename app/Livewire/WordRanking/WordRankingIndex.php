@@ -9,18 +9,16 @@ class WordRankingIndex extends Component
 {
     public $project;
 
-    public $bibliometric;
-
     public $wordrankings = [];
 
     public function mount(Project $project)
     {
         $this->project = $project;
-        $this->bibliometric = $project->bibliometric;
-        $wordrankings = $this->bibliometric->wordRankings;
+
+        $wordrankings = $project->wordRankings;
 
         foreach ($wordrankings as $wr) {
-            $wr->publications_count = count($wr->records);
+            $wr->productions_count = count($wr->records);
             $wr->total_count = 0;
             foreach($wr->records as $record) {
                 $wr->total_count += $record['count'];

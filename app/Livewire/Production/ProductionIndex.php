@@ -49,6 +49,7 @@ class ProductionIndex extends Component
         $this->once = true;
 
         $this->project = $project;
+
         $this->bibliometric = $project->bibliometric;
 
         $this->has_monographies = in_array('dissertação', $this->bibliometric->types) ||
@@ -63,7 +64,7 @@ class ProductionIndex extends Component
 
     public function render()
     {
-        $this->productions = $this->bibliometric->productions()
+        $this->productions = $this->project->productions()
             ->whereAny(['title', 'subtitle'], 'like', "%$this->q%")
             ->when($this->anos, function ($query) {
                 $query->whereIn('year', $this->anos);

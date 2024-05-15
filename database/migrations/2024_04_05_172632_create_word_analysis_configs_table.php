@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('word_analysis_configs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bibliometric_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->unsignedInteger('min_lenght')->default(4);
             $table->json('combinations');
             $table->json('excluded_words');

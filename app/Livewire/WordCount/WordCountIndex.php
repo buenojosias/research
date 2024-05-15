@@ -9,15 +9,13 @@ class WordCountIndex extends Component
 {
     public $project;
 
-    public $bibliometric;
-
     public $wordcounts = [];
 
     public function mount(Project $project)
     {
         $this->project = $project;
-        $this->bibliometric = $project->bibliometric;
-        $wordcounts = $this->bibliometric->wordCounts;
+
+        $wordcounts = $project->wordCounts;
 
         foreach ($wordcounts as $wc) {
             $wc->productoins_count = count($wc->records);

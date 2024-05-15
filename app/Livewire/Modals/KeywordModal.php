@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class KeywordModal extends Component
 {
-    public $publication;
+    public $production;
 
     public $keywords;
 
@@ -15,10 +15,10 @@ class KeywordModal extends Component
 
     public $modal = false;
 
-    public function mount($publication)
+    public function mount($production)
     {
-        $this->$publication = $publication;
-        // $this->$keywords = $publication->keywords;
+        $this->$production = $production;
+        // $this->$keywords = $production->keywords;
     }
 
     public function render()

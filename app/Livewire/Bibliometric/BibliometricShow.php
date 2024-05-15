@@ -8,6 +8,7 @@ use Livewire\Component;
 class BibliometricShow extends Component
 {
     public $project;
+
     public $bibliometric;
 
     public $productions;
@@ -20,7 +21,7 @@ class BibliometricShow extends Component
         $this->bibliometric = $project->bibliometric;
         $this->bibliometric->period = $this->bibliometric->start_year . ' - '. $this->bibliometric->end_year;
 
-        $this->types = $this->bibliometric->productions()
+        $this->types = $project->productions()
             ->select('type', \DB::raw('COUNT(*) as count'))
             ->groupBy('type')
             ->get();

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Internal;
 
-use App\Models\Publication;
+use App\Models\Production;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -14,7 +14,7 @@ class InternalForm extends Component
 
     public $section;
 
-    public $publication;
+    public $production;
 
     public $file;
 
@@ -33,28 +33,28 @@ class InternalForm extends Component
     #[On('file-uploaded')]
     public function fileUploaded($file)
     {
-        $this->file = $this->publication->file()->find($file['id']);
+        $this->file = $this->production->file()->find($file['id']);
         $this->path = str_replace('files/', '', $this->file->path);
         $this->toast()->success('Arquivo enviado com sucesso.')->send();
     }
 
-    public function mount(Publication $publication)
+    public function mount(Production $production)
     {
-        if (request()->routeIs('*.publications.abstract')) {
+        if (request()->routeIs('*.productions.abstract')) {
             $this->section = 'abstract';
-        } else if (request()->routeIs('*.publications.body')) {
+        } else if (request()->routeIs('*.productions.body')) {
             $this->section = 'body';
         } else {
             return abort(404);
         }
 
-        $this->publication = $publication;
-        $this->file = $this->publication->file;
+        $this->production = $production;
+        $this->file = $this->production->file;
 
         if ($this->file)
             $this->path = str_replace('files/', '', $this->file->path);
 
-        $this->internal = $this->publication->internals()
+        $this->internal = $this->production->internals()
             ->where('section', $this->section)
             ->first();
 
@@ -98,7 +98,7 @@ class InternalForm extends Component
         $this->total_words = count($words);
 
         if (
-            $this->publication->internals()->updateOrCreate(
+            $this->production->internals()->updateOrCreate(
                 [
                     'section' => $this->section,
                 ],

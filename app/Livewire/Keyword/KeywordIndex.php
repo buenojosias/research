@@ -21,7 +21,7 @@ class KeywordIndex extends Component
     {
         $this->project = $project;
 
-        $data = $project->bibliometric->keywords()
+        $data = $project->keywords()
             ->select('data')
             ->get()
             ->pluck('data')

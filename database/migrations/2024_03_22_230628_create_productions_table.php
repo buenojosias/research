@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('productions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bibliometric_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->json('searched_terms');
             $table->string('repository', 32);
             $table->string('type', 24);

@@ -3,7 +3,6 @@
 namespace App\Livewire\Student;
 
 use App\Models\Student;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class StudentIndex extends Component

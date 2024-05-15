@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -45,8 +46,28 @@ class Project extends Model
         return $this->hasOne(Bibliometric::class);
     }
 
-    public function productions(): HasManyThrough
+    public function productions(): HasMany
     {
-        return $this->hasManyThrough(Production::class, Bibliometric::class);
+        return $this->hasMany(Production::class);
+    }
+
+    public function files(): HasManyThrough
+    {
+        return $this->hasManyThrough(File::class, Production::class);
+    }
+
+    public function wordCounts(): HasMany
+    {
+        return $this->hasMany(WordCount::class);
+    }
+
+    public function wordRankings(): HasMany
+    {
+        return $this->hasMany(WordRanking::class);
+    }
+
+    public function keywords(): HasManyThrough
+    {
+        return $this->hasManyThrough(Keyword::class, Production::class);
     }
 }

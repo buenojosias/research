@@ -12,7 +12,7 @@ class WordRanking extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'bibliometric_id',
+        'project_id',
         'production_id',
         'title',
         'description',
@@ -33,9 +33,9 @@ class WordRanking extends Model
         ];
     }
 
-    public function bibliometric(): BelongsTo
+    public function project(): BelongsTo
     {
-        return $this->belongsTo(Bibliometric::class);
+        return $this->belongsTo(Project::class);
     }
 
     public function production(): BelongsTo

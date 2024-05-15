@@ -26,7 +26,7 @@ class WordRankingCreate extends Component
     public $years;
 
     #[Validate('required|integer')]
-    public $minLenght = 5;
+    public $minLenght = 4;
 
     #[Validate('required|integer')]
     public $wordsLimit = 50;
@@ -56,6 +56,7 @@ class WordRankingCreate extends Component
     public function mount(Project $project)
     {
         $this->project = $project;
+
         $this->bibliometric = $project->bibliometric;
     }
 
@@ -150,7 +151,7 @@ class WordRankingCreate extends Component
         }
 
         $wordRanking = [
-            'bibliometric_id' => $this->bibliometric->id,
+            'project_id' => $this->project->id,
             'title' => $this->title,
             'description' => $this->description,
             'words_limit' => $this->wordsLimit,

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Keyword;
-use App\Models\Publication;
+use App\Models\Production;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -11,10 +11,10 @@ class KeywordSeeder extends Seeder
 {
     public function run(): void
     {
-        $publications = Publication::select('id')->inRandomOrder('id')->limit(20)->get();
-        $publications->each(function (Publication $publication){
+        $productions = Production::select('id')->inRandomOrder('id')->limit(20)->get();
+        $productions->each(function (Production $production){
             Keyword::factory(1)->create([
-                'publication_id' => $publication->id
+                'production_id' => $production->id
             ]);
         });
     }

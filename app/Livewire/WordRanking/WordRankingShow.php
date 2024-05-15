@@ -10,8 +10,6 @@ class WordRankingShow extends Component
 {
     public $project;
 
-    public $bibliometric;
-
     public $wordranking;
 
     public $totalCount;
@@ -22,10 +20,8 @@ class WordRankingShow extends Component
     {
         $this->project = $project;
 
-        $this->bibliometric = $project->bibliometric;
-
         $this->wordranking = WordRanking::query()
-            ->where('bibliometric_id', $this->bibliometric->id)
+            ->where('project_id', $project->id)
             ->findOrFail($wordranking);
 
         $this->records = $this->wordranking->records;

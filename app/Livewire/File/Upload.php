@@ -12,9 +12,9 @@ class Upload extends Component
 {
     use WithFileUploads;
 
-    public $publication;
+    public $production;
 
-    public $publication_id;
+    public $production_id;
 
     public $filename;
 
@@ -27,15 +27,15 @@ class Upload extends Component
 
     public $pages;
 
-    public function mount($publication)
+    public function mount($production)
     {
-        $this->publication = $publication;
-        $this->publication_id = $publication->id;
+        $this->production = $production;
+        $this->production_id = $production->id;
 
         $this->filename =
-            $this->publication->author_lastname . ' - ' .
-            $this->publication->title . ' (' .
-            $this->publication->year . ')';
+            $this->production->author_lastname . ' - ' .
+            $this->production->title . ' (' .
+            $this->production->year . ')';
     }
 
     public function updatedFile(): void
@@ -62,7 +62,7 @@ class Upload extends Component
     public function save()
     {
         $data = $this->validate([
-            'publication_id' => 'required|integer',
+            'production_id' => 'required|integer',
             'filename' => 'required|string',
             'path' => 'required|string',
             'size' => 'required|decimal:3',

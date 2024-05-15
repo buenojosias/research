@@ -2,7 +2,7 @@
 
 namespace App\Livewire\File;
 
-use App\Models\Research;
+use App\Models\Project;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use TallStackUi\Traits\Interactions;
@@ -11,9 +11,7 @@ class FileShow extends Component
 {
     use Interactions;
 
-    public $research;
-
-    public $publication;
+    public $production;
 
     public $file;
 
@@ -22,21 +20,21 @@ class FileShow extends Component
     #[On('file-uploaded')]
     public function fileUploaded($file)
     {
-        $this->file = $this->publication->file()->find($file['id']);
+        $this->file = $this->production->file()->find($file['id']);
         $this->path = str_replace('files/', '', $this->file->path);
         $this->toast()->success('Arquivo enviado com sucesso.')->send();
     }
 
-    public function mount(Research $research, $publication)
+    public function mount(Project $project, $production)
     {
-        $this->research = $research;
+        $this->project = $project;
 
-        $this->publication = $research->productions()
-            ->select(['id', 'title', 'subtitle', 'year', 'author_lastname'])
+        $this->production = $project->productions()
+            ->select(['id', 'title', 'subtitle', 'year', 'authors'])
             ->with('file')
-            ->findOrFail($publication);
+            ->findOrFail($production);
 
-        $this->file = $this->publication->file;
+        $this->file = $this->production->file;
 
         // $this->path = storage_path($this->file->path);
         if ($this->file)

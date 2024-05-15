@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\File;
-use App\Models\Publication;
+use App\Models\Production;
 use Faker\Factory as Faker;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -14,12 +14,12 @@ class FileSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $publications = Publication::select(['id','author_lastname'])->inRandomOrder('id')->limit(20)->get();
+        $productions = Production::select(['id','year'])->inRandomOrder('id')->limit(10)->get();
 
-        foreach($publications as $publication) {
+        foreach($productions as $production) {
             File::factory(1)->create([
-                'publication_id' => $publication->id,
-                'filename' => $publication->author_lastname . ' - ' . $faker->sentence() . 'pdf',
+                'production_id' => $production->id,
+                'filename' => $production->year . ' - ' . $faker->sentence() . 'pdf',
                 'path' => $faker->url(),
                 'size' => $faker->randomFloat(2, 1, 50),
                 'pages' => rand(10, 200)

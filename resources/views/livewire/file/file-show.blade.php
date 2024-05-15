@@ -1,12 +1,6 @@
 <section>
+    <x-page-header title="Arquivo da produção" :subtitle="$production->title" />
     <x-ts-toast />
-    <div class="header">
-        <div>
-            <h1>Arquivo da publicação</h1>
-            <h2>{{ $publication->title }}</h2>
-        </div>
-    </div>
-
     <div class="lg:grid grid-cols-6 gap-6">
         <div class="col-span-4 pb-6 lg:pb-0">
             @if ($file)
@@ -19,7 +13,7 @@
                 </div>
             @else
                 <x-ts-card header="Nenhum arquivo adicionado.">
-                    <livewire:file.upload :publication="$publication" />
+                    <livewire:file.upload :production="$production" />
                 </x-ts-card>
             @endif
         </div>
@@ -45,10 +39,10 @@
 
             <div class="space-y-2">
                 @if ($file)
-                    <x-ts-button text="Extrair/editar conteúdo" :href="route('researches.publications.body', [$research, $publication])" color="white" class="w-full shadow"
-                        lg />
-                    <x-ts-button text="Conteúdo interno" :href="route('researches.publications.content', [$research, $publication])" wire:navigate color="white"
-                        class="w-full shadow" lg />
+                    {{-- <x-ts-button text="Extrair/editar conteúdo" :href="route('researches.productions.body', [$research, $production])" color="white" class="w-full shadow"
+                        lg /> --}}
+                    {{-- <x-ts-button text="Conteúdo interno" :href="route('researches.productions.content', [$research, $production])" wire:navigate color="white"
+                        class="w-full shadow" lg /> --}}
                     <x-ts-button text="Baixar arquivo" color="white" class="w-full shadow" lg />
                     <x-ts-button text="Excluir arquivo" color="white" class="w-full shadow" lg />
                 @endif

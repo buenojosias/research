@@ -35,7 +35,11 @@
                             <dt>Link do resultado</dt>
                             <dd class="w-full">
                                 <span class="break-words">{{ $production->url }}</span>
-                                <x-ts-link :href="$production->url" icon="arrow-top-right-on-square" lg blank />
+                                @if ($production->url)
+                                    <x-ts-link :href="$production->url" icon="arrow-top-right-on-square" lg blank />
+                                @else
+                                    Nenhum link adicionado
+                                @endif
                             </dd>
                         </dl>
                     </div>
