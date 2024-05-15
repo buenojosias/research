@@ -2,14 +2,13 @@
 
 namespace App\Livewire\Keyword;
 
-use App\Models\Keyword;
-use App\Models\Research;
+use App\Models\Project;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class KeywordIndex extends Component
 {
-    public $research;
+    public $project;
 
     public $keywords;
 
@@ -18,11 +17,11 @@ class KeywordIndex extends Component
     #[Url('palavra', except: '')]
     public $selectedKeyword = '';
 
-    public function mount(Research $research)
+    public function mount(Project $project)
     {
-        $this->research = $research;
+        $this->project = $project;
 
-        $data = $research->keywords()
+        $data = $project->bibliometric->keywords()
             ->select('data')
             ->get()
             ->pluck('data')
@@ -49,9 +48,9 @@ class KeywordIndex extends Component
     public function selectWord($word)
     {
         $this->selectedKeyword = $word;
-        $this->kw_publ = $this->research->keywords()
+        $this->kw_publ = $this->project->bibliometric->keywords()
             ->whereJsonContains('data', $word)
-            ->with('publication')
+            ->with('production')
             ->get();
     }
 

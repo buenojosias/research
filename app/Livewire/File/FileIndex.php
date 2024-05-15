@@ -2,27 +2,34 @@
 
 namespace App\Livewire\File;
 
-use App\Models\Research;
+use App\Models\Project;
 use Livewire\Component;
 
 class FileIndex extends Component
 {
-    public $research;
+    public $project;
+
+    public $bibliometric;
 
     public $files = [];
 
-    public function mount(Research $research)
+    public function mount(Project $project)
     {
-        $this->research = $research;
+        $this->project = $project;
 
-        $this->files = $research->files()
-            ->with('publication')
+        $this->bibliometric = $project->bibliometric;
+
+        $this->files = $this->bibliometric->productions()
+            ->has('file')
+            ->with('file')
             ->get();
+
+            // dd($this->files->toArray());
     }
 
     public function render()
     {
         return view('livewire.file.file-index')
-            ->title('Arquivos da pesquisa');
+            ->title('Arquivos da bibliometria');
     }
 }

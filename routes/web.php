@@ -4,6 +4,8 @@ use App\Http\Controllers\FileController;
 use App\Livewire\Bibliometric\BibliometricForm;
 use App\Livewire\Bibliometric\BibliometricShow;
 use App\Livewire\Dashboard\DashboardIndex;
+use App\Livewire\File\FileIndex;
+use App\Livewire\Keyword\KeywordIndex;
 use App\Livewire\Production\ProductionCreate;
 use App\Livewire\Production\ProductionEdit;
 use App\Livewire\Production\ProductionIndex;
@@ -43,6 +45,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('producoes/{production}', ProductionShow::class)->name('productions.show');
         Route::get('producoes/{production}/editar', ProductionEdit::class)->name('productions.edit');
 
+        Route::get('keywords', KeywordIndex::class)->name('keywords.index');
+
         Route::get('rel/contagem', WordCountIndex::class)->name('wordcounts.index');
         Route::get('rel/contagem/nova', WordCountCreate::class)->name('wordcounts.create');
         Route::get('rel/contagem/{wordcount}', WordCountShow::class)->name('wordcounts.show');
@@ -50,6 +54,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('rel/ranking', WordRankingIndex::class)->name('wordrankings.index');
         Route::get('rel/ranking/novo', WordRankingCreate::class)->name('wordrankings.create');
         Route::get('rel/ranking/{wordranking}', WordRankingShow::class)->name('wordrankings.show');
+
+        Route::get('arquivos', FileIndex::class)->name('files.index');
     });
 
     // Route::view('profile', 'profile')->name('profile');
@@ -61,9 +67,6 @@ Route::middleware(['auth'])->group(function () {
     //     Route::get('pub/{publication}/resumo', \App\Livewire\Internal\InternalForm::class)->name('researches.publications.abstract');
     //     Route::get('pub/{publication}/corpo', \App\Livewire\Internal\InternalForm::class)->name('researches.publications.body');
 
-    //     Route::get('arquivos', \App\Livewire\File\FileIndex::class)->name('researches.files.index');
-
-    //     Route::get('keywords', \App\Livewire\Keyword\KeywordIndex::class)->name('researches.keywords.index');
     // });
 });
 

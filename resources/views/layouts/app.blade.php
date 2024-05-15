@@ -39,7 +39,7 @@
             @if (request()->routeIs('*bibliometric*'))
                 <x-nav-link label="Projeto" :href="route('project.show', request()->route()->project)" />
                 <x-nav-link label="Produções" :href="route('project.bibliometrics.productions.index', request()->route()->project)" :active="request()->routeIs('*productions*')" />
-                <x-nav-link label="Arquivos" href="#" :active="request()->routeIs('bibliometrics.files*')" />
+                <x-nav-link label="Arquivos" :href="route('project.bibliometrics.files.index', request()->route()->project)" :active="request()->routeIs('*bibliometrics.files*')" />
                 <x-nav-link label="Códigos" href="#" />
                 <x-nav-dropdown label="Inserir">
                     <a href="{{ route('project.bibliometrics.productions.create', request()->route()->project) }}">Produção</a>
@@ -47,7 +47,7 @@
                     <a href="#">Arquivo</a>
                 </x-nav-dropdown>
                 <x-nav-dropdown label="Relatórios">
-                    <a href="#">Palavras-chave</a>
+                    <a href="{{ route('project.bibliometrics.keywords.index', request()->route()->project) }}">Palavras-chave</a>
                     <a href="{{ route('project.bibliometrics.wordcounts.index', request()->route()->project) }}">Contagem de palavras</a>
                     <a href="{{ route('project.bibliometrics.wordrankings.index', request()->route()->project) }}">Ranking de palavras</a>
                     <a href="#">Nuvem de palavras</a>

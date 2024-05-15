@@ -1,9 +1,5 @@
 <section>
-    <div class="header">
-        <div>
-            <h1>Palavras-chave</h1>
-        </div>
-    </div>
+    <x-page-header title="Palavras-chave" :subtitle="$project->theme" />
     <div class="flex flex-col lg:flex-row-reverse gap-6">
         <div class="lg:w-2/3">
             @if ($selectedKeyword && $kw_publ)
@@ -20,8 +16,8 @@
                         @forelse ($kw_publ as $kw)
                             <tr>
                                 <td class="!text-wrap">
-                                    <a href="{{ route('researches.publications.show', [$research, $kw->publication]) }}">
-                                        {{ $kw->publication->title }} ({{ $kw->publication->year }})
+                                    <a href="{{ route('project.bibliometrics.productions.show', [$project, $kw->production]) }}">
+                                        {{ $kw->production->title }} ({{ $kw->production->year }})
                                     </a>
                                 </td>
                                 <td class="!text-wrap">
@@ -34,13 +30,13 @@
                                 </td>
                             </tr>
                         @empty
-                            <div class="p-4 border-t">Palavra-chave não encontrada nas publicações.</div>
+                            <div class="p-4 border-t">Palavra-chave não encontrada nas produções.</div>
                         @endforelse
                     </x-slot>
                 </x-table>
             @else
                 <x-ts-card>
-                    Selecione uma palavra na tabela <span class="lg:hidden">abaixo</span> <span class="hidden lg:inline-flex">ao lado</span> para ver as publicações que a possuem.
+                    Selecione uma palavra na tabela <span class="lg:hidden">abaixo</span> <span class="hidden lg:inline-flex">ao lado</span> para ver as produções que a possuem.
                 </x-ts-card>
             @endif
         </div>
@@ -48,7 +44,7 @@
             <x-table>
                 <x-slot name="header">
                     <th class="cursor-pointer" wire:click="ksort">Palavra</th>
-                    <th class="cursor-pointer" wire:click="arsort">Publicações</th>
+                    <th class="cursor-pointer" wire:click="arsort">Produções</th>
                 </x-slot>
                 <x-slot name="body">
                     @foreach ($keywords as $key => $keyword)
