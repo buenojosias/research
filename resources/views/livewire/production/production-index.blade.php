@@ -30,7 +30,7 @@
             <th x-show="year">Ano</th>
             <th x-show="type">Tipo</th>
             <th x-show="repository">Repositório</th>
-            <th x-show="therms">Termos pesquisados</th>
+            <th x-show="therms">Palavras buscadas</th>
             <th x-show="periodical">Periódico</th>
             <th x-show="institution">Instituição</th>
             <th x-show="program">Programa</th>
@@ -107,7 +107,7 @@
             <x-ts-toggle x-model="year" label="Ano" />
             <x-ts-toggle x-model="type" label="Tipo" />
             <x-ts-toggle x-model="repository" label="Repositório" />
-            <x-ts-toggle x-model="therms" label="Termos pesquisados" />
+            <x-ts-toggle x-model="therms" label="Palavras buscadas" />
             @if ($has_periodicals)
                 <x-ts-toggle x-model="periodical" label="Periódico" />
             @endif

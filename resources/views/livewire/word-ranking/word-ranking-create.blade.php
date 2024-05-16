@@ -1,9 +1,9 @@
 <section>
     <x-page-header title="Gerar ranking de palavras" />
-    <div class="lg:grid grid-cols-5 gap-6">
-        <div class="col-span-2 mb-6">
+    <div class="">
+        <div class="">
             <x-ts-errors />
-            <div class="px-4 py-2 flex justify-between items-center bg-white rounded-t">
+            <div class="px-4 py-2 flex flex-wrap justify-between items-center bg-white rounded-t">
                 <div class="flex gap-2 items-center">
                     <x-ts-dropdown>
                         <x-slot:action>

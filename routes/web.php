@@ -17,6 +17,7 @@ use App\Livewire\Project\ProjectCreate;
 use App\Livewire\Project\ProjectIndex;
 use App\Livewire\Project\ProjectShow;
 use App\Livewire\Student\StudentIndex;
+use App\Livewire\WordCloud\WordCloudIndex;
 use App\Livewire\WordCount\WordCountCreate;
 use App\Livewire\WordCount\WordCountIndex;
 use App\Livewire\WordCount\WordCountShow;
@@ -61,6 +62,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('rel/ranking', WordRankingIndex::class)->name('wordrankings.index');
         Route::get('rel/ranking/novo', WordRankingCreate::class)->name('wordrankings.create');
         Route::get('rel/ranking/{wordranking}', WordRankingShow::class)->name('wordrankings.show');
+
+        Route::get('rel/nuvem', WordCloudIndex::class)->name('wordclouds.index');
 
         Route::get('arquivos', FileIndex::class)->name('files.index');
     });
