@@ -9,18 +9,18 @@ class FileIndex extends Component
 {
     public $project;
 
-    public $files = [];
+    public $productions = [];
 
     public function mount(Project $project)
     {
         $this->project = $project;
 
-        $this->files = $project->productions()
+        $this->productions = $project->productions()
             ->has('file')
             ->with('file')
             ->get();
 
-            // dd($this->files->toArray());
+            // dd($this->productions->toArray());
     }
 
     public function render()

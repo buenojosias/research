@@ -5,10 +5,12 @@ use App\Livewire\Bibliometric\BibliometricForm;
 use App\Livewire\Bibliometric\BibliometricShow;
 use App\Livewire\Dashboard\DashboardIndex;
 use App\Livewire\File\FileIndex;
+use App\Livewire\File\FileShow;
 use App\Livewire\Keyword\KeywordIndex;
 use App\Livewire\Production\ProductionCreate;
 use App\Livewire\Production\ProductionEdit;
 use App\Livewire\Production\ProductionIndex;
+use App\Livewire\Production\ProductionKeywords;
 use App\Livewire\Production\ProductionShow;
 use App\Livewire\Project\ProjectCreate;
 use App\Livewire\Project\ProjectIndex;
@@ -44,8 +46,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('producoes/nova', ProductionCreate::class)->name('productions.create');
         Route::get('producoes/{production}', ProductionShow::class)->name('productions.show');
         Route::get('producoes/{production}/editar', ProductionEdit::class)->name('productions.edit');
+        Route::get('producoes/{production}/arquivo', FileShow::class)->name('productions.files.show');
+        Route::get('producoes/{production}/keywords', ProductionKeywords::class)->name('productions.keywords');
 
-        Route::get('keywords', KeywordIndex::class)->name('keywords.index');
+        Route::get('rel/keywords', KeywordIndex::class)->name('keywords.index');
 
         Route::get('rel/contagem', WordCountIndex::class)->name('wordcounts.index');
         Route::get('rel/contagem/nova', WordCountCreate::class)->name('wordcounts.create');
@@ -56,13 +60,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('rel/ranking/{wordranking}', WordRankingShow::class)->name('wordrankings.show');
 
         Route::get('arquivos', FileIndex::class)->name('files.index');
+
+        // Apagar depois
+        Route::get('producoes/{production}/conteudo', \App\Livewire\Production\ProductionContent::class)->name('productions.content');
     });
 
     // Route::view('profile', 'profile')->name('profile');
 
-    // Route::prefix('p{research:pid}')->group(function() {
-
-    //     Route::get('pub/{publication}/pdf', \App\Livewire\File\FileShow::class)->name('researches.files.show');
     //     Route::get('pub/{publication}/conteudo', \App\Livewire\Production\ProductionContent::class)->name('researches.publications.content');
     //     Route::get('pub/{publication}/resumo', \App\Livewire\Internal\InternalForm::class)->name('researches.publications.abstract');
     //     Route::get('pub/{publication}/corpo', \App\Livewire\Internal\InternalForm::class)->name('researches.publications.body');

@@ -100,6 +100,9 @@ dd {
     @apply font-semibold text-copy-default;
 }
 
+.screen {
+    height: calc(100vh - 220px);
+}
 
 /*
 .with-header {
@@ -110,9 +113,6 @@ section {
     @apply mt-6 mx-4 md:mx-6;
 }
 
-.screen {
-    height: calc(100vh - 190px);
-}
 
 .min-screen {
     min-height: calc(100vh - 190px);

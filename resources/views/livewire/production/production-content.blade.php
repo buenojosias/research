@@ -2,11 +2,11 @@
     <x-ts-toast />
     <div class="header">
         <div>
-            <h1>Conteúdo da publicação</h1>
-            <h2>{{ $publication->title }}</h2>
+            <h1>Conteúdo da produção</h1>
+            <h2>{{ $production->title }}</h2>
         </div>
         <div>
-            <x-ts-link :href="route('researches.publications.show', [$research, $publication])" wire:navigate text="Voltar para pubicação" />
+            <x-ts-link :href="route('project.bibliometrics.productions.show', [$project, $production])" wire:navigate text="Voltar para produção" />
         </div>
     </div>
 
@@ -29,19 +29,19 @@
                 </ul>
             @endif
             <div class="pt-4 mt-4 border-t">
-                <livewire:modals.keyword-modal :publication="$publication" :keywords="$keywords" />
+                <livewire:modals.keyword-modal :production="$production" :keywords="$keywords" />
             </div>
         </x-ts-tab.items>
         <x-ts-tab.items tab="Resumo">
             @if ($abstract)
-                <x-internal-content section="abstract" :content="$abstract" :research="$research" :publication="$publication" />
+                <x-internal-content section="abstract" :content="$abstract" :project="$project" :production="$production" />
             @else
                 Carregando...
             @endif
         </x-ts-tab.items>
         <x-ts-tab.items tab="Texto completo">
             @if ($body)
-                <x-internal-content section="body" :content="$body" :research="$research" :publication="$publication" />
+                <x-internal-content section="body" :content="$body" :project="$project" :production="$production" />
             @else
                 Carregando...
             @endif

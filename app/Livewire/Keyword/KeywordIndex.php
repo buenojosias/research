@@ -48,7 +48,7 @@ class KeywordIndex extends Component
     public function selectWord($word)
     {
         $this->selectedKeyword = $word;
-        $this->kw_publ = $this->project->bibliometric->keywords()
+        $this->kw_publ = $this->project->keywords()
             ->whereJsonContains('data', $word)
             ->with('production')
             ->get();

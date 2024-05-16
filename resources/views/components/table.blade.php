@@ -10,11 +10,13 @@
     @endif
     <div {{ $attributes->merge(['class' => $classes]) }}>
         <table>
-            <thead class="rounded">
-                <tr>
-                    {{ $header }}
-                </tr>
-            </thead>
+            @if (isset($header))
+                <thead class="rounded">
+                    <tr>
+                        {{ $header }}
+                    </tr>
+                </thead>
+            @endif
             {{ $slot }}
             <tbody>
                 {{ $body }}

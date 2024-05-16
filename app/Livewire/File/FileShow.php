@@ -11,6 +11,8 @@ class FileShow extends Component
 {
     use Interactions;
 
+    public $project;
+
     public $production;
 
     public $file;
@@ -44,6 +46,6 @@ class FileShow extends Component
     public function render()
     {
         return view('livewire.file.file-show')
-            ->title('Arquivo da publicação');
+            ->title('Arquivo da produção');
     }
 }

@@ -84,7 +84,6 @@ class ProductionCreate extends Component
     {
         $data = $this->validate();
         $keywords = $this->serializeKeywords();
-        // $abstract = $this->abstract ?? null;
 
         \DB::beginTransaction();
         $createdProduction = $this->project->productions()->create($data);
@@ -105,7 +104,8 @@ class ProductionCreate extends Component
     public function serializeKeywords()
     {
         $keywords = str_replace(['.',';'], ',', $this->keywords);
-        $keywords = explode(',', $keywords);
+        $keywords = array_filter(explode(',', $keywords));
+        $keywords = array_map('trim', $keywords);
         return $keywords;
     }
 

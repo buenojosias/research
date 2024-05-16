@@ -70,7 +70,8 @@ class Upload extends Component
         ]);
 
         try {
-            $file = File::query()->create($data);
+            $file = $this->production->file()->create($data);
+            // $file = File::query()->create($data);
             $this->dispatch('file-uploaded', file: $file);
         } catch (\Throwable $th) {
             dd($th);

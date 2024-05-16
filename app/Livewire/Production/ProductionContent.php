@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Production;
 
-use App\Models\Research;
+use App\Models\Project;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use TallStackUi\Traits\Interactions;
@@ -13,9 +13,9 @@ class ProductionContent extends Component
 
     public $tab = 'Palavras-chave';
 
-    public $research;
+    public $project;
 
-    public $publication;
+    public $production;
 
     public $keywords;
 
@@ -25,13 +25,13 @@ class ProductionContent extends Component
 
     public $editing = false;
 
-    public function mount(Research $research, $publication)
+    public function mount(Project $project, $production)
     {
-        $this->research = $research;
+        $this->project = $project;
 
-        $this->publication = $research->publications()
-            ->select(['id', 'title', 'subtitle', 'year', 'author_lastname'])
-            ->findOrFail($publication);
+        $this->production = $project->productions()
+            ->select(['id', 'title', 'subtitle', 'year', 'authors'])
+            ->findOrFail($production);
 
         $this->loadKeywords();
     }
@@ -51,20 +51,20 @@ class ProductionContent extends Component
     public function loadKeywords()
     {
         if(!$this->keywords)
-            $this->keywords = $this->publication->keywords ?? [];
+            $this->keywords = $this->production->keywords ?? [];
     }
 
     #[On('keyword-added')]
     public function reloadKeyWords()
     {
-        $this->keywords = $this->publication->keywords;
+        $this->keywords = $this->production->keywords;
         $this->toast()->success('Palavra-chave adicionada.')->send();
     }
 
     public function loadAbstract()
     {
         if(!$this->abstract)
-            $this->abstract = $this->publication->abstract ?? 'empty';
+            $this->abstract = $this->production->abstract ?? 'empty';
     }
 
     public function loadBody()
