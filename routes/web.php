@@ -7,6 +7,7 @@ use App\Livewire\Dashboard\DashboardIndex;
 use App\Livewire\File\FileIndex;
 use App\Livewire\File\FileShow;
 use App\Livewire\Keyword\KeywordIndex;
+use App\Livewire\Production\ProductionContent;
 use App\Livewire\Production\ProductionCreate;
 use App\Livewire\Production\ProductionEdit;
 use App\Livewire\Production\ProductionIndex;
@@ -48,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('producoes/{production}/editar', ProductionEdit::class)->name('productions.edit');
         Route::get('producoes/{production}/arquivo', FileShow::class)->name('productions.files.show');
         Route::get('producoes/{production}/keywords', ProductionKeywords::class)->name('productions.keywords');
+        Route::get('producoes/{production}/{section}', ProductionContent::class)->name('productions.section');
+        Route::get('producoes/{production}/{section}/form', \App\Livewire\Internal\InternalForm::class)->name('productions.section.form');
 
         Route::get('rel/keywords', KeywordIndex::class)->name('keywords.index');
 
@@ -60,9 +63,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('rel/ranking/{wordranking}', WordRankingShow::class)->name('wordrankings.show');
 
         Route::get('arquivos', FileIndex::class)->name('files.index');
-
-        // Apagar depois
-        Route::get('producoes/{production}/conteudo', \App\Livewire\Production\ProductionContent::class)->name('productions.content');
     });
 
     // Route::view('profile', 'profile')->name('profile');

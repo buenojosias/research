@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ProductionSectionEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +18,13 @@ class Internal extends Model
         'content',
         'total_words'
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'section' => ProductionSectionEnum::class,
+        ];
+    }
 
     public function production(): BelongsTo
     {

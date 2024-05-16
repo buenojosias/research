@@ -1,5 +1,5 @@
 <section>
-    <x-page-header :title="$production->title" :subtitle="$project->theme" />
+    <x-page-header title="Produção" :subtitle="$production->title" />
     </div>
     @if (session('status'))
         <x-ts-alert :text="session('status')" color="teal" close />

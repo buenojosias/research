@@ -2,8 +2,8 @@
     <x-ts-toast />
     <div class="header">
         <div>
-            <h1>{{ $section == 'abstract' ? 'Resumo' : 'Conteúdo completo' }} da publicação</h1>
-            <h2>{{ $publication->title }}</h2>
+            <h1>Editar {{ $sectionLabel }}</h1>
+            <h2>{{ $production->title }}</h2>
         </div>
         <div>
             @if ($file)
@@ -40,7 +40,7 @@
                 </object>
             @else
                 <x-ts-card header="Nenhum arquivo adicionado.">
-                    <livewire:file.upload :publication="$publication" />
+                    <livewire:file.upload :production="$production" />
                 </x-ts-card>
             @endif
         </div>

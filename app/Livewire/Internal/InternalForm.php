@@ -2,7 +2,8 @@
 
 namespace App\Livewire\Internal;
 
-use App\Models\Production;
+use App\Enums\ProductionSectionEnum;
+use App\Models\Project;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -12,13 +13,17 @@ class InternalForm extends Component
 {
     use Interactions;
 
-    public $section;
+    public $project;
 
     public $production;
+
+    public $section;
 
     public $file;
 
     public $internal;
+
+    public $sectionLabel;
 
     public $content;
 
@@ -38,17 +43,14 @@ class InternalForm extends Component
         $this->toast()->success('Arquivo enviado com sucesso.')->send();
     }
 
-    public function mount(Production $production)
+    public function mount(Project $project, $production, $section)
     {
-        if (request()->routeIs('*.productions.abstract')) {
-            $this->section = 'abstract';
-        } else if (request()->routeIs('*.productions.body')) {
-            $this->section = 'body';
-        } else {
-            return abort(404);
-        }
+        $this->project = $project;
 
-        $this->production = $production;
+        $this->production = $this->project->productions()
+            ->select(['id', 'title', 'subtitle', 'year', 'authors'])
+            ->findOrFail($production);
+
         $this->file = $this->production->file;
 
         if ($this->file)
@@ -60,6 +62,8 @@ class InternalForm extends Component
 
         if ($this->internal)
             $this->content = $this->internal->content;
+
+        $this->sectionLabel = strtolower(ProductionSectionEnum::from($this->section)->label());
     }
 
     public function extractText()
@@ -115,6 +119,6 @@ class InternalForm extends Component
     public function render()
     {
         return view('livewire.internal.internal-form')
-            ->title($this->section == 'abstract' ? 'Resumo da publicação' : 'Conteúdo completo da publicação');
+            ->title('Editar ' . $this->sectionLabel);
     }
 }
