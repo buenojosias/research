@@ -106,6 +106,7 @@ class ProductionCreate extends Component
         $keywords = str_replace(['.',';'], ',', $this->keywords);
         $keywords = array_filter(explode(',', $keywords));
         $keywords = array_map('trim', $keywords);
+        $keywords = array_map('strtolower', $keywords);
         return $keywords;
     }
 

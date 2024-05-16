@@ -28,6 +28,8 @@ class KeywordIndex extends Component
             ->toArray();
 
         $allData = array_merge(...$data);
+        $allData = array_filter($allData);
+        $allData = array_map('strtolower', $allData);
 
         $this->keywords = array_count_values($allData);
 

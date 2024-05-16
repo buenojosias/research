@@ -30,7 +30,7 @@ class KeywordModal extends Component
     {
         $object = json_decode($this->keywords, true);
         $data = $object['data'];
-        array_push($data, $this->input);
+        array_push($data, strtolower($this->input));
         $json = $data;
 
         if($this->keywords->update(['data' => $json]))
