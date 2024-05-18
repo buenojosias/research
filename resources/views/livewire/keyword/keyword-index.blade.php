@@ -17,7 +17,11 @@
                             <tr>
                                 <td class="!text-wrap">
                                     <a href="{{ route('project.bibliometrics.productions.show', [$project, $kw->production]) }}">
-                                        {{ $kw->production->title }} ({{ $kw->production->year }})
+                                        {{ $kw->production->title }}
+                                        @if ($kw->production->subtitle)
+                                            : {{ $kw->production->subtitle }}
+                                        @endif
+                                        ({{ $kw->production->year }})
                                     </a>
                                 </td>
                                 <td class="!text-wrap">
@@ -41,7 +45,7 @@
             @endif
         </div>
         <div class="lg:w-1/3">
-            <x-table>
+            <x-table class="screen">
                 <x-slot name="header">
                     <th class="cursor-pointer" wire:click="ksort">Palavra</th>
                     <th class="cursor-pointer" wire:click="arsort">Produções</th>

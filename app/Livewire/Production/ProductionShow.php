@@ -16,7 +16,7 @@ class ProductionShow extends Component
         $this->project = $project;
         $this->production = $project
             ->productions()
-            ->with('state','abstract','file')
+            ->with('state','file')
             ->findOrFail($production);
     }
 

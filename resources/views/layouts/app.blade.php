@@ -12,6 +12,8 @@
     <tallstackui:script />
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jasondavies/d3-cloud/build/d3.layout.cloud.js"></script>
 </head>
 
 <body>
@@ -51,6 +53,7 @@
                     <a href="{{ route('project.bibliometrics.wordcounts.index', request()->route()->project) }}">Contagem de palavras</a>
                     <a href="{{ route('project.bibliometrics.wordrankings.index', request()->route()->project) }}">Ranking de palavras</a>
                     <a href="#">Nuvem de palavras</a>
+                    <a href="{{ route('project.bibliometrics.records.index', request()->route()->project) }}">Estatísticas</a>
                 </x-nav-dropdown>
             @endif
             @if (request()->routeIs('project.show'))

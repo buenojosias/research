@@ -123,7 +123,8 @@ class WordCountCreate extends Component
     public function loadContext($id, $section)
     {
         $this->fillInternals();
-        $content = $this->results->where('id', $id)->where('section', $section)->first();
+        // $content = $this->results->where('id', $id)->where('section', $section)->first(); VERIFICAR POR QUE NÃO TRÁS RESULTADO QUANDO FILTRO POR SECTION
+        $content = $this->results->where('id', $id)->first();
         $this->content = $content->content;
     }
 

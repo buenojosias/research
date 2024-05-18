@@ -88,6 +88,7 @@ class ProductionIndex extends Component
                 $query->whereRelation('state', 'abbreviation', $this->uf);
             })
             ->with('state')
+            ->orderBy('title')
             ->get();
 
             if ($this->once) {

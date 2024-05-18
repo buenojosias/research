@@ -1,7 +1,7 @@
 <section>
     <x-ts-toast />
     <x-page-header title="Adicionar produção" :subtitle="$project->theme" />
-    <form wire:submit="save">
+    <form wire:submit="save" autocomplete="off">
         <x-ts-card class="lg:grid grid-cols-6 gap-4 space-y-4 lg:space-y-0">
             <div class="col-span-4">
                 <x-ts-input label="URL do resultado" wire:model="url" />
@@ -15,21 +15,15 @@
             <div class="col-span-3">
                 <x-ts-input label="Subtítulo" wire:model="subtitle" />
             </div>
+            <div class="col-span-2">
+                <x-ts-select.styled label="Tipo *" wire:model="type" :options="$bibliometric->types" />
+            </div>
             <div class="">
                 <x-ts-select.styled label="Ano *" wire:model="year" :options="$years" />
             </div>
             <div class="col-span-3">
                 <x-ts-input label="Autor(es) *" wire:model="authors_display" x-on:click="$modalOpen('authors-modal')"
                     readonly />
-            </div>
-            {{-- <div class="col-span-3">
-                <x-ts-input label="Autor *" wire:model="author_forename" placeholder="Exceto último nome" />
-            </div>
-            <div class="col-span-2">
-                <x-ts-input label="Autor (último nome) *" wire:model="author_lastname" />
-            </div> --}}
-            <div class="col-span-2">
-                <x-ts-select.styled label="Tipo *" wire:model="type" :options="$bibliometric->types" />
             </div>
             <div>
                 <x-ts-select.styled label="Idioma *" wire:model="language" :options="$bibliometric->languages" />
@@ -60,20 +54,26 @@
             @endif
 
             <div class="col-span-2">
-                <x-ts-input label="Cidade" wire:model="city" />
+                <x-ts-input label="Cidade" wire:model="city" autocomplete="off" />
             </div>
             <div class="">
                 <x-ts-select.styled label="UF" wire:model="state_id" :options="$states"
                     select="label:abbreviation|value:id" searchable />
             </div>
+            <div class="col-span-3"></div>
 
-            <div class="col-span-6 pt-4 mt-2 border-t">
+            <div class="col-span-3 pt-4 mt-2 border-t">
                 <x-ts-input label="Palavras-chave" wire:model="keywords"
                     hint="Separe usando vírgula, ponto ou ponto e vírgula." />
             </div>
 
+            <div class="col-span-3 pt-4 mt-2 border-t">
+                <x-ts-input label="Resumo" wire:model="abstract" x-on:click="$modalOpen('modal-abstract')"
+                    readonly />
+            </div>
+
             <x-slot:footer>
-                <x-ts-button type="button" x-on:click="$modalOpen('modal-abstract')" text="Adicionar resumo" outline />
+                {{-- <x-ts-button type="button" x-on:click="$modalOpen('modal-abstract')" text="Adicionar resumo" outline /> --}}
                 <x-ts-button type="submit" text="Salvar" />
             </x-slot:footer>
         </x-ts-card>

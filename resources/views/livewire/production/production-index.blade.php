@@ -10,7 +10,7 @@
     city: false,
     state: false,
 }">
-    <x-page-header title="Produções encontradas" :subtitle="$project->theme ">
+    <x-page-header title="Produções encontradas" :subtitle="$project->theme">
         <x-ts-button text="Adicionar produção" :href="route('project.bibliometrics.productions.create', $project)" wire:navigate />
     </x-page-header>
 
@@ -20,13 +20,14 @@
                 <x-ts-input wire:model.live.debounce="q" placehoder="Buscar título ou subtítulo" icon="magnifying-glass" />
             </div>
             <div>
+                <span class="mr-2 text-sm font-normal">{{ $productions->count() }} resultados</span>
                 <x-ts-button icon="funnel" outline x-on:click="$slideOpen('filters')" />
                 <x-ts-button icon="eye" outline x-on:click="$slideOpen('columns')" />
             </div>
         </div>
         <x-slot name="header">
             <th x-show="author">Autor(es)</th>
-            <th>Título</th>
+            <th @click="sortByColumn">Título</th>
             <th x-show="year">Ano</th>
             <th x-show="type">Tipo</th>
             <th x-show="repository">Repositório</th>
@@ -50,7 +51,8 @@
                         </ul>
                     </td>
                     <td class="!text-wrap">
-                        <a href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}" wire:navigate>
+                        <a href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}"
+                            wire:navigate>
                             {{ $production->subtitle ? $production->title . ': ' . $production->subtitle : $production->title }}
                         </a>
                     </td>
@@ -120,3 +122,57 @@
         </div>
     </x-ts-slide>
 </section>
+@push('scripts')
+    <script>
+        function data() {
+            return {
+                sortBy: "",
+                sortAsc: false,
+                sortByColumn($event) {
+                    if (this.sortBy === $event.target.innerText) {
+                        if (this.sortAsc) {
+                            this.sortBy = "";
+                            this.sortAsc = false;
+                        } else {
+                            this.sortAsc = !this.sortAsc;
+                        }
+                    } else {
+                        this.sortBy = $event.target.innerText;
+                    }
+
+                    let rows = this.getTableRows()
+                        .sort(
+                            this.sortCallback(
+                                Array.from($event.target.parentNode.children).indexOf(
+                                    $event.target
+                                )
+                            )
+                        )
+                        .forEach((tr) => {
+                            this.$refs.tbody.appendChild(tr);
+                        });
+                },
+                getTableRows() {
+                    return Array.from(this.$refs.tbody.querySelectorAll("tr"));
+                },
+                getCellValue(row, index) {
+                    return row.children[index].innerText;
+                },
+                sortCallback(index) {
+                    return (a, b) =>
+                        ((row1, row2) => {
+                            return row1 !== "" &&
+                                row2 !== "" &&
+                                !isNaN(row1) &&
+                                !isNaN(row2) ?
+                                row1 - row2 :
+                                row1.toString().localeCompare(row2);
+                        })(
+                            this.getCellValue(this.sortAsc ? a : b, index),
+                            this.getCellValue(this.sortAsc ? b : a, index)
+                        );
+                }
+            };
+        }
+    </script>
+@endpush

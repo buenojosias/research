@@ -33,7 +33,18 @@ class WordRankingCreate extends Component
 
     public $combinedWords = ['educação ambiental', 'cenário internacional'];
 
-    public $excludedWords = [];
+    public $excludedWords = [
+        'como',
+        'foram',
+        'entre',
+        'não',
+        'para',
+        'partir',
+        'pela', 'pelo', 'pelas', 'pelos',
+        'são',
+        'sobre',
+        'também'
+    ];
 
     public $results = [];
 

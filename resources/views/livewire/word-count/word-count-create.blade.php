@@ -35,7 +35,7 @@
 
     <x-table>
         <x-slot name="header">
-            <th>Publicação</th>
+            <th>Produção</th>
             <th>Tipo</th>
             <th>Seção</th>
             <th>Contagem</th>
@@ -48,7 +48,7 @@
                     <tr>
                         <td>{{ $result->production->title }}</td>
                         <td>{{ $result->production->type }}</td>
-                        <td>{{ $result->section }}</td>
+                        <td>{{ $result->section->label() }}</td>
                         <td>{{ $result->count }} / {{ $result->total_words }}</td>
                         <td>{{ $result->percentage }}%</td>
                         <td>

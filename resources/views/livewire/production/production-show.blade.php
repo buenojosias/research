@@ -2,7 +2,13 @@
     <x-page-header title="Produção" :subtitle="$production->title" />
     </div>
     @if (session('status'))
-        <x-ts-alert :text="session('status')" color="teal" close />
+        <x-ts-alert :text="session('status')" color="teal" close>
+            <x-slot:footer>
+                <div class="pt-2">
+                    <x-ts-button :href="route('project.bibliometrics.productions.create', $project)" text="Adicionar mais um" sm />
+                </div>
+            </x-slot:footer>
+        </x-ts-alert>
     @endif
     <div class="flex gap-x-6">
         @include('includes.production-nav')
@@ -73,17 +79,20 @@
             </div>
 
             <div class="mb-6 space-y-6">
-                <x-ts-card>
+                <x-ts-card header="Palavras-chave">
                     <div class="detail">
                         <div>
                             <dl>
-                                <dt>Resumo</dt>
-                                <p>{{ $production->abstract->content ?? 'Não adicionado' }}</p>
+                                @forelse ($production->keywords->data as $kw)
+                                    {{ $kw }}
+                                    @if (!$loop->last)
+                                        /
+                                    @endif
+                                @empty
+                                    <p>Não adicionado</p>
+                                @endforelse
                             </dl>
                         </div>
-                        <x-detail label="Palavras-chave" :value="$production->keywords->data ?? 'Não adicionado'">
-                            {{-- <x-ts-link :href="route('projects.productions.abstract', [$project, $production])" icon="pencil-square" /> --}}
-                        </x-detail>
                     </div>
                     <div class="card-footer">
                         {{-- <x-ts-link text="Ver mais" :href="route('projects.productions.content', [$project, $production])" wire:navigate /> --}}

@@ -16,6 +16,11 @@ use App\Livewire\Production\ProductionShow;
 use App\Livewire\Project\ProjectCreate;
 use App\Livewire\Project\ProjectIndex;
 use App\Livewire\Project\ProjectShow;
+use App\Livewire\Record\RecordIndex;
+use App\Livewire\Record\RecordPerCity;
+use App\Livewire\Record\RecordPerInstitution;
+use App\Livewire\Record\RecordPerProgram;
+use App\Livewire\Record\RecordPerState;
 use App\Livewire\Student\StudentIndex;
 use App\Livewire\WordCloud\WordCloudIndex;
 use App\Livewire\WordCount\WordCountCreate;
@@ -64,6 +69,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('rel/ranking/{wordranking}', WordRankingShow::class)->name('wordrankings.show');
 
         Route::get('rel/nuvem', WordCloudIndex::class)->name('wordclouds.index');
+
+        Route::get('rel/estatisticas', RecordIndex::class)->name('records.index');
+        Route::get('rel/estados', RecordPerState::class)->name('records.states');
+        Route::get('rel/cidades', RecordPerCity::class)->name('records.cities');
+        Route::get('rel/instituicoes', RecordPerInstitution::class)->name('records.institutions');
+        Route::get('rel/programas', RecordPerProgram::class)->name('records.programs');
 
         Route::get('arquivos', FileIndex::class)->name('files.index');
     });
