@@ -9,6 +9,7 @@
     program: false,
     city: false,
     state: false,
+    url: false,
 }">
     <x-page-header title="Produções encontradas" :subtitle="$project->theme">
         <x-ts-button text="Adicionar produção" :href="route('project.bibliometrics.productions.create', $project)" wire:navigate />
@@ -37,10 +38,11 @@
             <th x-show="program">Programa</th>
             <th x-show="city">Cidade</th>
             <th x-show="state">UF</th>
+            <th x-show="url">URL</th>
         </x-slot>
         <x-slot name="body">
             @foreach ($productions as $production)
-                <tr>
+                <tr @class(['line-through text-gray-600' => $production->trashed()])>
                     <td x-show="author">
                         <ul>
                             @foreach ($production->authors as $author)
@@ -72,6 +74,11 @@
                     <td x-show="program">{{ $production->program }}</td>
                     <td x-show="city">{{ $production->city }}</td>
                     <td x-show="state">{{ $production->state->abbreviation ?? '' }}</td>
+                    <td x-show="url">
+                        @if ($production->url)
+                            <a href="{{ $production->url }}" target="_black">{{ $production->url }}</a>
+                        @endif
+                    </td>
                 </tr>
             @endforeach
         </x-slot>
@@ -100,6 +107,7 @@
                 <x-ts-select.styled label="Periódico" wire:model.live="periodico" placeholder="Selecione um periódico"
                     :options="$periodicals" />
             @endif
+            <x-ts-toggle wire:model.live="show_deleted" label="Exibir removidas" />
         </div>
     </x-ts-slide>
 
@@ -119,6 +127,7 @@
                 <x-ts-toggle x-model="city" label="Cidade" />
             @endif
             <x-ts-toggle x-model="state" label="Estado" />
+            <x-ts-toggle x-model="url" label="URL" />
         </div>
     </x-ts-slide>
 </section>

@@ -10,7 +10,7 @@
                     <x-detail label="Data da solicitação" :value="$project->requested_at->format('d/m/Y')" />
                     <x-detail label="Repositórios" :value="$bibliometric->repositories" />
                     <x-detail label="Tipos de publicação" :value="$bibliometric->types" />
-                    <x-detail label="Termos" :value="$bibliometric->terms" />
+                    <x-detail label="Palavras" :value="$bibliometric->terms" />
                     <x-detail label="Combinações" :value="$bibliometric->combinations" />
                     <x-detail label="Intervalo de anos" :value="$bibliometric->period" />
                     <x-detail label="Idioma(s)" :value="$bibliometric->languages" />

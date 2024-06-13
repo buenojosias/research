@@ -1,6 +1,16 @@
 <section>
     <x-page-header title="Produção" :subtitle="$production->title" />
-    </div>
+    @if ($production->trashed())
+        <x-ts-alert color="gray" light>
+            <h3>Esta produção foi descartada</h3>
+            <x-slot:footer>
+                <div class="flex justify-end space-x-2">
+                    <x-ts-button wire:click="restore" text="Restaurar" sm />
+                    <x-ts-button wire:click="delete" text="Excluir permanentemente" color="red" sm />
+                </div>
+            </x-slot:footer>
+        </x-ts-alert>
+    @endif
     @if (session('status'))
         <x-ts-alert :text="session('status')" color="teal" close>
             <x-slot:footer>
@@ -51,10 +61,6 @@
                                 </dd>
                             </dl>
                         </div>
-                        {{-- <span class="break-words">{{ $production->url }}</span> --}}
-                        {{-- <x-detail label="Link do resultado" :value="$production->url">
-                        <x-ts-link :href="$production->url" icon="arrow-top-right-on-square" lg blank />
-                    </x-detail> --}}
                         <x-detail label="Idioma" :value="$production->language" />
                         <x-detail label="Palavras pesquisadas" :value="$production->searched_terms" />
                         @if ($production->institution)
@@ -121,6 +127,12 @@
                         <x-ts-link href="#" wire:navigate text="Frequência de palavras" />
                     </div>
                 </x-ts-card>
+                @if (!$production->trashed())
+                    <div class="w-full">
+                        <x-ts-button wire:click="remove" text="Descartar" color="white" class="w-full" />
+                    </div>
+                @endif
+
             </div>
         </div>
     </div>

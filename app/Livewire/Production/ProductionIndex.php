@@ -39,6 +39,7 @@ class ProductionIndex extends Component
 
     public $has_monographies;
     public $has_periodicals;
+    public $show_deleted = false;
     public $once;
     public $periodicals;
     public $states;
@@ -86,6 +87,9 @@ class ProductionIndex extends Component
             })
             ->when($this->uf, function ($query) {
                 $query->whereRelation('state', 'abbreviation', $this->uf);
+            })
+            ->when($this->show_deleted, function ($query) {
+                $query->withTrashed();
             })
             ->with('state')
             ->orderBy('title')

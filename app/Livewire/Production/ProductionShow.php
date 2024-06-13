@@ -16,8 +16,25 @@ class ProductionShow extends Component
         $this->project = $project;
         $this->production = $project
             ->productions()
+            ->withTrashed()
             ->with('state','file')
             ->findOrFail($production);
+    }
+
+    public function remove()
+    {
+        $this->production->delete();
+    }
+
+    public function delete()
+    {
+        $this->production->forceDelete();
+        $this->redirectRoute('project.bibliometrics.productions.index', ['project' => $this->project], navigate: true);
+    }
+
+    public function restore()
+    {
+        $this->production->restore();
     }
 
     public function render()
