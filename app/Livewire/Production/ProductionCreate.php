@@ -149,4 +149,14 @@ class ProductionCreate extends Component
         array_splice($this->authors_display, $key, 1);
     }
 
+    public function titleToLower()
+    {
+        $title = \Str::lower($this->title);
+        $this->title = \Str::ucfirst($title);
+    }
+
+    public function subtitleToLower()
+    {
+        $this->subtitle = \Str::lower($this->subtitle);
+    }
 }

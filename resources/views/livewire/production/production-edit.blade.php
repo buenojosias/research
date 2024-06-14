@@ -10,10 +10,18 @@
                 <x-ts-select.styled label="Repositório *" wire:model="repository" :options="$bibliometric->repositories" />
             </div>
             <div class="col-span-3">
-                <x-ts-input label="Título *" wire:model="title" />
+                <x-ts-input label="Título *" wire:model="title">
+                    <x-slot:suffix>
+                        <x-ts-button wire:click.prevent="titleToLower" icon="language" color="slate" outline />
+                    </x-slot:suffix>
+                </x-ts-input>
             </div>
             <div class="col-span-3">
-                <x-ts-input label="Subtítulo" wire:model="subtitle" />
+                <x-ts-input label="Subtítulo" wire:model="subtitle">
+                    <x-slot:suffix>
+                        <x-ts-button wire:click.prevent="subtitleToLower" icon="language" color="slate" outline />
+                    </x-slot:suffix>
+                </x-ts-input>
             </div>
             <div class="">
                 <x-ts-select.styled label="Ano *" wire:model="year" :options="$years" />
@@ -22,12 +30,6 @@
                 <x-ts-input label="Autor(es) *" wire:model="authors_display" x-on:click="$modalOpen('authors-modal')"
                     readonly />
             </div>
-            {{-- <div class="col-span-3">
-                <x-ts-input label="Autor *" wire:model="author_forename" placeholder="Exceto último nome" />
-            </div>
-            <div class="col-span-2">
-                <x-ts-input label="Autor (último nome) *" wire:model="author_lastname" />
-            </div> --}}
             <div class="col-span-2">
                 <x-ts-select.styled label="Tipo *" wire:model="type" :options="$bibliometric->types" />
             </div>

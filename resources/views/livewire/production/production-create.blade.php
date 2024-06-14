@@ -10,10 +10,18 @@
                 <x-ts-select.styled label="Repositório *" wire:model="repository" :options="$bibliometric->repositories" />
             </div>
             <div class="col-span-3">
-                <x-ts-input label="Título *" wire:model="title" />
+                <x-ts-input label="Título *" wire:model="title">
+                    <x-slot:suffix>
+                        <x-ts-button wire:click.prevent="titleToLower" icon="language" color="slate" outline />
+                    </x-slot:suffix>
+                </x-ts-input>
             </div>
             <div class="col-span-3">
-                <x-ts-input label="Subtítulo" wire:model="subtitle" />
+                <x-ts-input label="Subtítulo" wire:model="subtitle">
+                    <x-slot:suffix>
+                        <x-ts-button wire:click.prevent="subtitleToLower" icon="language" color="slate" outline />
+                    </x-slot:suffix>
+                </x-ts-input>
             </div>
             <div class="col-span-2">
                 <x-ts-select.styled label="Tipo *" wire:model="type" :options="$bibliometric->types" />
@@ -68,8 +76,7 @@
             </div>
 
             <div class="col-span-3 pt-4 mt-2 border-t">
-                <x-ts-input label="Resumo" wire:model="abstract" x-on:click="$modalOpen('modal-abstract')"
-                    readonly />
+                <x-ts-input label="Resumo" wire:model="abstract" x-on:click="$modalOpen('modal-abstract')" readonly />
             </div>
 
             <x-slot:footer>
@@ -92,8 +99,7 @@
         @endforeach
         <div class="mt-6 grid grid-cols-6 gap-4">
             <div class="col-span-4">
-                <x-ts-input label="Adicionar autor(a)" wire:model="author.forename"
-                    placeholder="Exceto último nome" />
+                <x-ts-input label="Adicionar autor(a)" wire:model="author.forename" placeholder="Exceto último nome" />
             </div>
             <div class="col-span-2 flex items-center">
                 <x-ts-input label="Último nome" wire:model="author.lastname" />
