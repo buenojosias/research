@@ -54,7 +54,9 @@
                                                 : {{ $production->subtitle }}
                                             @endif
                                         </a><br>
-                                        ({{ $production->institution }})
+                                        @if ($production->institution)
+                                            ({{ $production->institution }})
+                                        @endif
                                     </td>
                                     <td>
                                         {{ $production->year }}

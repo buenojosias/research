@@ -25,7 +25,7 @@ class RecordPerInstitution extends Component
     public function render()
     {
         $institutions = Production::query()
-            ->select(['id', 'state_id', 'title', 'institution'])
+            ->select(['id', 'title', 'institution'])
             ->where('project_id', $this->project->id)
             ->orderBy('institution')
             ->get()

@@ -27,6 +27,7 @@ class RecordPerProgram extends Component
         $programs = Production::query()
             ->select(['id', 'state_id', 'title', 'program'])
             ->where('project_id', $this->project->id)
+            ->whereIn('type', ['Tese','Dissertação'])
             ->orderBy('program')
             ->get()
             ->groupBy('program');
@@ -38,12 +39,12 @@ class RecordPerProgram extends Component
     public function selectProgram($key)
     {
         $this->selectedProgram = $key;
-        $this->programProductions = $this->project->productions()->where('program', $this->selectedProgram)->get();
+        $this->programProductions = $this->project->productions()->where('program', $this->selectedProgram)->whereIn('type', ['Tese','Dissertação'])->get();
     }
 
     public function selectWithoutProgram()
     {
         $this->selectedProgram = 'não informado';
-        $this->programProductions = $this->project->productions()->whereNull('program')->get();
+        $this->programProductions = $this->project->productions()->whereIn('type', ['Tese','Dissertação'])->whereNull('program')->get();
     }
 }

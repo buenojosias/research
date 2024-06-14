@@ -65,7 +65,7 @@
                         @foreach ($production->searched_terms as $term)
                             {{ $term }}
                             @if (!$loop->last)
-                                +
+                                AND
                             @endif
                         @endforeach
                     </td>

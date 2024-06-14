@@ -20,6 +20,7 @@ use App\Livewire\Record\RecordIndex;
 use App\Livewire\Record\RecordPerCity;
 use App\Livewire\Record\RecordPerInstitution;
 use App\Livewire\Record\RecordPerProgram;
+use App\Livewire\Record\RecordPerSearch;
 use App\Livewire\Record\RecordPerState;
 use App\Livewire\Student\StudentIndex;
 use App\Livewire\WordCloud\WordCloudIndex;
@@ -75,6 +76,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('rel/cidades', RecordPerCity::class)->name('records.cities');
         Route::get('rel/instituicoes', RecordPerInstitution::class)->name('records.institutions');
         Route::get('rel/programas', RecordPerProgram::class)->name('records.programs');
+        Route::get('rel/combinacoes', RecordPerSearch::class)->name('records.combinations');
 
         Route::get('arquivos', FileIndex::class)->name('files.index');
     });
