@@ -6,25 +6,61 @@
         <div class="flex-auto sm:grid grid-cols-6 gap-x-6">
 
             <div class="col-span-6 mb-6">
-                <x-table>
+                <x-table label="Lista por tipo de produção">
                     <x-slot name="header">
                         <tr>
                             <th>Descritores</th>
-                            @foreach ($turnos as $turno)
-                                <th class="text-center">{{ $turno }}</th>
+                            @foreach ($types as $type)
+                                <th class="text-center">{{ $type }}</th>
                             @endforeach
                             <th class="text-center">Total</th>
                         </tr>
                     </x-slot>
                     <x-slot name="body">
-                        @foreach ($dadosTabela as $frutas => $turnos)
+                        @foreach ($tableByType as $word => $types)
                             <tr>
-                                <td>{{ $frutas }}</td>
-                                @foreach ($turnos as $turno)
-                                    <td class="text-center">{{ $turno ?? 0 }}</td>
+                                <td>{{ $word }}</td>
+                                @foreach ($types as $type)
+                                    <td class="text-center">{{ $type ?? 0 }}</td>
                                 @endforeach
                             </tr>
-                        @endforeach
+                            @endforeach
+                            <tr>
+                                <td class="font-semibold">Total</td>
+                                @foreach($types as $key => $type)
+                                    <td class="text-center font-semibold">{{ $typeTotals[$key] }}</td>
+                                @endforeach
+                            </tr>
+                    </x-slot>
+                </x-table>
+            </div>
+
+            <div class="col-span-6 mb-6">
+                <x-table label="Lista por repositório">
+                    <x-slot name="header">
+                        <tr>
+                            <th>Descritores</th>
+                            @foreach ($repositories as $repository)
+                                <th class="text-center">{{ $repository }}</th>
+                            @endforeach
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </x-slot>
+                    <x-slot name="body">
+                        @foreach ($tableByRepository as $word => $repositories)
+                            <tr>
+                                <td>{{ $word }}</td>
+                                @foreach ($repositories as $repository)
+                                    <td class="text-center">{{ $repository ?? 0 }}</td>
+                                @endforeach
+                            </tr>
+                            @endforeach
+                            <tr>
+                                <td class="font-semibold">Total</td>
+                                @foreach($repositories as $key => $repository)
+                                    <td class="text-center font-semibold">{{ $repositoryTotals[$key] }}</td>
+                                @endforeach
+                            </tr>
                     </x-slot>
                 </x-table>
             </div>

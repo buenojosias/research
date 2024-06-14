@@ -13,6 +13,7 @@ class RecordPerSearch extends Component
     public $selectedWords = [];
 
     public $bibliometricTypes = [];
+    public $bibliometricRepositories = [];
 
     public $bibliometricTerms = [];
 
@@ -27,6 +28,7 @@ class RecordPerSearch extends Component
         $bibliometric = $project->bibliometric;
 
         $this->bibliometricTypes = $bibliometric->types;
+        $this->bibliometricRepositories = $bibliometric->repositories;
         $this->bibliometricTerms = $bibliometric->terms;
     }
 
@@ -55,37 +57,69 @@ class RecordPerSearch extends Component
 
 
         // VERSÃO 2
-        $refeicoes = collect($this->project->productions);
+        $productions = collect($this->project->productions);
 
-        $agrupadasPorFrutas = $refeicoes->groupBy(function ($refeicao) {
-            $frutas = $refeicao->searched_terms;
-            sort($frutas); // Ordena as frutas para garantir a consistência
-            return json_encode($frutas); // Converte para string JSON
+        $groupedByWords = $productions->groupBy(function ($production) {
+            $words = $production->searched_terms;
+            sort($words);
+            return json_encode($words);
         });
 
-        $dadosTabela = [];
-        $turnos = $this->bibliometricTypes;
+        $tableByType = [];
+        $tableByRepository = [];
 
-        foreach ($agrupadasPorFrutas as $frutas => $grupo) {
-            $frutasArray = json_decode($frutas, true);
-            $frutasChave = implode(' AND ', $frutasArray); // Converte o array de frutas para string
+        $typeTotals = [];
+        $repositoryTotals = [];
 
-            $total = 0; // Inicializa o total
+        $types = $this->bibliometricTypes;
+        $repositories = $this->bibliometricRepositories;
 
-            foreach ($turnos as $turno) {
-                $count = $grupo->filter(function ($refeicao) use ($turno) {
-                    return $refeicao->type->value === $turno;
+        foreach($types as $type) {
+            $typeTotals[$type] = 0;
+        }
+        $typeTotals['total'] = 0;
+
+        foreach($repositories as $repository) {
+            $repositoryTotals[$repository] = 0;
+        }
+        $repositoryTotals['total'] = 0;
+
+        foreach ($groupedByWords as $words => $group) {
+            $wordsArray = json_decode($words, true);
+            $wordsKey = implode(' AND ', $wordsArray);
+
+            $typeTotal = 0;
+            $repositoryTotal = 0;
+
+            foreach ($types as $type) {
+                $count = $group->filter(function ($production) use ($type) {
+                    return $production->type->value === $type;
                 })->count();
 
-                $dadosTabela[$frutasChave][$turno] = $count;
-                $total += $count; // Incrementa o total com a contagem atual
+                $tableByType[$wordsKey][$type] = $count;
+                $typeTotals[$type] += $count;
+                $typeTotal += $count;
             }
 
-            $dadosTabela[$frutasChave]['total'] = $total; // Adiciona o total ao array
+            foreach ($repositories as $repository) {
+                $count = $group->filter(function ($production) use ($repository) {
+                    return $production->repository === $repository;
+                })->count();
+
+                $tableByRepository[$wordsKey][$repository] = $count;
+                $repositoryTotals[$repository] += $count;
+                $repositoryTotal += $count;
+            }
+
+            $tableByType[$wordsKey]['total'] = $typeTotal;
+            $tableByRepository[$wordsKey]['total'] = $repositoryTotal;
+
+            $typeTotals['total'] += $typeTotal;
+            $repositoryTotals['total'] += $repositoryTotal;
         }
         // FIM VERSÃO 2
 
-        return view('livewire.record.record-per-search', compact('records', 'dadosTabela', 'turnos'))
+        return view('livewire.record.record-per-search', compact('records', 'tableByType', 'tableByRepository', 'types', 'repositories', 'typeTotals', 'repositoryTotals'))
             ->title('Relatório por combinações buscadas');
     }
 }
