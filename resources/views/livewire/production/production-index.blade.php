@@ -27,8 +27,8 @@
             </div>
         </div>
         <x-slot name="header">
-            <th x-show="author">Autor(es)</th>
             <th @click="sortByColumn">Título</th>
+            <th x-show="author">Autor(es)</th>
             <th x-show="year">Ano</th>
             <th x-show="type">Tipo</th>
             <th x-show="repository">Repositório</th>
@@ -43,6 +43,12 @@
         <x-slot name="body">
             @foreach ($productions as $production)
                 <tr @class(['line-through text-gray-600' => $production->trashed()])>
+                    <td class="!text-wrap">
+                        <a href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}"
+                            wire:navigate>
+                            {{ $production->subtitle ? $production->title . ': ' . $production->subtitle : $production->title }}
+                        </a>
+                    </td>
                     <td x-show="author">
                         <ul>
                             @foreach ($production->authors as $author)
@@ -51,12 +57,6 @@
                                 </li>
                             @endforeach
                         </ul>
-                    </td>
-                    <td class="!text-wrap">
-                        <a href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}"
-                            wire:navigate>
-                            {{ $production->subtitle ? $production->title . ': ' . $production->subtitle : $production->title }}
-                        </a>
                     </td>
                     <td x-show="year">{{ $production->year }}</td>
                     <td x-show="type">{{ $production->type }}</td>

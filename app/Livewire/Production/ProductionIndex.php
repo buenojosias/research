@@ -53,11 +53,11 @@ class ProductionIndex extends Component
 
         $this->bibliometric = $project->bibliometric;
 
-        $this->has_monographies = in_array('dissertação', $this->bibliometric->types) ||
-            in_array('tese', $this->bibliometric->types) ||
+        $this->has_monographies = in_array('Dissertação', $this->bibliometric->types) ||
+            in_array('Tese', $this->bibliometric->types) ||
             in_array('artigoCientífico', $this->bibliometric->types);
 
-        $this->has_periodicals = in_array('periódico', $this->bibliometric->types);
+        $this->has_periodicals = in_array('Periódico', $this->bibliometric->types);
         $this->regions = RegionEnum::cases();
 
         // TODO: criar filtro por termos pesquisados

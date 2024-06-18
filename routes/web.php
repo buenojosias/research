@@ -17,6 +17,7 @@ use App\Livewire\Project\ProjectCreate;
 use App\Livewire\Project\ProjectIndex;
 use App\Livewire\Project\ProjectShow;
 use App\Livewire\Record\RecordIndex;
+use App\Livewire\Record\RecordPerAuthor;
 use App\Livewire\Record\RecordPerCity;
 use App\Livewire\Record\RecordPerInstitution;
 use App\Livewire\Record\RecordPerProgram;
@@ -76,6 +77,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('rel/cidades', RecordPerCity::class)->name('records.cities');
         Route::get('rel/instituicoes', RecordPerInstitution::class)->name('records.institutions');
         Route::get('rel/programas', RecordPerProgram::class)->name('records.programs');
+        Route::get('rel/autores', RecordPerAuthor::class)->name('records.authors');
         Route::get('rel/combinacoes', RecordPerSearch::class)->name('records.combinations');
 
         Route::get('arquivos', FileIndex::class)->name('files.index');

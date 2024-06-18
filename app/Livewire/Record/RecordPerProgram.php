@@ -10,9 +10,6 @@ class RecordPerProgram extends Component
 {
     public $project;
 
-    // public $cities = [];
-
-    // #[Url('programa', except: '')]
     public $selectedProgram = '';
 
     public $programProductions = [];

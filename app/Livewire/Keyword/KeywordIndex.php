@@ -63,7 +63,6 @@ class KeywordIndex extends Component
 
     public function render()
     {
-
         $data = $this->project->keywords()
             ->when($this->production_types, function ($q) {
                 $q->whereRelation('production', function ($query) {
@@ -80,7 +79,6 @@ class KeywordIndex extends Component
         $allData = array_map('strtolower', $allData);
 
         $this->keywords = array_count_values($allData);
-
 
         return view('livewire.keyword.keyword-index');
     }
