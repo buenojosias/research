@@ -3,7 +3,7 @@
     year: true,
     type: true,
     repository: false,
-    therms: false,
+    descriptors: false,
     periodical: false,
     institution: false,
     program: false,
@@ -32,7 +32,7 @@
             <th x-show="year">Ano</th>
             <th x-show="type">Tipo</th>
             <th x-show="repository">Repositório</th>
-            <th x-show="therms">Palavras buscadas</th>
+            <th x-show="descriptors">Descritores</th>
             <th x-show="periodical">Periódico</th>
             <th x-show="institution">Instituição</th>
             <th x-show="program">Programa</th>
@@ -61,7 +61,7 @@
                     <td x-show="year">{{ $production->year }}</td>
                     <td x-show="type">{{ $production->type }}</td>
                     <td x-show="repository">{{ $production->repository }}</td>
-                    <td x-show="therms">
+                    <td x-show="descriptors">
                         @foreach ($production->searched_terms as $term)
                             {{ $term }}
                             @if (!$loop->last)
@@ -117,7 +117,7 @@
             <x-ts-toggle x-model="year" label="Ano" />
             <x-ts-toggle x-model="type" label="Tipo" />
             <x-ts-toggle x-model="repository" label="Repositório" />
-            <x-ts-toggle x-model="therms" label="Palavras buscadas" />
+            <x-ts-toggle x-model="descriptors" label="Descritores" />
             @if ($has_periodicals)
                 <x-ts-toggle x-model="periodical" label="Periódico" />
             @endif

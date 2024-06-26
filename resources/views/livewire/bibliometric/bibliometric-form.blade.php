@@ -12,7 +12,7 @@
                     :options="$avaliable_types" multiple />
             </div>
             <div class="col-span-6">
-                <x-ts-tag wire:model="terms" label="Palavras pesquisadas *" hint="Separe os itens com vírgula" />
+                <x-ts-tag wire:model="terms" label="Descritores *" hint="Separe os itens com vírgula" />
             </div>
             <div class="col-span-3">
                 <x-ts-tag wire:model="combinations" label="Combinações *" hint="Ex: A+B, A+C, B+C" />

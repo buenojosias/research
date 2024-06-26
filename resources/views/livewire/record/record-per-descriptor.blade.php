@@ -1,5 +1,5 @@
 <div>
-    <x-page-header title="Estatísticas por combinação buscada" />
+    <x-page-header title="Estatísticas por descritores" />
     <div class="sm:flex gap-x-6">
         @include('includes.records-nav')
 
@@ -75,7 +75,7 @@
                         </div>
                     @endforeach
                     <hr class="my-4">
-                    <x-ts-label label="Palavras buscadas" />
+                    <x-ts-label label="Combinação de descritores" />
                     @foreach ($bibliometricTerms as $term)
                         <div class="w-full mt-1">
                             <x-ts-checkbox :label="$term" wire:model.live="selectedWords" name="selectedWords[]"
@@ -120,10 +120,10 @@
                     </x-slot>
                 </x-table>
                 @if (!$selectedWords)
-                    <div class="bg-white text-center py-6">Selecione uma ou mais palavras buscadas para ver a quantidade
+                    <div class="bg-white text-center py-6">Selecione um ou mais descritores para ver a quantidade
                         de produções encontradas.</div>
                 @elseif (!count($records))
-                    <div class="bg-white text-center py-6">Nenhuma produção encontrada. Selecione mais palavras.</div>
+                    <div class="bg-white text-center py-6">Nenhuma produção encontrada. Selecione mais descritores.</div>
                 @endif
             </div>
         </div>

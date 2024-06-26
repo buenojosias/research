@@ -62,7 +62,19 @@
                             </dl>
                         </div>
                         <x-detail label="Idioma" :value="$production->language" />
-                        <x-detail label="Palavras pesquisadas" :value="$production->searched_terms" />
+                        <div>
+                            <dl>
+                                <dt>Descritores</dt>
+                                <dd>
+                                    @foreach ($production->searched_terms as $descriptor)
+                                        {{ $descriptor }}
+                                        @if (!$loop->last)
+                                            AND
+                                        @endif
+                                    @endforeach
+                                </dd>
+                            </dl>
+                        </div>
                         @if ($production->institution)
                             <x-detail label="Instituição" :value="$production->institution" />
                         @endif
@@ -90,10 +102,7 @@
                         <div>
                             <dl>
                                 @forelse ($production->keywords->data as $kw)
-                                    {{ $kw }}
-                                    @if (!$loop->last)
-                                        /
-                                    @endif
+                                    {{ $kw }}@if (!$loop->last); @endif
                                 @empty
                                     <p>Não adicionado</p>
                                 @endforelse

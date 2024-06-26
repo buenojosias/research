@@ -37,7 +37,7 @@
                 <x-ts-select.styled label="Idioma *" wire:model="language" :options="$bibliometric->languages" />
             </div>
             <div class="col-span-3">
-                <x-ts-select.styled label="Palavras pesquisadas *" wire:model="searched_terms" :options="$bibliometric->terms"
+                <x-ts-select.styled label="Descritores *" wire:model="searched_terms" placeholder="Selecione uma ou mais opções" :options="$bibliometric->terms"
                     multiple />
             </div>
 

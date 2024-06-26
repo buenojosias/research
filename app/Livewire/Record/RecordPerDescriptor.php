@@ -6,7 +6,7 @@ use App\Models\Production;
 use App\Models\Project;
 use Livewire\Component;
 
-class RecordPerSearch extends Component
+class RecordPerDescriptor extends Component
 {
     public $project;
 
@@ -119,7 +119,7 @@ class RecordPerSearch extends Component
         }
         // FIM VERSÃO 2
 
-        return view('livewire.record.record-per-search', compact('records', 'tableByType', 'tableByRepository', 'types', 'repositories', 'typeTotals', 'repositoryTotals'))
-            ->title('Relatório por combinações buscadas');
+        return view('livewire.record.record-per-descriptor', compact('records', 'tableByType', 'tableByRepository', 'types', 'repositories', 'typeTotals', 'repositoryTotals'))
+            ->title('Relatório por descritores');
     }
 }
