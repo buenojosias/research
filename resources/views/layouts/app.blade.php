@@ -49,6 +49,7 @@
                     <a href="#">Arquivo</a>
                 </x-nav-dropdown>
                 <x-nav-dropdown label="Relatórios">
+                    <a href="{{ route('project.bibliometrics.content.index', request()->route()->project) }}">Coteúdo</a>
                     <a href="{{ route('project.bibliometrics.keywords.index', request()->route()->project) }}">Palavras-chave</a>
                     <a href="{{ route('project.bibliometrics.wordcounts.index', request()->route()->project) }}">Contagem de palavras</a>
                     <a href="{{ route('project.bibliometrics.wordrankings.index', request()->route()->project) }}">Ranking de palavras</a>

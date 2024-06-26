@@ -45,16 +45,26 @@
                     in_array('Dissertação', $bibliometric->types) ||
                     in_array('Artigo científico', $bibliometric->types))
                 <div class="col-span-3">
-                    <x-ts-input label="Instituição (universidade)" wire:model="institution" />
+                    <x-ts-input label="Instituição (universidade)" wire:model="institution">
+                        <x-slot:suffix>
+                            <x-ts-button wire:click.prevent="institutionToLower" icon="language" color="slate"
+                                outline />
+                        </x-slot:suffix>
+                    </x-ts-input>
                 </div>
                 <div class="col-span-3">
-                    <x-ts-input label="Programa" wire:model="program" />
+                    <x-ts-input label="Programa" wire:model="program">
+                        <x-slot:suffix>
+                            <x-ts-button wire:click.prevent="programToLower" icon="language" color="slate"
+                                outline />
+                        </x-slot:suffix>
+                    </x-ts-input>
                 </div>
             @endif
 
-            @if (in_array('Periódico', $bibliometric->types))
+            @if (in_array('Periódico', $bibliometric->types) || in_array('Artigo científico', $bibliometric->types))
                 <div class="col-span-3">
-                    <x-ts-input label="Periódico" wire:model="periodical" />
+                    <x-ts-input label="Revista" wire:model="periodical" />
                 </div>
                 <div class="col-span-3">
                     <x-ts-input label="DOI" wire:model="doi" />

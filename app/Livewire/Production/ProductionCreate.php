@@ -159,4 +159,17 @@ class ProductionCreate extends Component
     {
         $this->subtitle = \Str::lower($this->subtitle);
     }
+
+    public function institutionToLower()
+    {
+        $institution = \Str::lower($this->institution);
+        $this->institution = \Str::title($institution);
+    }
+
+    public function programToLower()
+    {
+        $program = \Str::lower($this->program);
+        $this->program = \Str::title($program);
+    }
+
 }

@@ -52,9 +52,9 @@
                 </div>
             @endif
 
-            @if (in_array('Periódico', $bibliometric->types))
+            @if (in_array('Periódico', $bibliometric->types) || in_array('Artigo científico', $bibliometric->types))
                 <div class="col-span-3">
-                    <x-ts-input label="Periódico" wire:model="periodical" />
+                    <x-ts-input label="Revista" wire:model="periodical" />
                 </div>
                 <div class="col-span-3">
                     <x-ts-input label="DOI" wire:model="doi" />

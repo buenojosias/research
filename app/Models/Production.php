@@ -66,7 +66,7 @@ class Production extends Model
     public function abstract(): HasOne
     {
         return $this->hasOne(Internal::class)->where(function($query) {
-            $query->where('section', 'abstract');
+            $query->where('section', 'resumo');
         });
     }
 

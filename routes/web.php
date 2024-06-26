@@ -3,6 +3,7 @@
 use App\Http\Controllers\FileController;
 use App\Livewire\Bibliometric\BibliometricForm;
 use App\Livewire\Bibliometric\BibliometricShow;
+use App\Livewire\Content\ContentAbstract;
 use App\Livewire\Dashboard\DashboardIndex;
 use App\Livewire\File\FileIndex;
 use App\Livewire\File\FileShow;
@@ -13,7 +14,6 @@ use App\Livewire\Production\ProductionEdit;
 use App\Livewire\Production\ProductionIndex;
 use App\Livewire\Production\ProductionKeywords;
 use App\Livewire\Production\ProductionShow;
-use App\Livewire\Project\ProjectCreate;
 use App\Livewire\Project\ProjectIndex;
 use App\Livewire\Project\ProjectShow;
 use App\Livewire\Record\RecordIndex;
@@ -65,6 +65,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('rel/contagem', WordCountIndex::class)->name('wordcounts.index');
         Route::get('rel/contagem/nova', WordCountCreate::class)->name('wordcounts.create');
         Route::get('rel/contagem/{wordcount}', WordCountShow::class)->name('wordcounts.show');
+
+        Route::get('rel/conteudo', ContentAbstract::class)->name('content.index');
 
         Route::get('rel/ranking', WordRankingIndex::class)->name('wordrankings.index');
         Route::get('rel/ranking/novo', WordRankingCreate::class)->name('wordrankings.create');
