@@ -70,6 +70,25 @@ class Production extends Model
         });
     }
 
+    public function goals(): HasMany
+    {
+        return $this->hasMany(Goal::class);
+    }
+
+    public function generalGoal(): HasOne
+    {
+        return $this->hasOne(Goal::class)->where(function($query) {
+            $query->where('level', 'Geral');
+        });
+    }
+
+    public function specificGoals(): HasMany
+    {
+        return $this->hasMany(Goal::class)->where(function($query) {
+            $query->where('level', 'Específico');
+        });
+    }
+
     public function body(): HasOne
     {
         return $this->hasOne(Internal::class)->where(function($query) {

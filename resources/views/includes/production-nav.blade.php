@@ -7,6 +7,8 @@
                 <a href="{{ route('project.bibliometrics.productions.keywords', [$project, $production]) }}"
                     wire:navigate>Palavras-chave</a>
                 <hr>
+                <a href="{{ route('project.bibliometrics.productions.goals', [$project, $production]) }}"
+                    wire:navigate>Objetivos</a>
                 @foreach (\App\Enums\ProductionSectionEnum::cases() as $item)
                     <a href="{{ route('project.bibliometrics.productions.section', [$project, $production, $item]) }}"
                         wire:navigate>{{ $item->label() }}</a>
