@@ -7,8 +7,11 @@
                 <a href="{{ route('project.bibliometrics.productions.keywords', [$project, $production]) }}"
                     wire:navigate>Palavras-chave</a>
                 <hr>
-                <a href="{{ route('project.bibliometrics.productions.goals', [$project, $production]) }}"
-                    wire:navigate>Objetivos</a>
+                {{-- @if ($production->type->value === 'Tese' || $production->type->value === 'Dissertação') --}}
+                {{-- @if(in_array($production->type->value, ['Tese', 'Dissertação', 'Artigo científico'])) --}}
+                    <a href="{{ route('project.bibliometrics.productions.goals', [$project, $production]) }}"
+                        wire:navigate>Objetivos</a>
+                {{-- @endif --}}
                 @foreach (\App\Enums\ProductionSectionEnum::cases() as $item)
                     <a href="{{ route('project.bibliometrics.productions.section', [$project, $production, $item]) }}"
                         wire:navigate>{{ $item->label() }}</a>

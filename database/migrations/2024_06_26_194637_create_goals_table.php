@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('production_id')->constrained()->cascadeOnDelete();
             $table->enum('level', ['Geral', 'Específico']);
-            $table->tinyText('content');
+            $table->mediumText('content');
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ use App\Http\Controllers\FileController;
 use App\Livewire\Bibliometric\BibliometricForm;
 use App\Livewire\Bibliometric\BibliometricShow;
 use App\Livewire\Content\ContentAbstract;
+use App\Livewire\Content\ContentGoal;
 use App\Livewire\Dashboard\DashboardIndex;
 use App\Livewire\File\FileIndex;
 use App\Livewire\File\FileShow;
@@ -69,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('rel/contagem/{wordcount}', WordCountShow::class)->name('wordcounts.show');
 
         Route::get('rel/conteudo', ContentAbstract::class)->name('content.index');
+        Route::get('rel/objetivos', ContentGoal::class)->name('content.goals');
 
         Route::get('rel/ranking', WordRankingIndex::class)->name('wordrankings.index');
         Route::get('rel/ranking/novo', WordRankingCreate::class)->name('wordrankings.create');

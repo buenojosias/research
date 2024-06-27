@@ -9,11 +9,15 @@ class ContentAbstract extends Component
 {
     public $prods;
 
+    public $showKeywords = false;
+
+    public $showGoal = false;
+
     public function mount(Project $project)
     {
         $this->prods = $project
             ->productions()
-            ->with(['keywords'])
+            ->with(['keywords', 'generalGoal'])
             ->with('abstract')
             ->get();
     }
