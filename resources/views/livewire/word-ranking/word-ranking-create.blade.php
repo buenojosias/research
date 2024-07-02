@@ -1,4 +1,10 @@
 <section>
+    <x-ts-loading>
+        <div class="flex items-center text-primary-500 dark:text-white">
+            <x-ts-icon name="arrow-path" class="mr-2 h-10 w-10 animate-spin" />
+            Processando...
+        </div>
+    </x-ts-loading>
     <x-page-header title="Gerar ranking de palavras" />
     <div class="">
         <div class="">

@@ -75,10 +75,14 @@ class WordRankingCreate extends Component
     {
         $internalsContent = Internal::query()
             ->whereRelation('production', fn($q) => $q->whereIn('type', $this->production_types))
-            ->whereIn('section', $this->sections)
-            ->when($this->productions, function ($q) {
-                $q->whereIn('production_id', $this->productions);
+            ->whereHas('production', function($query) {
+                $query->whereIn('type', $this->production_types)
+                    ->where('project_id', $this->project->id);
             })
+            ->whereIn('section', $this->sections)
+            // ->when($this->productions, function ($q) {
+            //     $q->whereIn('production_id', $this->productions);
+            // })
             ->pluck('content')
             ->toArray();
 

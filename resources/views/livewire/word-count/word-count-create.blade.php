@@ -1,4 +1,10 @@
 <section>
+    <x-ts-loading loading="generate">
+        <div class="flex items-center text-primary-500 dark:text-white">
+            <x-ts-icon name="arrow-path" class="mr-2 h-10 w-10 animate-spin" />
+            Processando...
+        </div>
+    </x-ts-loading>
     <x-page-header title="Contagem de palavras" />
     <x-ts-errors />
     <div class="px-4 py-2 flex justify-between items-center bg-white rounded-t">
