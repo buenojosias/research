@@ -4,7 +4,7 @@
 @endphp
 <div class="bg-white rounded-lg">
     @if ($label)
-        <div class="p-4 text-gray-800 font-semibold">
+        <div class="p-4 border-b text-gray-800 font-semibold">
             {{ $label }}
         </div>
     @endif
