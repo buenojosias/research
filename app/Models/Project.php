@@ -70,4 +70,9 @@ class Project extends Model
     {
         return $this->hasManyThrough(Keyword::class, Production::class);
     }
+
+    public function references(): HasMany
+    {
+        return $this->hasMany(Reference::class);
+    }
 }

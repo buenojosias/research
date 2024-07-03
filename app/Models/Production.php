@@ -6,6 +6,7 @@ use App\Enums\ProductionTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -104,5 +105,15 @@ class Production extends Model
     public function wordRankings(): HasMany
     {
         return $this->hasMany(WordRanking::class);
+    }
+
+    public function references(): BelongsToMany
+    {
+        return $this->belongsToMany(Reference::class)->withPivot('suffix');
+    }
+
+    public function citations(): HasMany
+    {
+        return $this->hasMany(Citation::class);
     }
 }
