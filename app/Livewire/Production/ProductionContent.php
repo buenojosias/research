@@ -44,6 +44,11 @@ class ProductionContent extends Component
     public function render()
     {
         return view('livewire.production.production-content')
-            ->title($this->sectionLabel);
+            ->layout('layouts.production')
+            ->layoutData([
+                'title' => $this->sectionLabel,
+                'project' => $this->project,
+                'production' => $this->production,
+            ]);
     }
 }

@@ -15,6 +15,7 @@ use App\Livewire\Production\ProductionEdit;
 use App\Livewire\Production\ProductionGoal;
 use App\Livewire\Production\ProductionIndex;
 use App\Livewire\Production\ProductionKeywords;
+use App\Livewire\Production\ProductionReference;
 use App\Livewire\Production\ProductionShow;
 use App\Livewire\Project\ProjectIndex;
 use App\Livewire\Project\ProjectShow;
@@ -60,6 +61,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('producoes/{production}/arquivo', FileShow::class)->name('productions.files.show');
         Route::get('producoes/{production}/keywords', ProductionKeywords::class)->name('productions.keywords');
         Route::get('producoes/{production}/objetivos', ProductionGoal::class)->name('productions.goals');
+        Route::get('producoes/{production}/referencias', ProductionReference::class)->name('productions.references');
         Route::get('producoes/{production}/{section}', ProductionContent::class)->name('productions.section');
         Route::get('producoes/{production}/{section}/form', \App\Livewire\Internal\InternalForm::class)->name('productions.section.form');
 

@@ -40,6 +40,12 @@ class ProductionShow extends Component
     public function render()
     {
         return view('livewire.production.production-show')
-            ->title($this->production->title);
+        ->layout('layouts.production')
+        ->layoutData([
+            'title' => 'Produção',
+            'project' => $this->project,
+            'production' => $this->production,
+        ]);
+
     }
 }

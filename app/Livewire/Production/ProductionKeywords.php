@@ -28,7 +28,13 @@ class ProductionKeywords extends Component
 
     public function render()
     {
-        return view('livewire.production.production-keywords');
+        return view('livewire.production.production-keywords')
+            ->layout('layouts.production')
+            ->layoutData([
+                'title' => 'Palavras-chave da produção',
+                'project' => $this->project,
+                'production' => $this->production,
+            ]);
     }
 
     #[On('keyword-added')]
@@ -46,7 +52,7 @@ class ProductionKeywords extends Component
         $json = $data;
         $this->keywords->data = $json;
 
-        if($this->keywords->update(['data' => $json]))
+        if ($this->keywords->update(['data' => $json]))
             $this->toast()->success('Palavra-chave removida.')->send();
     }
 

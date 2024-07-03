@@ -46,6 +46,11 @@ class FileShow extends Component
     public function render()
     {
         return view('livewire.file.file-show')
-            ->title('Arquivo da produção');
+            ->layout('layouts.production')
+            ->layoutData([
+                'title' => 'Arquivo da produção',
+                'project' => $this->project,
+                'production' => $this->production,
+            ]);
     }
 }

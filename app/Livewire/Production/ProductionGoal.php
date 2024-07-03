@@ -40,7 +40,12 @@ class ProductionGoal extends Component
     {
         $this->specificGoals = $this->production->goals->where('level', 'Específico');
         return view('livewire.production.production-goal')
-            ->title('Objetivos');
+            ->layout('layouts.production')
+            ->layoutData([
+                'title' => 'Objetivos da produção',
+                'project' => $this->project,
+                'production' => $this->production,
+            ]);
     }
 
     public function saveGeneralGoal()

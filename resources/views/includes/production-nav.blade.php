@@ -8,9 +8,9 @@
                     wire:navigate>Palavras-chave</a>
                 <hr>
                 {{-- @if ($production->type->value === 'Tese' || $production->type->value === 'Dissertação') --}}
-                {{-- @if(in_array($production->type->value, ['Tese', 'Dissertação', 'Artigo científico'])) --}}
-                    <a href="{{ route('project.bibliometrics.productions.goals', [$project, $production]) }}"
-                        wire:navigate>Objetivos</a>
+                {{-- @if (in_array($production->type->value, ['Tese', 'Dissertação', 'Artigo científico'])) --}}
+                <a href="{{ route('project.bibliometrics.productions.goals', [$project, $production]) }}"
+                    wire:navigate>Objetivos</a>
                 {{-- @endif --}}
                 @foreach (\App\Enums\ProductionSectionEnum::cases() as $item)
                     <a href="{{ route('project.bibliometrics.productions.section', [$project, $production, $item]) }}"
@@ -20,7 +20,8 @@
                 <a href="{{ route('project.bibliometrics.productions.files.show', [$project, $production]) }}"
                     wire:navigate>Arquivo</a>
                 <a href="#" wire:navigate>Capítulos</a>
-                <a href="#" wire:navigate>Referências</a>
+                <a href="{{ route('project.bibliometrics.productions.references', [$project, $production]) }}"
+                    wire:navigate>Referências</a>
             </div>
         @endif
     </x-ts-card>
