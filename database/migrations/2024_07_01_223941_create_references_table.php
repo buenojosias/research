@@ -12,9 +12,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->string('type');
-            $table->string('display_author');
+            $table->string('short_author');
+            $table->string('long_author')->nullable();
             $table->year('year');
             $table->string('title');
+            $table->mediumText('full')->nullable();
             $table->timestamps();
         });
     }

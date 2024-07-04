@@ -28,4 +28,9 @@
             {{ $footer }}
         </div>
     @endif
+    @if (isset($pagination))
+        <div class="p-2">
+            {{ $pagination }}
+        </div>
+    @endif
 </div>

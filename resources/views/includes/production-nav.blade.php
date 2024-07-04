@@ -22,6 +22,8 @@
                 <a href="#" wire:navigate>Capítulos</a>
                 <a href="{{ route('project.bibliometrics.productions.references', [$project, $production]) }}"
                     wire:navigate>Referências</a>
+                <a href="{{ route('project.bibliometrics.productions.citations', [$project, $production]) }}"
+                    wire:navigate>Citações</a>
             </div>
         @endif
     </x-ts-card>

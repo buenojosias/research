@@ -42,7 +42,8 @@
                 <x-nav-link label="Projeto" :href="route('project.show', request()->route()->project)" />
                 <x-nav-link label="Produções" :href="route('project.bibliometrics.productions.index', request()->route()->project)" :active="request()->routeIs('*productions*')" />
                 <x-nav-link label="Arquivos" :href="route('project.bibliometrics.files.index', request()->route()->project)" :active="request()->routeIs('*bibliometrics.files*')" />
-                <x-nav-link label="Códigos" href="#" />
+                <x-nav-link label="Referências" :href="route('project.bibliometrics.references.index', request()->route()->project)" :active="request()->routeIs('*bibliometrics.references*')" />
+                {{-- <x-nav-link label="Códigos" href="#" /> --}}
                 <x-nav-dropdown label="Inserir">
                     <a href="{{ route('project.bibliometrics.productions.create', request()->route()->project) }}">Produção</a>
                     <a href="#">Entrevista</a>

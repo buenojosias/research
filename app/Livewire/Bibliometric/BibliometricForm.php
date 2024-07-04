@@ -4,7 +4,6 @@ namespace App\Livewire\Bibliometric;
 
 use App\Enums\ProductionTypeEnum;
 use App\Models\Project;
-use App\Models\Student;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use TallStackUi\Traits\Interactions;

@@ -16,9 +16,11 @@ class Reference extends Model
     protected $fillable = [
         'project_id',
         'type',
-        'display_author',
+        'short_author',
+        'long_author',
         'year',
         'title',
+        'full'
     ];
 
     protected function casts(): array
