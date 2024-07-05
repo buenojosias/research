@@ -84,6 +84,13 @@ class ProductionReference extends Component
             ]);
     }
 
+    public function updated($name)
+    {
+        if ($name === 'full') {
+            $this->full = trim(preg_replace('/\n|\s\s+/', ' ', $this->full));
+        }
+    }
+
     public function submitReference()
     {
         $data = $this->validate();

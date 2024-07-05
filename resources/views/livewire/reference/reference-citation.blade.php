@@ -39,7 +39,9 @@
                         {{ $citation->production->subtitle ? $citation->production->title . ': ' . $citation->production->subtitle : $citation->production->title }}
                         ({{ $citation->production->year }})
                     </td>
-                    <td></td>
+                    <td>
+                        <x-ts-link :href="route('project.bibliometrics.productions.show', [$project, $citation->production])" wire:navigate icon="arrow-top-right-on-square" />
+                    </td>
                 </tr>
             @endforeach
         </x-slot>

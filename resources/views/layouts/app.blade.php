@@ -43,10 +43,11 @@
                 <x-nav-link label="Produções" :href="route('project.bibliometrics.productions.index', request()->route()->project)" :active="request()->routeIs('*productions*')" />
                 <x-nav-link label="Arquivos" :href="route('project.bibliometrics.files.index', request()->route()->project)" :active="request()->routeIs('*bibliometrics.files*')" />
                 <x-nav-link label="Referências" :href="route('project.bibliometrics.references.index', request()->route()->project)" :active="request()->routeIs('*bibliometrics.references*')" />
+                <x-nav-link label="Citações" :href="route('project.bibliometrics.citations.index', request()->route()->project)" :active="request()->routeIs('*bibliometrics.citations*')" />
                 {{-- <x-nav-link label="Códigos" href="#" /> --}}
                 <x-nav-dropdown label="Inserir">
                     <a href="{{ route('project.bibliometrics.productions.create', request()->route()->project) }}">Produção</a>
-                    <a href="#">Entrevista</a>
+                    {{-- <a href="#">Entrevista</a> --}}
                     <a href="#">Arquivo</a>
                 </x-nav-dropdown>
                 <x-nav-dropdown label="Relatórios">
@@ -63,7 +64,7 @@
                 <x-nav-link label="Entrevistas" href="#" />
                 <x-nav-link label="Bibliometria" :href="route('project.bibliometrics.show', request()->route()->project)" />
             @elseif (request()->routeIs('project.bibliometric*'))
-                <x-nav-link label="Entrevistas" href="#" />
+                {{-- <x-nav-link label="Entrevistas" href="#" /> --}}
             @elseif (request()->routeIs('project.interview*'))
                 <x-nav-link label="Bibliometria" :href="route('project.bibliometrics.show', request()->route()->project)" />
             @else

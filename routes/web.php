@@ -3,6 +3,7 @@
 use App\Http\Controllers\FileController;
 use App\Livewire\Bibliometric\BibliometricForm;
 use App\Livewire\Bibliometric\BibliometricShow;
+use App\Livewire\Citation\CitationIndex;
 use App\Livewire\Content\ContentAbstract;
 use App\Livewire\Content\ContentGoal;
 use App\Livewire\Dashboard\DashboardIndex;
@@ -73,6 +74,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('referencias', ReferenceIndex::class)->name('references.index');
         Route::get('referencias/{reference}', ReferenceShow::class)->name('references.show');
         Route::get('referencias/{reference}/citacoes', ReferenceCitation::class)->name('references.citations');
+
+        Route::get('citacoes', CitationIndex::class)->name('citations.index');
 
         Route::get('rel/keywords', KeywordIndex::class)->name('keywords.index');
 

@@ -58,7 +58,7 @@
                 <x-ts-input wire:model="title" label="Título *" />
             </div>
             <div class="col-span-3">
-                <x-ts-textarea wire:model="full" label="Referência completa" />
+                <x-ts-textarea wire:model.live.blur="full" label="Referência completa" />
             </div>
         </form>
         <x-slot:footer>

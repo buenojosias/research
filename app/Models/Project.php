@@ -75,4 +75,9 @@ class Project extends Model
     {
         return $this->hasMany(Reference::class);
     }
+
+    public function citations(): HasManyThrough
+    {
+        return $this->hasManyThrough(Citation::class, Production::class);
+    }
 }
