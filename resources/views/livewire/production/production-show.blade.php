@@ -42,7 +42,7 @@
                             <dd class="w-full">
                                 <span class="break-words">{{ $production->url }}</span>
                                 @if ($production->url)
-                                    <x-ts-link :href="$production->url" icon="arrow-top-right-on-square" lg blank />
+                                    <x-ts-link :href="$production->url" icon="arrow-top-right-on-square" blank />
                                 @else
                                     Nenhum link adicionado
                                 @endif

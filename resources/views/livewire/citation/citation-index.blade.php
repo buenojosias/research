@@ -8,10 +8,12 @@
             <x-ts-card header="Produções">
                 @if ($productions)
                     <div class="flex flex-col space-y-2 text-sm">
-                        @foreach ($productions as $production)
+                        @forelse ($productions as $production)
                             <a class="cursor-pointer"
                                 wire:click="setProduction({{ $production->id }})">{{ $production->title }}</a>
-                        @endforeach
+                        @empty
+                            <p>Nenhuma produção com citação encontrada.</p>
+                        @endforelse
                     </div>
                 @else
                     <x-ts-button text="Carregar" wire:click="loadProductions" class="w-full" flat />
@@ -25,10 +27,12 @@
             <x-ts-card header="Referências">
                 @if ($references)
                     <div class="flex flex-col space-y-2 text-sm">
-                        @foreach ($references as $reference)
+                        @forelse ($references as $reference)
                             <a class="cursor-pointer"
                                 wire:click="setReference({{ $reference->id }})">{{ $reference->title }}</a>
-                        @endforeach
+                        @empty
+                            <p>Nenhuma referência com citação encontrada.</p>
+                        @endforelse
                     </div>
                 @else
                     <x-ts-button text="Carregar" wire:click="loadReferences" class="w-full" flat />
@@ -65,7 +69,7 @@
                 </x-ts-card>
             @endif
             <div class="space-y-2">
-                @foreach ($citations as $citation)
+                @forelse ($citations as $citation)
                     <div class="bg-white border rounded-lg shadow">
                         <p class="p-2">{{ $citation->content }}</p>
                         <div class="px-2 py-1.5 space-y-1 bg-gray-50 divide-y rounded-b-lg text-sm">
@@ -89,7 +93,11 @@
                             @endif
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <x-ts-card class="text-center py-6">
+                        Nenhuma citação encontrada.
+                    </x-ts-card>
+                @endforelse
                 {{ $citations->links() }}
             </div>
         </div>
