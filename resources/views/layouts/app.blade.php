@@ -57,6 +57,7 @@
                     <a href="{{ route('project.bibliometrics.wordcounts.index', request()->route()->project) }}">Contagem de palavras</a>
                     <a href="{{ route('project.bibliometrics.wordrankings.index', request()->route()->project) }}">Ranking de palavras</a>
                     <a href="#">Nuvem de palavras</a>
+                    <a href="{{ route('project.bibliometrics.search-results.index', request()->route()->project) }}">Resultados das buscas</a>
                     <a href="{{ route('project.bibliometrics.records.index', request()->route()->project) }}">Estatísticas</a>
                 </x-nav-dropdown>
             @endif

@@ -31,6 +31,7 @@ use App\Livewire\Record\RecordPerState;
 use App\Livewire\Reference\ReferenceCitation;
 use App\Livewire\Reference\ReferenceIndex;
 use App\Livewire\Reference\ReferenceShow;
+use App\Livewire\SearchResult\SearchResultIndex;
 use App\Livewire\Student\StudentIndex;
 use App\Livewire\WordCloud\WordCloudIndex;
 use App\Livewire\WordCount\WordCountCreate;
@@ -78,6 +79,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('citacoes', CitationIndex::class)->name('citations.index');
 
         Route::get('rel/keywords', KeywordIndex::class)->name('keywords.index');
+
+        Route::get('rel/resultado-busca', SearchResultIndex::class)->name('search-results.index');
 
         Route::get('rel/contagem', WordCountIndex::class)->name('wordcounts.index');
         Route::get('rel/contagem/nova', WordCountCreate::class)->name('wordcounts.create');

@@ -65,6 +65,36 @@
                 </x-table>
             </div>
 
+            <div class="col-span-6 mb-6">
+                <x-table label="Lista por ano">
+                    <x-slot name="header">
+                        <tr>
+                            <th>Descritores</th>
+                            @foreach ($years as $year)
+                                <th class="text-center">{{ $year }}</th>
+                            @endforeach
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </x-slot>
+                    <x-slot name="body">
+                        @foreach ($tableByYear as $word => $years)
+                            <tr>
+                                <td>{{ $word }}</td>
+                                @foreach ($years as $year)
+                                    <td class="text-center">{{ $year ?? 0 }}</td>
+                                @endforeach
+                            </tr>
+                            @endforeach
+                            <tr>
+                                <td class="font-semibold">Total</td>
+                                @foreach($years as $key => $year)
+                                    <td class="text-center font-semibold">{{ $yearTotals[$key] }}</td>
+                                @endforeach
+                            </tr>
+                    </x-slot>
+                </x-table>
+            </div>
+
             <div class="col-span-3">
                 <x-ts-card header="Filtros">
                     <x-ts-label label="Tipos" />
@@ -102,10 +132,8 @@
                                     <div class="mt-2 rounded border bg-gray-50" x-show="showProductions" x-transition>
                                         <ul>
                                             @foreach ($record as $production)
-                                                <li class="border-b p-2 !text-wrap">{{ $production->title }}
-                                                    @if ($production->subtitle)
-                                                        : {{ $production->subtitle }}
-                                                    @endif
+                                                <li class="border-b p-2 !text-wrap">
+                                                    {{ $production->subtitle ? $production->title .': '. $production->subtitle : $production->title }}
                                                     ({{ $production->year }})
                                                 </li>
                                             @endforeach
