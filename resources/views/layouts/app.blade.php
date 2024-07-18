@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ @$title ? @$title . ' - ' : '' }} {{ config('app.name', 'Research') }}</title>
+    <title>{{ @$title ? @$title . ' - ' : '' }} {{ config('app.name', 'AnaliQ') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <tallstackui:script />
@@ -19,8 +19,8 @@
 <body>
     <header>
         <div class="stack">
-            <div class="flex gap-4">
-                <x-application-logo class="h-8" />
+            <div class="flex items-center gap-4">
+                <x-application-logo />
                 <div class="text-lg font-medium text-gray-700">
                     @if (request()->routeIs('*bibliometric*'))
                         Bibliometria

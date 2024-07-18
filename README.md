@@ -1,4 +1,4 @@
-# Research 1.0
+# AnaliQ 1.0
 Sistema de análise de pesquisas acadêmicas
 
 ---
