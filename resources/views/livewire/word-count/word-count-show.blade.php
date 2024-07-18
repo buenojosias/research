@@ -27,24 +27,23 @@
             </x-ts-card>
         </div>
 
-        <div x-show="showdetails" x-transition class="mb-6 space-y-4">
+        <div x-show="showdetails" x-transition class="mb-6 space-y-2">
             <h2 class="mb-4 font-semibold">Produções encontradas</h2>
             @foreach ($wordcount->records as $record)
                 <x-ts-card x-data="{ details: false }">
                     <div @click="details = !details" class="card-header justify-between"
                         :class="details ? 'pb-4 mb-2 border-b' : ''">
                         <div class="cursor-pointer">
-                            {{-- {{ $record['production']['author_lastname'] }}, --}}
                             {{ $record['production']['year'] }}.
                             {{ $record['production']['title'] }}
                         </div>
                         <div>
-                            <x-ts-button color="white">
-                                <x-ts-icon name="chevron-down" class="w-5" />
+                            <x-ts-button color="gray" sm flat>
+                                <x-ts-icon name="chevron-down" class="w-5 transition" x-bind:class="details ? 'rotate-180' : ''" />
                             </x-ts-button>
                         </div>
                     </div>
-                    <div class="detail" x-show="details" x-transition>
+                    <div class="detail" x-show="details" x-collapse>
                         <x-detail label="Título da produção" :value="$record['production']['title']" />
                         <div>
                             <dl class="w-full">

@@ -45,11 +45,6 @@
                 <x-nav-link label="Referências" :href="route('project.bibliometrics.references.index', request()->route()->project)" :active="request()->routeIs('*bibliometrics.references*')" />
                 <x-nav-link label="Citações" :href="route('project.bibliometrics.citations.index', request()->route()->project)" :active="request()->routeIs('*bibliometrics.citations*')" />
                 {{-- <x-nav-link label="Códigos" href="#" /> --}}
-                <x-nav-dropdown label="Inserir">
-                    <a href="{{ route('project.bibliometrics.productions.create', request()->route()->project) }}">Produção</a>
-                    {{-- <a href="#">Entrevista</a> --}}
-                    <a href="#">Arquivo</a>
-                </x-nav-dropdown>
                 <x-nav-dropdown label="Relatórios">
                     <a href="{{ route('project.bibliometrics.content.index', request()->route()->project) }}">Coteúdo</a>
                     <a href="{{ route('project.bibliometrics.content.goals', request()->route()->project) }}">Objetivos</a>

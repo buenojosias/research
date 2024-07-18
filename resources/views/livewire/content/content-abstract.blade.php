@@ -16,7 +16,9 @@
                                 {{ $types->count() > 1 ? 'resultados' : 'resultado' }})</small>
                         </h1>
                         <div class="flex items-center">
-                            <x-ts-button sm icon="chevron-up" light x-on:click="show_type = !show_type" />
+                            <x-ts-button x-on:click="show_type = !show_type" color="white" sm flat>
+                                <x-ts-icon name="chevron-down" class="w-5 h-5 transition" x-bind:class="show_type ? 'rotate-180'  :  ''" />
+                            </x-ts-button>
                         </div>
                     </div>
                     <div x-show="show_type" x-collapse.duration.500ms>
@@ -30,8 +32,9 @@
                                             {{ $years->count() > 1 ? 'resultados' : 'resultado' }})</small>
                                     </h2>
                                     <div class="flex items-center">
-                                        <x-ts-button sm icon="chevron-up" light
-                                            x-on:click="show_year = !show_year" />
+                                        <x-ts-button x-on:click="show_year = !show_year" color="white" sm flat>
+                                            <x-ts-icon name="chevron-down" class="w-4 h-4 transition" x-bind:class="show_year ? 'rotate-180'  :  ''" />
+                                        </x-ts-button>
                                     </div>
                                 </div>
                                 <div class="divide-y" x-show="show_year" x-collapse.duration.500ms>

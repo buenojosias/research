@@ -14,7 +14,7 @@ class DashboardIndex extends Component
 
     public function mount()
     {
-        $this->projects = Project::all();
+        $this->projects = Project::withCount('productions')->get();
         $this->students = Student::all();
     }
 

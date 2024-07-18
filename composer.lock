@@ -1976,16 +1976,16 @@
         },
         {
             "name": "lucascudo/laravel-pt-br-localization",
-            "version": "v2.1.2",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucascudo/laravel-pt-BR-localization.git",
-                "reference": "0472f83c3ef2352476d5f7763bacf88b59427597"
+                "reference": "60c28db1d959f3d8b2c842393dc6eabb5d6e2fe5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucascudo/laravel-pt-BR-localization/zipball/0472f83c3ef2352476d5f7763bacf88b59427597",
-                "reference": "0472f83c3ef2352476d5f7763bacf88b59427597",
+                "url": "https://api.github.com/repos/lucascudo/laravel-pt-BR-localization/zipball/60c28db1d959f3d8b2c842393dc6eabb5d6e2fe5",
+                "reference": "60c28db1d959f3d8b2c842393dc6eabb5d6e2fe5",
                 "shasum": ""
             },
             "type": "library",
@@ -2015,7 +2015,7 @@
             "homepage": "https://github.com/lucascudo/laravel-pt-br-localization",
             "support": {
                 "issues": "https://github.com/lucascudo/laravel-pt-BR-localization/issues",
-                "source": "https://github.com/lucascudo/laravel-pt-BR-localization/tree/v2.1.2"
+                "source": "https://github.com/lucascudo/laravel-pt-BR-localization/tree/v2.2.1"
             },
             "funding": [
                 {
@@ -2031,7 +2031,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-06T15:49:55+00:00"
+            "time": "2024-05-09T13:57:11+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -5674,16 +5674,16 @@
         },
         {
             "name": "tallstackui/tallstackui",
-            "version": "v1.32.2",
+            "version": "v1.32.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tallstackui/tallstackui.git",
-                "reference": "d81cbfbe818f3d52d498d859fbe5008dbe9077a3"
+                "reference": "61608099fec9967a7db2e69e2c73c1664a79796a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tallstackui/tallstackui/zipball/d81cbfbe818f3d52d498d859fbe5008dbe9077a3",
-                "reference": "d81cbfbe818f3d52d498d859fbe5008dbe9077a3",
+                "url": "https://api.github.com/repos/tallstackui/tallstackui/zipball/61608099fec9967a7db2e69e2c73c1664a79796a",
+                "reference": "61608099fec9967a7db2e69e2c73c1664a79796a",
                 "shasum": ""
             },
             "require": {
@@ -5727,7 +5727,7 @@
             "description": "TallStackUI is a powerful suite of Blade components that elevate your workflow of Livewire applications.",
             "support": {
                 "issues": "https://github.com/tallstackui/tallstackui/issues",
-                "source": "https://github.com/tallstackui/tallstackui/tree/v1.32.2"
+                "source": "https://github.com/tallstackui/tallstackui/tree/v1.32.3"
             },
             "funding": [
                 {
@@ -5735,7 +5735,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-07-05T04:19:53+00:00"
+            "time": "2024-07-11T00:49:31+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

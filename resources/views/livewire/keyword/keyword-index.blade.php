@@ -6,7 +6,7 @@
                 <x-table>
                     <div class="px-4 py-2 flex justify-between gap-4 items-center text-gray-800 font-semibold">
                         <h4>Publicações com a palavra-chave: {{ $selectedKeyword }}</h4>
-                        <x-ts-button wire:click="selectWord('')" icon="x-mark" outline />
+                        <x-ts-button wire:click="selectWord('')" icon="x-mark" flat />
                     </div>
                     <x-slot name="header">
                         <th>Título</th>
@@ -40,7 +40,7 @@
                                 </td>
                                 <td>
                                     <x-ts-button wire:click="deleteProduction({{ $kw->production }})"
-                                        icon="archive-box-arrow-down" color="amber" outline sm />
+                                        icon="archive-box-arrow-down" color="red" flat sm />
                                 </td>
                             </tr>
                         @empty
