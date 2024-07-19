@@ -32,7 +32,9 @@ use App\Livewire\Reference\ReferenceCitation;
 use App\Livewire\Reference\ReferenceIndex;
 use App\Livewire\Reference\ReferenceShow;
 use App\Livewire\SearchResult\SearchResultIndex;
+use App\Livewire\Student\StudentForm;
 use App\Livewire\Student\StudentIndex;
+use App\Livewire\Student\StudentShow;
 use App\Livewire\WordCloud\WordCloudIndex;
 use App\Livewire\WordCount\WordCountCreate;
 use App\Livewire\WordCount\WordCountIndex;
@@ -50,6 +52,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', DashboardIndex::class)->name('dashboard');
 
     Route::get('estudantes', StudentIndex::class)->name('students.index');
+    Route::get('estudantes/novo', StudentForm::class)->name('students.create');
+    Route::get('estudantes/{student}', StudentShow::class)->name('students.show');
+    Route::get('estudantes/{student}/editar', StudentForm::class)->name('students.edit');
 
     Route::get('projetos', ProjectIndex::class)->name('projects.index');
     Route::get('p/{project}', ProjectShow::class)->name('project.show');

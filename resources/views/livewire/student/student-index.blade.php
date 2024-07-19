@@ -1,6 +1,6 @@
 <section>
     <x-page-header title="Estudantes">
-        <x-ts-button text="Novo" />
+        <x-ts-button :href="route('students.create')" text="Novo" />
     </x-page-header>
     <x-table>
         <x-slot name="header">
@@ -14,13 +14,15 @@
         <x-slot name="body">
             @foreach ($students as $student)
                 <tr>
-                    <td>{{ $student->name }}</td>
+                    <td>
+                        <a href="{{ route('students.show', $student) }}" wire:navigate>{{ $student->name }}</a>
+                    </td>
                     @if (auth()->user()->admin)
                         <td>{{ $student->user->name }}</td>
                     @endif
                     <td><x-ts-link href="#" :text="$student->projects_count" color="copy" /></td>
                     <td>
-                        <x-ts-link href="#" icon="chevron-right" color="copy" />
+
                     </td>
                 </tr>
             @endforeach
