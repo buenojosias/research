@@ -10,7 +10,7 @@
             <div>Tabela detalhada</div>
             <div>
                 <x-ts-button x-on:click="show = !show" sm flat>
-                    <x-ts-icon name="chevron-down" class="w-5 h-5 transition" x-bind:class="show ? 'rotate-180'  :  ''" />
+                    <x-ts-icon name="chevron-down" class="w-5 h-5 transition" x-bind:class="show ? 'rotate-180' : ''" />
                 </x-ts-button>
             </div>
         </div>
@@ -80,20 +80,24 @@
                 </tr>
             </x-slot>
             <x-slot name="body">
-                @foreach ($tableByRepository as $word => $repositories)
+                @if ($tableByRepository)
+                    @foreach ($tableByRepository as $word => $repositories)
+                        <tr>
+                            <td class="!text-wrap">{{ $word }}</td>
+                            @foreach ($repositories as $repository)
+                                <td class="text-center">{{ $repository ?? 0 }}</td>
+                            @endforeach
+                        </tr>
+                    @endforeach
                     <tr>
-                        <td class="!text-wrap">{{ $word }}</td>
-                        @foreach ($repositories as $repository)
-                            <td class="text-center">{{ $repository ?? 0 }}</td>
+                        <td class="font-semibold">Total</td>
+                        @foreach ($repositories as $key => $repository)
+                            <td class="text-center font-semibold">{{ $repositoryTotals[$key] }}</td>
                         @endforeach
                     </tr>
-                @endforeach
-                <tr>
-                    <td class="font-semibold">Total</td>
-                    @foreach ($repositories as $key => $repository)
-                        <td class="text-center font-semibold">{{ $repositoryTotals[$key] }}</td>
-                    @endforeach
-                </tr>
+                @else
+                    <div class="p-4 text-center text-sm">Nada adicionado</div>
+                @endif
             </x-slot>
         </x-table>
 
@@ -108,20 +112,24 @@
                 </tr>
             </x-slot>
             <x-slot name="body">
-                @foreach ($tableByYear as $word => $years)
+                @if ($tableByYear)
+                    @foreach ($tableByYear as $word => $years)
+                        <tr>
+                            <td class="!text-wrap">{{ $word }}</td>
+                            @foreach ($years as $year)
+                                <td class="text-center">{{ $year ?? 0 }}</td>
+                            @endforeach
+                        </tr>
+                    @endforeach
                     <tr>
-                        <td class="!text-wrap">{{ $word }}</td>
-                        @foreach ($years as $year)
-                            <td class="text-center">{{ $year ?? 0 }}</td>
+                        <td class="font-semibold">Total</td>
+                        @foreach ($years as $key => $year)
+                            <td class="text-center font-semibold">{{ $yearTotals[$key] }}</td>
                         @endforeach
                     </tr>
-                @endforeach
-                <tr>
-                    <td class="font-semibold">Total</td>
-                    @foreach ($years as $key => $year)
-                        <td class="text-center font-semibold">{{ $yearTotals[$key] }}</td>
-                    @endforeach
-                </tr>
+                @else
+                    <div class="p-4 text-center text-sm">Nada adicionado</div>
+                @endif
             </x-slot>
         </x-table>
 
@@ -129,7 +137,7 @@
             <h2 class="text-lg font-semibold">Detalhamento dos repositórios</h2>
         </div>
 
-        @foreach ($results->groupBy('repository') as $repository => $items)
+        @forelse ($results->groupBy('repository') as $repository => $items)
             <x-table :label="$repository" class="mb-6">
                 <x-slot:header>
                     <th>Descritores</th>
@@ -165,13 +173,17 @@
                                     @endif
                                 @endforeach
                             </td>
-                            <td>{{ $result->year ?? '---' }}</td>
+                            <td>{{ $result->year ?? '-' }}</td>
                             <td>{{ $result->quantity }}</td>
                         </tr>
                     @endforeach
                 </x-slot>
             </x-table>
-        @endforeach
+        @empty
+            <x-ts-card>
+                <div class="text-center text-sm">Nada adicionado</div>
+            </x-ts-card>
+        @endforelse
     </div>
 
     <x-ts-modal title="Adicionar resultado" wire persistent>
