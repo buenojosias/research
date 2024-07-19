@@ -15,8 +15,8 @@
                     <p class="mt-2 text-sm">{{ $project->productions_count }} produções</p>
                     <x-slot:footer>
                         <div class="space-x-4">
-                            <x-ts-link text="Bibliometria" :href="route('project.bibliometrics.show', [$project])" />
-                            <x-ts-link text="Produções" :href="route('project.bibliometrics.productions.index', [$project])" />
+                            <x-ts-link text="Bibliometria" :href="route('project.bibliometrics.show', [$project])" wire:navigate />
+                            <x-ts-link text="Produções" :href="route('project.bibliometrics.productions.index', [$project])" wire:navigate />
                         </div>
                     </x-slot>
                 </x-ts-card>
