@@ -44,6 +44,7 @@ class ProductionIndex extends Component
     public $periodicals;
     public $states;
     public $regions;
+    public $highlighted = false;
 
     public function mount(Project $project)
     {
@@ -66,7 +67,9 @@ class ProductionIndex extends Component
     public function render()
     {
         $this->productions = $this->project->productions()
-            ->whereAny(['title', 'subtitle'], 'like', "%$this->q%")
+            ->when($this->q, function($query) {
+                $query->whereAny(['title', 'subtitle'], 'like', "%$this->q%");
+            })
             ->when($this->anos, function ($query) {
                 $query->whereIn('year', $this->anos);
             })
@@ -90,6 +93,9 @@ class ProductionIndex extends Component
             })
             ->when($this->show_deleted, function ($query) {
                 $query->withTrashed();
+            })
+            ->when($this->highlighted, function($query) {
+                $query->whereHighlighted(true);
             })
             ->with('state')
             ->orderBy('title')

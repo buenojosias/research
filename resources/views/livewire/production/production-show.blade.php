@@ -1,17 +1,21 @@
 <div>
+    <x-ts-toast />
     @if ($production->trashed())
-    <x-ts-alert color="amber" light>
-        Esta produção foi descartada
-        <x-slot:footer>
-            <div class="flex justify-end gap-2">
-                <x-ts-button wire:click="delete" text="Excluir definitivamente" color="amber" flat sm />
-                <x-ts-button wire:click="restore" text="Restaurar" color="amber" outline sm />
-            </div>
-        </x-slot:footer>
-    </x-ts-alert>
+        <x-ts-alert color="amber" light>
+            Esta produção foi descartada
+            <x-slot:footer>
+                <div class="flex justify-end gap-2">
+                    <x-ts-button wire:click="delete" text="Excluir definitivamente" color="amber" flat sm />
+                    <x-ts-button wire:click="restore" text="Restaurar" color="amber" outline sm />
+                </div>
+            </x-slot:footer>
+        </x-ts-alert>
     @endif
     <div class="flex-1 flex gap-6">
         <div class="mb-6">
+            @if ($production->highlighted)
+                <x-ts-banner text="Produção destacada." color="amber" />
+            @endif
             <x-ts-card>
                 <div class="detail">
                     <x-detail label="Título" :value="$production->title" />
@@ -80,6 +84,11 @@
                 <div class="card-footer">
                     <x-ts-link :href="route('project.bibliometrics.productions.edit', [$project, $production])" wire:navigate text="Editar" />
                     <x-ts-link :href="route('project.bibliometrics.productions.index', $project)" wire:navigate text="Voltar para resultados" />
+                    @if (!$production->highlighted)
+                        <x-ts-button text="Destacar" wire:click="highlight" outline />
+                    @else
+                        <x-ts-button text="Remover destaque" wire:click="unhighlight" outline />
+                    @endif
                 </div>
             </x-ts-card>
         </div>

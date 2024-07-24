@@ -32,7 +32,8 @@ class Production extends Model
         'city',
         'state_id',
         'url',
-        'doi'
+        'doi',
+        'highlighted'
     ];
 
     protected function casts(): array
@@ -41,6 +42,7 @@ class Production extends Model
             'searched_terms' => 'array',
             'authors' => 'array',
             'type' => ProductionTypeEnum::class,
+            'highlighted' => 'boolean',
         ];
     }
 

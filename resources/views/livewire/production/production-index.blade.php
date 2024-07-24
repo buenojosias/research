@@ -43,7 +43,10 @@
         <x-slot name="body">
             @foreach ($productions as $production)
                 <tr @class(['line-through text-gray-600' => $production->trashed()])>
-                    <td class="!text-wrap">
+                    <td class="!text-wrap flex gap-1">
+                        @if ($production->highlighted)
+                            <x-ts-icon name="star" class="w-4 h-4 text-amber-600" />
+                        @endif
                         <a href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}"
                             wire:navigate>
                             {{ $production->subtitle ? $production->title . ': ' . $production->subtitle : $production->title }}
@@ -107,6 +110,7 @@
                 <x-ts-select.styled label="Periódico" wire:model.live="periodico" placeholder="Selecione um periódico"
                     :options="$periodicals" />
             @endif
+            <x-ts-toggle wire:model.live="highlighted" label="Apenas destacadas" />
             <x-ts-toggle wire:model.live="show_deleted" label="Exibir removidas" />
         </div>
     </x-ts-slide>

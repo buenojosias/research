@@ -4,21 +4,35 @@ namespace App\Livewire\Production;
 
 use App\Models\Project;
 use Livewire\Component;
+use TallStackUi\Traits\Interactions;
 
 class ProductionShow extends Component
 {
+    use Interactions;
+
     public $project;
     public $production;
 
     public function mount(Project $project, $production)
     {
-        // TODO: Verificar se Research será mesmo usado e possivelmente excluir
         $this->project = $project;
         $this->production = $project
             ->productions()
             ->withTrashed()
             ->with('state','file')
             ->findOrFail($production);
+    }
+
+    public function highlight()
+    {
+        $this->toast()->success('Destaque adicionado à produção')->send();
+        $this->production->update(['highlighted' => true]);
+    }
+
+    public function unhighlight()
+    {
+        $this->toast()->success('Destaque removido da produção')->send();
+        $this->production->update(['highlighted' => false]);
     }
 
     public function remove()
