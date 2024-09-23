@@ -12,7 +12,7 @@ class ProductionSeeder extends Seeder
 {
     public function run(): void
     {
-        $projects = Project::all();
+        $projects = Project::withoutGlobalScopes()->get();
 
         foreach ($projects as $project) {
             Production::factory(rand(3, 6))

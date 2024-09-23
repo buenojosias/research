@@ -12,7 +12,7 @@ class ProjectSeeder extends Seeder
 {
     public function run(): void
     {
-        $students = Student::query()->select(['id', 'user_id'])->get();
+        $students = Student::withoutGlobalScopes()->select(['id', 'user_id'])->get();
 
         $students->each(function (Student $student) {
             Project::factory(rand(0, 1))

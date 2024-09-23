@@ -61,6 +61,11 @@ class Production extends Model
         return $this->hasMany(Internal::class);
     }
 
+    public function authorss(): HasMany
+    {
+        return $this->hasMany(Author::class);
+    }
+
     public function keywords(): HasOne
     {
         return $this->hasOne(Keyword::class);

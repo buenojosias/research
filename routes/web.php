@@ -109,7 +109,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('rel/descritores', RecordPerDescriptor::class)->name('records.descriptors');
 
         Route::get('arquivos', FileIndex::class)->name('files.index');
+
     });
+    Route::get('autores', [\App\Http\Controllers\AuthorController::class, 'index'])->name('authors.index');
+    Route::get('autores/check', [\App\Http\Controllers\AuthorController::class, 'check'])->name('authors.check');
 
     // Route::view('profile', 'profile')->name('profile');
 
