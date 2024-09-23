@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('subtitle')->nullable();
             $table->year('year');
-            $table->json('authors');
+            // $table->json('authors');
             $table->string('institution')->nullable();
             $table->string('program')->nullable();
             $table->string('periodical')->nullable();

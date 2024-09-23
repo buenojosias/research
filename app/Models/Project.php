@@ -66,6 +66,11 @@ class Project extends Model
         return $this->hasMany(WordRanking::class);
     }
 
+    public function authors(): HasManyThrough
+    {
+        return $this->hasManyThrough(Author::class, Production::class);
+    }
+
     public function keywords(): HasManyThrough
     {
         return $this->hasManyThrough(Keyword::class, Production::class);

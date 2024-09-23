@@ -89,16 +89,17 @@ class ProductionCreate extends Component
         \DB::beginTransaction();
         $createdProduction = $this->project->productions()->create($data);
         $createdKeywords = $createdProduction->keywords()->create(['data' => $keywords]);
+        $createdAuthors = $createdProduction->authors()->createMany($this->authors);
         if($abstractData = $this->serializeAbstract())
             $createdProduction->abstract()->create($abstractData);
 
-        if($createdProduction && $createdKeywords) {
+        if($createdProduction && $createdKeywords && $createdAuthors) {
             \DB::commit();
             session()->flash('status', 'Produção adicionada com sucesso.');
             $this->redirectRoute('project.bibliometrics.productions.show', [$this->project, $createdProduction], navigate: true);
         } else {
             \DB::rollBack();
-            dump('deu ruim');
+            dump('Erro ao adicionar produção');
         }
     }
 

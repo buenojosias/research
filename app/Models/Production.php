@@ -25,7 +25,7 @@ class Production extends Model
         'title',
         'subtitle',
         'year',
-        'authors',
+        // 'authors',
         'institution',
         'program',
         'periodical',
@@ -40,7 +40,6 @@ class Production extends Model
     {
         return [
             'searched_terms' => 'array',
-            'authors' => 'array',
             'type' => ProductionTypeEnum::class,
             'highlighted' => 'boolean',
         ];
@@ -61,7 +60,7 @@ class Production extends Model
         return $this->hasMany(Internal::class);
     }
 
-    public function authorss(): HasMany
+    public function authors(): HasMany
     {
         return $this->hasMany(Author::class);
     }

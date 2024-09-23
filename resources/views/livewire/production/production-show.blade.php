@@ -30,8 +30,8 @@
                                 <ul>
                                     @foreach ($production->authors as $author)
                                         <li>
-                                            {{ $author['lastname'] }},
-                                            {{ $author['forename'] }}
+                                            {{ $author->lastname }},
+                                            {{ $author->forename }}
                                         </li>
                                     @endforeach
                                 </ul>

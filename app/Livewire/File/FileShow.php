@@ -32,7 +32,7 @@ class FileShow extends Component
         $this->project = $project;
 
         $this->production = $project->productions()
-            ->select(['id', 'title', 'subtitle', 'year', 'authors'])
+            ->select(['id', 'title', 'subtitle', 'year'])
             ->with('file')
             ->findOrFail($production);
 

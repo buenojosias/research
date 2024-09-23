@@ -97,7 +97,7 @@ class ProductionIndex extends Component
             ->when($this->highlighted, function($query) {
                 $query->whereHighlighted(true);
             })
-            ->with('state')
+            ->with(['state', 'authors'])
             ->orderBy('title')
             ->get();
 

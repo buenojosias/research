@@ -84,7 +84,6 @@ class ProductionEdit extends Component
         $this->title = $this->production->title;
         $this->subtitle = $this->production->subtitle;
         $this->year = $this->production->year;
-        $this->authors = $this->production->authors;
         $this->type = $this->production->type->value;
         $this->language = $this->production->language;
         $this->searched_terms = $this->production->searched_terms;
@@ -95,6 +94,8 @@ class ProductionEdit extends Component
         $this->periodical = $this->production->periodical;
         $this->doi = $this->production->doi;
 
+        $this->authors = $this->production->authors->toArray();
+
         foreach($this->authors as $author) {
             array_push($this->authors_display, ' ' . $author['forename'] .' '. $author['lastname']);
         }
@@ -102,7 +103,7 @@ class ProductionEdit extends Component
 
     public function save()
     {
-        $data = $this->validate();
+        $data = $this->validate()->except('authors');
 
         try {
             $this->production->update($data);
@@ -123,6 +124,7 @@ class ProductionEdit extends Component
             'author.forename' => 'required|string',
             'author.lastname' => 'required|string',
         ]);
+        $this->production->authors()->create($this->author);
         array_push($this->authors, [ 'forename' => $this->author['forename'], 'lastname' => $this->author['lastname'] ]);
         array_push($this->authors_display, ' ' . $this->author['forename'] .' '. $this->author['lastname']);
         $this->reset('author');
@@ -130,6 +132,7 @@ class ProductionEdit extends Component
 
     public function removeAuthor($key)
     {
+        $this->production->authors()->where('forename', $this->authors[$key]['forename'])->where('lastname', $this->authors[$key]['lastname'])->delete();
         array_splice($this->authors, $key, 1);
         array_splice($this->authors_display, $key, 1);
     }

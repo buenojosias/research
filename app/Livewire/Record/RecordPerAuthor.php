@@ -4,6 +4,7 @@ namespace App\Livewire\Record;
 
 use App\Models\Production;
 use App\Models\Project;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class RecordPerAuthor extends Component
@@ -12,7 +13,8 @@ class RecordPerAuthor extends Component
 
     public $authors;
 
-    public $selectedAuthor = '';
+    public $selectedAuthor;
+    public $selectedAuthorName;
 
     public $authorProductions = [];
 
@@ -31,44 +33,32 @@ class RecordPerAuthor extends Component
         arsort($this->authors);
     }
 
-    public function selectAuthor($author)
+    public function selectAuthor($name, $ids)
     {
-        $parts = explode(',', $author);
+        $this->selectedAuthor = $ids;
+        $this->selectedAuthorName = $name;
 
-        if (count($parts) !== 2) {
-            return null;
+        if ($this->selectedAuthor) {
+            $this->authorProductions = Production::whereHas('authors', function ($query) use ($ids) {
+                $query->whereIn('id', $this->selectedAuthor);
+            })->get();
         }
-
-        $lastname = trim($parts[0]);
-        $forename = trim($parts[1]);
-
-        $nameObject = [
-            'forename' => $forename,
-            'lastname' => $lastname,
-        ];
-
-        $productions = Production::whereJsonContains('authors', $nameObject)->get();
-        dd($nameObject, $productions);
     }
 
     public function render()
     {
-        $data = $this->project->productions()
-            ->select('authors')
-            ->get()
-            ->pluck('authors');
-
-        $authors = $data->map(function ($item) {
-            return $item[0]['lastname'] . ', ' . $item[0]['forename'];
-        });
-
-        $allData = $authors->toArray();
-        $allData = array_filter($allData);
-
-        $this->authors = array_count_values($allData);
-        $this->ksort();
+        $this->authors = $this->project->authors->groupBy(function ($author) {
+            return $author->fullname;
+        })
+            ->map(function ($group) {
+                return [
+                    'count' => $group->count(),
+                    'ids' => $group->pluck('id')->toArray(),
+                ];
+            });
 
         return view('livewire.record.record-per-author')
-            ->title('Relatório por autor');;
+            ->title('Relatório por autor');
+        ;
     }
 }
