@@ -18,15 +18,6 @@ class ProductionFactory extends Factory
             $state_id = rand(1, 27);
         }
 
-        $authors = [];
-
-        for ($i = 1; $i <= rand(1, 3); $i++) {
-            array_push($authors, [
-                'forename' => fake()->firstName() . ' ' . fake()->lastName(),
-                'lastname' => fake()->lastName(),
-            ]);
-        }
-
         return [
             'searched_terms' => fake()->words(rand(1, 3)),
             'repository' => fake()
@@ -52,8 +43,7 @@ class ProductionFactory extends Factory
                     null,
                     lcfirst(rtrim(fake()->sentence(), ".")),
                 ]),
-            'year' => rand(2010, 2024),
-            'authors' => $authors,
+            'year' => rand(2019, 2023),
             'institution' => fake()
                 ->randomElement([
                     null,

@@ -47,7 +47,7 @@ class RecordPerAuthor extends Component
 
     public function render()
     {
-        $this->authors = $this->project->authors->groupBy(function ($author) {
+        $this->authors = $this->project->authors->sortBy('fullname')->groupBy(function ($author) {
             return $author->fullname;
         })
             ->map(function ($group) {

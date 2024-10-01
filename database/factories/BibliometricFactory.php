@@ -9,7 +9,7 @@ class BibliometricFactory extends Factory
 {
     public function definition(): array
     {
-        $start_year = rand(2015, 2021);
+        $start_year = rand(2019, 2023);
 
         return [
             'repositories' => fake()

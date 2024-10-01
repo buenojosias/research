@@ -15,8 +15,9 @@ class ProductionSeeder extends Seeder
         $projects = Project::withoutGlobalScopes()->get();
 
         foreach ($projects as $project) {
-            Production::factory(rand(3, 6))
+            Production::factory(rand(15, 40))
                 ->has(Keyword::factory())
+                ->hasAuthors(rand(1, 3))
                 ->create([
                     'project_id' => $project->id,
                 ])

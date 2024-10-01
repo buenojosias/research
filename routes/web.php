@@ -28,6 +28,7 @@ use App\Livewire\Record\RecordPerDescriptor;
 use App\Livewire\Record\RecordPerInstitution;
 use App\Livewire\Record\RecordPerProgram;
 use App\Livewire\Record\RecordPerState;
+use App\Livewire\Record\RecordPerYear;
 use App\Livewire\Reference\ReferenceCitation;
 use App\Livewire\Reference\ReferenceIndex;
 use App\Livewire\Reference\ReferenceShow;
@@ -101,6 +102,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('rel/nuvem', WordCloudIndex::class)->name('wordclouds.index');
 
         Route::get('rel/estatisticas', RecordIndex::class)->name('records.index');
+        Route::get('rel/anos', RecordPerYear::class)->name('records.years');
         Route::get('rel/estados', RecordPerState::class)->name('records.states');
         Route::get('rel/cidades', RecordPerCity::class)->name('records.cities');
         Route::get('rel/instituicoes', RecordPerInstitution::class)->name('records.institutions');

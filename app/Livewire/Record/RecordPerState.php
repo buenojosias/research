@@ -43,6 +43,8 @@ class RecordPerState extends Component
     public function selectState($id)
     {
         $this->selectedState = $id;
-        $this->stateProductions = $this->project->productions()->where('state_id', $this->selectedState)->get();
+        $this->stateProductions = $this->project->productions()
+            ->where('state_id', $this->selectedState)
+            ->get();
     }
 }

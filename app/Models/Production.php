@@ -25,7 +25,6 @@ class Production extends Model
         'title',
         'subtitle',
         'year',
-        // 'authors',
         'institution',
         'program',
         'periodical',
@@ -36,6 +35,8 @@ class Production extends Model
         'highlighted'
     ];
 
+    protected $appends = ['full_title'];
+
     protected function casts(): array
     {
         return [
@@ -43,6 +44,11 @@ class Production extends Model
             'type' => ProductionTypeEnum::class,
             'highlighted' => 'boolean',
         ];
+    }
+
+    public function getFullTitleAttribute(): string
+    {
+        return $this->title . ($this->subtitle ? ': ' . $this->subtitle : '');
     }
 
     public function project(): BelongsTo
