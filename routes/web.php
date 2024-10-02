@@ -26,6 +26,7 @@ use App\Livewire\Record\RecordPerAuthor;
 use App\Livewire\Record\RecordPerCity;
 use App\Livewire\Record\RecordPerDescriptor;
 use App\Livewire\Record\RecordPerInstitution;
+use App\Livewire\Record\RecordPerPeriodical;
 use App\Livewire\Record\RecordPerProgram;
 use App\Livewire\Record\RecordPerState;
 use App\Livewire\Record\RecordPerYear;
@@ -103,6 +104,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('rel/estatisticas', RecordIndex::class)->name('records.index');
         Route::get('rel/anos', RecordPerYear::class)->name('records.years');
+        Route::get('rel/periodicos', RecordPerPeriodical::class)->name('records.periodicals');
         Route::get('rel/estados', RecordPerState::class)->name('records.states');
         Route::get('rel/cidades', RecordPerCity::class)->name('records.cities');
         Route::get('rel/instituicoes', RecordPerInstitution::class)->name('records.institutions');

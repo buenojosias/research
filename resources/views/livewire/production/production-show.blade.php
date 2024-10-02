@@ -76,7 +76,7 @@
                     @if ($production->city)
                         <x-detail label="Cidade" :value="$production->city . ' (' . @$production->state->abbreviation . ')'" />
                     @endif
-                    @if ($production->type === 'periódico')
+                    @if ($production->type->value === 'Periódico')
                         <x-detail label="Periódico" :value="$production->periodical" />
                         <x-detail label="DOI" :value="$production->doi" />
                     @endif
