@@ -79,7 +79,7 @@
                     <x-slot name="body">
                         @foreach ($tableByYear as $periodical => $years)
                             <tr>
-                                <td>{{ $periodical ?? 'Não informado' }}</td>
+                                <td>{{ $periodical != '' ? $periodical : 'Não informado' }}</td>
                                 @foreach ($years as $year)
                                     <td class="text-center">{{ $year ?? 0 }}</td>
                                 @endforeach
@@ -107,7 +107,7 @@
                     <x-slot name="body">
                         @foreach ($tableByRepository as $periodical => $repositories)
                             <tr>
-                                <td>{{ $periodical ?? 'Não informado' }}</td>
+                                <td>{{ $periodical != '' ? $periodical : 'Não informado' }}</td>
                                 @foreach ($repositories as $repository)
                                     <td class="text-center">{{ $repository ?? 0 }}</td>
                                 @endforeach

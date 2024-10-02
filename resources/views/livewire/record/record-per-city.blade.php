@@ -10,7 +10,7 @@
                         <th width="1">Produções</th>
                     @endslot
                     @slot('body')
-                        @foreach ($cities as $key => $city)
+                        @foreach ($productionsByCity as $key => $city)
                             <tr>
                                 @if ($key == '')
                                     <td>
@@ -21,7 +21,7 @@
                                 @else
                                     <td>
                                         <span class="cursor-pointer" wire:click="selectCity('{{ $key }}')">
-                                            {{ $key }}
+                                            {{ $key }} ({{ $city->first()->state->abbreviation ?? '' }})
                                         </span>
                                     </td>
                                 @endif
@@ -32,7 +32,7 @@
                 </x-table>
             </div>
 
-            <div class="col-span-3">
+            <div class="col-span-3 space-y-4">
                 @if ($selectedCity && $cityProductions)
                     <x-table>
                         <div class="px-4 py-2 flex justify-between gap-4 items-center text-gray-800 font-semibold">
@@ -49,10 +49,7 @@
                                     <td class="!text-wrap">
                                         <a
                                             href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}">
-                                            {{ $production->title }}
-                                            @if ($production->subtitle)
-                                                : {{ $production->subtitle }}
-                                            @endif
+                                            {{ $production->full_title }}
                                         </a>
                                     </td>
                                     <td>
@@ -68,6 +65,62 @@
                             class="hidden lg:inline-flex">ao lado</span> para listar as respectivas produções.
                     </x-ts-card>
                 @endif
+
+                <x-table label="Quantidade por ano">
+                    <x-slot name="header">
+                        <tr>
+                            <th>Cidades</th>
+                            @foreach ($years as $year)
+                                <th class="text-center">{{ $year }}</th>
+                            @endforeach
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </x-slot>
+                    <x-slot name="body">
+                        @foreach ($tableByYear as $city => $years)
+                            <tr>
+                                <td>{{ $city != '' ? $city : 'Não informada' }}</td>
+                                @foreach ($years as $year)
+                                    <td class="text-center">{{ $year ?? 0 }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <td class="font-semibold">Total</td>
+                            @foreach ($years as $key => $year)
+                                <td class="text-center font-semibold">{{ $yearTotals[$key] }}</td>
+                            @endforeach
+                        </tr>
+                    </x-slot>
+                </x-table>
+
+                <x-table label="Quantidade por tipo">
+                    <x-slot name="header">
+                        <tr>
+                            <th>Cidades</th>
+                            @foreach ($types as $type)
+                                <th class="text-center">{{ $type }}</th>
+                            @endforeach
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </x-slot>
+                    <x-slot name="body">
+                        @foreach ($tableByType as $city => $types)
+                            <tr>
+                                <td>{{ $city != '' ? $city : 'Não informada' }}</td>
+                                @foreach ($types as $type)
+                                    <td class="text-center">{{ $type ?? 0 }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <td class="font-semibold">Total</td>
+                            @foreach ($types as $key => $type)
+                                <td class="text-center font-semibold">{{ $typeTotals[$key] }}</td>
+                            @endforeach
+                        </tr>
+                    </x-slot>
+                </x-table>
             </div>
         </div>
     </div>

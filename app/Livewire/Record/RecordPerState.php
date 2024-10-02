@@ -36,6 +36,11 @@ class RecordPerState extends Component
             ->orderBy('name')
             ->get();
 
+        $groupByRegion = $this->states->groupBy('region');
+        foreach ($groupByRegion as $region => $states) {
+            $groupByRegion[$region] = $states->sum('productions_count');
+        }
+
         return view('livewire.record.record-per-state')
             ->title('Relatório por estado');
     }

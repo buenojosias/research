@@ -49,10 +49,7 @@
                                     <td class="!text-wrap">
                                         <a
                                             href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}">
-                                            {{ $production->title }}
-                                            @if ($production->subtitle)
-                                                : {{ $production->subtitle }}
-                                            @endif
+                                            {{ $production->full_title }}
                                         </a>
                                     </td>
                                     <td>
@@ -82,7 +79,7 @@
                     <x-slot name="body">
                         @foreach ($tableByYear as $institution => $years)
                             <tr>
-                                <td>{{ $institution ?? 'Não informado' }}</td>
+                                <td>{{ $institution != '' ? $institution : 'Não informada' }}</td>
                                 @foreach ($years as $year)
                                     <td class="text-center">{{ $year ?? 0 }}</td>
                                 @endforeach
@@ -100,7 +97,7 @@
                 <x-table label="Quantidade por tipo">
                     <x-slot name="header">
                         <tr>
-                            <th></th>
+                            <th>Instituições</th>
                             @foreach ($types as $type)
                                 <th class="text-center">{{ $type }}</th>
                             @endforeach
@@ -108,9 +105,9 @@
                         </tr>
                     </x-slot>
                     <x-slot name="body">
-                        @foreach ($tableByType as $periodical => $types)
+                        @foreach ($tableByType as $institution => $types)
                             <tr>
-                                <td>{{ $periodical ?? 'Não informado' }}</td>
+                                <td>{{ $institution != '' ? $institution : 'Não informada' }}</td>
                                 @foreach ($types as $type)
                                     <td class="text-center">{{ $type ?? 0 }}</td>
                                 @endforeach

@@ -133,7 +133,7 @@
                                         <ul>
                                             @foreach ($record as $production)
                                                 <li class="border-b p-2 !text-wrap">
-                                                    {{ $production->subtitle ? $production->title .': '. $production->subtitle : $production->title }}
+                                                    {{ $production->full_title }}
                                                     ({{ $production->year }})
                                                 </li>
                                             @endforeach
