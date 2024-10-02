@@ -1,7 +1,7 @@
 <div>
     <x-ts-toast />
     <x-ts-dialog />
-    <x-page-header title="Resultados das buscas">
+    <x-page-header title="Resultado preliminar">
         <x-ts-button text="Adicionar resultado" wire:click="$toggle('modal')" />
     </x-page-header>
 

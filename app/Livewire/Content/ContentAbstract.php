@@ -26,6 +26,7 @@ class ContentAbstract extends Component
     {
         $productions = $this->prods->groupBy('type');
 
-        return view('livewire.content.content-abstract', compact('productions'));
+        return view('livewire.content.content-abstract', compact('productions'))
+            ->title('Resumos');
     }
 }

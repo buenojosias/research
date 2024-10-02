@@ -129,7 +129,7 @@ class SearchResultIndex extends Component
         // END RESULTS BY DESCRIPTOR
 
         return view('livewire.search-result.search-result-index', compact('results', 'tableByRepository', 'repositories', 'repositoryTotals', 'tableByYear', 'years', 'yearTotals'))
-            ->title('Resultados das buscas');
+            ->title('Resultado preliminar');
     }
 
     public function submit()

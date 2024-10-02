@@ -86,13 +86,13 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('rel/keywords', KeywordIndex::class)->name('keywords.index');
 
-        Route::get('rel/resultado-busca', SearchResultIndex::class)->name('search-results.index');
+        Route::get('rel/preliminar', SearchResultIndex::class)->name('search-results.index');
 
         Route::get('rel/contagem', WordCountIndex::class)->name('wordcounts.index');
         Route::get('rel/contagem/nova', WordCountCreate::class)->name('wordcounts.create');
         Route::get('rel/contagem/{wordcount}', WordCountShow::class)->name('wordcounts.show');
 
-        Route::get('rel/conteudo', ContentAbstract::class)->name('content.index');
+        Route::get('rel/resumos', ContentAbstract::class)->name('content.index');
         Route::get('rel/objetivos', ContentGoal::class)->name('content.goals');
 
         Route::get('rel/ranking', WordRankingIndex::class)->name('wordrankings.index');
