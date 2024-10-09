@@ -10,7 +10,26 @@
                         <th width="1">Produções</th>
                     @endslot
                     @slot('body')
-                        @foreach ($states as $state)
+                        @foreach ($groupByRegion as $region => $regionStates)
+                            <tr>
+                                <td colspan="2" class="bg-gray-100 py-1.5 text-center font-semibold text-gray-800">
+                                    {{ $region }}
+                                    ({{ $regionStates->sum('productions_count') }} produções)
+                                </td>
+                            </tr>
+                            @foreach ($regionStates as $state)
+                                <tr>
+                                    <td>
+                                        <span class="cursor-pointer" wire:click="selectState('{{ $state->id }}')">
+                                            {{ $state->name }}
+                                            ({{ $state->abbreviation }})
+                                        </span>
+                                    </td>
+                                    <td class="text-center">{{ $state->productions_count }}</td>
+                                </tr>
+                            @endforeach
+                        @endforeach
+                        {{-- @foreach ($states as $state)
                             <tr>
                                 <td>
                                     <span class="cursor-pointer" wire:click="selectState('{{ $state->id }}')">
@@ -20,7 +39,7 @@
                                 </td>
                                 <td>{{ $state->productions_count }}</td>
                             </tr>
-                        @endforeach
+                        @endforeach --}}
                     @endslot
                 </x-table>
             </div>
@@ -34,22 +53,32 @@
                         </div>
                         <x-slot name="header">
                             <th>Título</th>
+                            <th>Tipo</th>
                             <th width="1">Ano</th>
                         </x-slot>
                         <x-slot name="body">
-                            @foreach ($stateProductions as $production)
+                            @foreach ($stateProductions as $city => $productions)
                                 <tr>
-                                    <td class="!text-wrap">
-                                        <a
-                                            href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}">
-                                            {{ $production->full_title }}<br>
-                                            ({{ $production->city ?? 'Cidade não informada' }})
-                                        </a>
-                                    </td>
-                                    <td class="!text-wrap">
-                                        {{ $production->year }}
+                                    <td colspan="3" class="bg-gray-100 py-1.5 font-semibold text-gray-800">
+                                        {{ $city }}
                                     </td>
                                 </tr>
+                                @foreach ($productions as $production)
+                                    <tr>
+                                        <td class="!text-wrap">
+                                            <a
+                                                href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}">
+                                                {{ $production->full_title }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {{ $production->type }}
+                                        </td>
+                                        <td class="!text-wrap">
+                                            {{ $production->year }}
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @endforeach
                         </x-slot>
                     </x-table>

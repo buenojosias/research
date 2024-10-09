@@ -14,7 +14,6 @@ class RecordPerState extends Component
 
     public $states = [];
 
-    // #[Url('uf', except: '')]
     public $selectedState = '';
 
     public $stateProductions = [];
@@ -37,19 +36,29 @@ class RecordPerState extends Component
             ->get();
 
         $groupByRegion = $this->states->groupBy('region');
-        foreach ($groupByRegion as $region => $states) {
-            $groupByRegion[$region] = $states->sum('productions_count');
-        }
+        $countByRegion = [];
 
-        return view('livewire.record.record-per-state')
+        return view('livewire.record.record-per-state', compact(
+            'groupByRegion'
+        ))
             ->title('Relatório por estado');
     }
 
     public function selectState($id)
     {
         $this->selectedState = $id;
-        $this->stateProductions = $this->project->productions()
+        $stateProductions = $this->project->productions()
             ->where('state_id', $this->selectedState)
+            ->orderBy('city')
             ->get();
+
+        $stateProductions = $stateProductions->map(function ($production) {
+            $production->city = $production->city ?? 'Cidade não informada';
+            return $production;
+        });
+
+        $this->stateProductions = collect($stateProductions->groupBy('city'));
+
+        $this->stateProductions;
     }
 }
