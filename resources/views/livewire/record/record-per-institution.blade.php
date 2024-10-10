@@ -66,7 +66,7 @@
                     </x-ts-card>
                 @endif
 
-                <x-table label="Quantidade por ano">
+                <x-table label="Quantidade por ano" collapsable>
                     <x-slot name="header">
                         <tr>
                             <th>Instituições</th>
@@ -94,7 +94,7 @@
                     </x-slot>
                 </x-table>
 
-                <x-table label="Quantidade por tipo">
+                <x-table label="Quantidade por tipo" collapsable>
                     <x-slot name="header">
                         <tr>
                             <th>Instituições</th>

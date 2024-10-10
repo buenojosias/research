@@ -41,6 +41,7 @@
                         </div>
                         <x-slot name="header">
                             <th>Título</th>
+                            <th>Tipo</th>
                             <th width="1">Ano</th>
                         </x-slot>
                         <x-slot name="body">
@@ -52,6 +53,7 @@
                                             {{ $production->full_title }}
                                         </a>
                                     </td>
+                                    <td>{{ $production->type }}</td>
                                     <td>
                                         {{ $production->year }}
                                     </td>
@@ -66,7 +68,7 @@
                     </x-ts-card>
                 @endif
 
-                <x-table label="Quantidade por ano">
+                <x-table label="Quantidade por ano" collapsable>
                     <x-slot name="header">
                         <tr>
                             <th>Cidades</th>
@@ -94,7 +96,7 @@
                     </x-slot>
                 </x-table>
 
-                <x-table label="Quantidade por tipo">
+                <x-table label="Quantidade por tipo" collapsable>
                     <x-slot name="header">
                         <tr>
                             <th>Cidades</th>
