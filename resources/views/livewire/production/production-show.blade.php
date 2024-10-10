@@ -1,5 +1,15 @@
 <div>
     <x-ts-toast />
+    @if (session('status'))
+        <x-ts-alert color="emerald" light>
+            {{ session('status') }}
+            <x-slot:footer>
+                <div class="flex justify-end">
+                    <x-ts-button text="Adicionar mais uma" color="primary" :href="route('project.bibliometrics.productions.create', $project)" />
+                </div>
+            </x-slot:footer>
+        </x-ts-alert>
+    @endif
     @if ($production->trashed())
         <x-ts-alert color="amber" light>
             Esta produção foi descartada
