@@ -2,10 +2,10 @@
 @php
     $classes = $screen ?? false ? 'screen overflow-y-auto' : 'overflow-y-auto';
 @endphp
-<div class="bg-white rounded-lg" x-data="{ expanded: {{ $collapsable ? 'false' : 'true' }} }">
-    <div class="flex justify-between">
+<div class="bg-white rounded-lg shadow" x-data="{ expanded: {{ $collapsable ? 'false' : 'true' }} }">
+    <div class="flex justify-between border-b">
         @if ($label)
-            <div class="p-4 border-b text-gray-800 font-semibold">
+            <div class="p-4 text-gray-800 font-semibold">
                 {{ $label }}
             </div>
         @endif

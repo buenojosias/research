@@ -14,7 +14,7 @@
                             <tr>
                                 @if ($key == '')
                                     <td>
-                                        <span class="cursor-pointer" wire:click="selectWithoutperiodical">
+                                        <span class="cursor-pointer" wire:click="selectWithoutPeriodical">
                                             Não informado
                                         </span>
                                     </td>

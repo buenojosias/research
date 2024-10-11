@@ -6,7 +6,7 @@
         <div class="flex-auto sm:grid grid-cols-6 gap-x-6">
 
             <div class="col-span-6 mb-6">
-                <x-table label="Lista por tipo de produção">
+                <x-table label="Lista por tipo de produção" collapsable>
                     <x-slot name="header">
                         <tr>
                             <th>Descritores</th>
@@ -36,7 +36,7 @@
             </div>
 
             <div class="col-span-6 mb-6">
-                <x-table label="Lista por repositório">
+                <x-table label="Lista por repositório" collapsable>
                     <x-slot name="header">
                         <tr>
                             <th>Descritores</th>
@@ -66,7 +66,7 @@
             </div>
 
             <div class="col-span-6 mb-6">
-                <x-table label="Lista por ano">
+                <x-table label="Lista por ano" collapsable>
                     <x-slot name="header">
                         <tr>
                             <th>Descritores</th>

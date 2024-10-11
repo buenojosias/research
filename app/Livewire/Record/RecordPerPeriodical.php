@@ -91,7 +91,17 @@ class RecordPerPeriodical extends Component
     public function selectPeriodical($key)
     {
         $this->selectedPeriodical = $key;
-        $this->periodicalProductions = $this->project->productions()->where('periodical', $this->selectedPeriodical)->get();
+        $this->periodicalProductions = $this->project->productions()
+            ->where('periodical', $this->selectedPeriodical)
+            ->get();
+    }
+
+    public function selectWithoutPeriodical()
+    {
+        $this->selectedPeriodical = 'não informado';
+        $this->periodicalProductions = $this->project->productions()
+            ->whereNull('periodical')
+            ->get();
     }
 
 }

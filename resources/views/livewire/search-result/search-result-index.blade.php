@@ -5,68 +5,57 @@
         <x-ts-button text="Adicionar resultado" wire:click="$toggle('modal')" />
     </x-page-header>
 
-    <div x-data="{ show: false }">
-        <div class="table-header flex justify-between bg-white rounded">
-            <div>Tabela detalhada</div>
-            <div>
-                <x-ts-button x-on:click="show = !show" sm flat>
-                    <x-ts-icon name="chevron-down" class="w-5 h-5 transition" x-bind:class="show ? 'rotate-180' : ''" />
-                </x-ts-button>
-            </div>
+    <x-table label="Tabela detalhada" collapsable>
+        <div x-show="false">
+            <x-slot:header>
+                <th>Repositório</th>
+                <th>Palavras buscadas</th>
+                <th>Seções buscadas</th>
+                <th>Tipos</th>
+                <th>Idioma</th>
+                <th>Ano</th>
+                <th>Resultados</th>
+                <th></th>
+            </x-slot>
+            <x-slot:body>
+                @foreach ($results->sortBy('repository') as $result)
+                    <tr>
+                        <td>{{ $result->repository }}</td>
+                        <td class="!text-wrap">
+                            @foreach ($result->terms as $term)
+                                {{ $term }}
+                                @if (!$loop->last)
+                                    AND
+                                @endif
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach ($result->sections as $section)
+                                {{ $section }}
+                                @if (!$loop->last)
+                                    /
+                                @endif
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach ($result->types as $type)
+                                {{ $type }}
+                                @if (!$loop->last)
+                                    /
+                                @endif
+                            @endforeach
+                        </td>
+                        <td>{{ $result->language }}</td>
+                        <td>{{ $result->year }}</td>
+                        <td>{{ $result->quantity }}</td>
+                        <td>
+                            <x-ts-button icon="trash" wire:click="delete({{ $result->id }})" color="red" sm flat />
+                        </td>
+                    </tr>
+                @endforeach
+            </x-slot:body>
         </div>
-        <x-table x-show="show" x-collapse>
-            <div x-show="false">
-                <x-slot:header>
-                    <th>Repositório</th>
-                    <th>Palavras buscadas</th>
-                    <th>Seções buscadas</th>
-                    <th>Tipos</th>
-                    <th>Idioma</th>
-                    <th>Ano</th>
-                    <th>Resultados</th>
-                    <th></th>
-                </x-slot>
-                <x-slot:body>
-                    @foreach ($results->sortBy('repository') as $result)
-                        <tr>
-                            <td>{{ $result->repository }}</td>
-                            <td class="!text-wrap">
-                                @foreach ($result->terms as $term)
-                                    {{ $term }}
-                                    @if (!$loop->last)
-                                        AND
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>
-                                @foreach ($result->sections as $section)
-                                    {{ $section }}
-                                    @if (!$loop->last)
-                                        /
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>
-                                @foreach ($result->types as $type)
-                                    {{ $type }}
-                                    @if (!$loop->last)
-                                        /
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>{{ $result->language }}</td>
-                            <td>{{ $result->year }}</td>
-                            <td>{{ $result->quantity }}</td>
-                            <td>
-                                <x-ts-button icon="trash" wire:click="delete({{ $result->id }})" color="red" sm
-                                    flat />
-                            </td>
-                        </tr>
-                    @endforeach
-                </x-slot:body>
-            </div>
-        </x-table>
-    </div>
+    </x-table>
 
     <div class="mt-6 md:grid grid-cols-2 gap-6">
         <x-table label="Lista por repositórios" class="mb-6">

@@ -10,9 +10,9 @@
                         <th width="1">Produções</th>
                     @endslot
                     @slot('body')
-                        @foreach ($programs as $key => $program)
+                        @foreach ($productionsByProgram as $program => $productions)
                             <tr>
-                                @if ($key == '')
+                                @if ($program == '')
                                     <td>
                                         <span class="cursor-pointer" wire:click="selectWithoutProgram">
                                             Não informado
@@ -20,19 +20,19 @@
                                     </td>
                                 @else
                                     <td class="!text-wrap">
-                                        <span class="cursor-pointer" wire:click="selectProgram('{{ $key }}')">
-                                            {{ $key }}
+                                        <span class="cursor-pointer" wire:click="selectProgram('{{ $program }}')">
+                                            {{ $program }}
                                         </span>
                                     </td>
                                 @endif
-                                <td>{{ $program->count() }}</td>
+                                <td>{{ $productions->count() }}</td>
                             </tr>
                         @endforeach
                     @endslot
                 </x-table>
             </div>
 
-            <div class="col-span-3">
+            <div class="col-span-3 space-y-4">
                 @if ($selectedProgram && $programProductions)
                     <x-table>
                         <div class="px-4 py-2 flex justify-between gap-4 items-center text-gray-800 font-semibold">
@@ -41,24 +41,32 @@
                         </div>
                         <x-slot name="header">
                             <th>Título</th>
+                            <th>Tipo</th>
                             <th width="1">Ano</th>
                         </x-slot>
                         <x-slot name="body">
-                            @foreach ($programProductions as $production)
+                            @foreach ($programProductions as $program => $productions)
                                 <tr>
-                                    <td class="!text-wrap">
-                                        <a
-                                            href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}">
-                                            {{ $production->full_title }}
-                                        </a><br>
-                                        @if ($production->institution)
-                                            ({{ $production->institution }})
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{ $production->year }}
+                                    <td colspan="3" class="bg-gray-100 py-1.5 font-semibold text-gray-800">
+                                        {{ $program }}
                                     </td>
                                 </tr>
+                                @foreach ($productions as $production)
+                                    <tr>
+                                        <td class="!text-wrap">
+                                            <a
+                                                href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}">
+                                                {{ $production->full_title }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {{ $production->type }}
+                                        </td>
+                                        <td>
+                                            {{ $production->year }}
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @endforeach
                         </x-slot>
                     </x-table>
@@ -68,6 +76,62 @@
                             class="hidden lg:inline-flex">ao lado</span> para listar as respectivas produções.
                     </x-ts-card>
                 @endif
+
+                <x-table label="Quantidade por ano" collapsable>
+                    <x-slot name="header">
+                        <tr>
+                            <th>Programas</th>
+                            @foreach ($years as $year)
+                                <th class="text-center">{{ $year }}</th>
+                            @endforeach
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </x-slot>
+                    <x-slot name="body">
+                        @foreach ($tableByYear as $program => $years)
+                            <tr>
+                                <td>{{ $program ?? 'Não informado' }}</td>
+                                @foreach ($years as $year)
+                                    <td class="text-center">{{ $year ?? 0 }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <td class="font-semibold">Total</td>
+                            @foreach ($years as $key => $year)
+                                <td class="text-center font-semibold">{{ $yearTotals[$key] }}</td>
+                            @endforeach
+                        </tr>
+                    </x-slot>
+                </x-table>
+
+                <x-table label="Quantidade por tipo" collapsable>
+                    <x-slot name="header">
+                        <tr>
+                            <th>Programas</th>
+                            @foreach ($types as $type)
+                                <th class="text-center">{{ $type }}</th>
+                            @endforeach
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </x-slot>
+                    <x-slot name="body">
+                        @foreach ($tableByType as $program => $types)
+                            <tr>
+                                <td>{{ $program ?? 'Não informado' }}</td>
+                                @foreach ($types as $type)
+                                    <td class="text-center">{{ $type ?? 0 }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <td class="font-semibold">Total</td>
+                            @foreach ($types as $key => $type)
+                                <td class="text-center font-semibold">{{ $typeTotals[$key] }}</td>
+                            @endforeach
+                        </tr>
+                    </x-slot>
+                </x-table>
             </div>
         </div>
     </div>

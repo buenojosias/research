@@ -103,7 +103,7 @@ class ProductionEdit extends Component
 
     public function save()
     {
-        $data = $this->validate()->except('authors');
+        $data = $this->validate();
 
         try {
             $this->production->update($data);
