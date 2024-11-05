@@ -19,6 +19,7 @@ use App\Livewire\Production\ProductionIndex;
 use App\Livewire\Production\ProductionKeywords;
 use App\Livewire\Production\ProductionReference;
 use App\Livewire\Production\ProductionShow;
+use App\Livewire\Production\ProductionTags;
 use App\Livewire\Project\ProjectIndex;
 use App\Livewire\Project\ProjectShow;
 use App\Livewire\Record\RecordIndex;
@@ -37,6 +38,7 @@ use App\Livewire\SearchResult\SearchResultIndex;
 use App\Livewire\Student\StudentForm;
 use App\Livewire\Student\StudentIndex;
 use App\Livewire\Student\StudentShow;
+use App\Livewire\Tag\TagIndex;
 use App\Livewire\WordCloud\WordCloudIndex;
 use App\Livewire\WordCount\WordCountCreate;
 use App\Livewire\WordCount\WordCountIndex;
@@ -73,6 +75,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('producoes/{production}/editar', ProductionEdit::class)->name('productions.edit');
         Route::get('producoes/{production}/arquivo', FileShow::class)->name('productions.files.show');
         Route::get('producoes/{production}/keywords', ProductionKeywords::class)->name('productions.keywords');
+        Route::get('producoes/{production}/tags', ProductionTags::class)->name('productions.tags');
         Route::get('producoes/{production}/objetivos', ProductionGoal::class)->name('productions.goals');
         Route::get('producoes/{production}/referencias', ProductionReference::class)->name('productions.references');
         Route::get('producoes/{production}/citacoes', ProductionCitation::class)->name('productions.citations');
@@ -85,7 +88,10 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('citacoes', CitationIndex::class)->name('citations.index');
 
+        Route::get('tags', TagIndex::class)->name('tags.index');
+
         Route::get('rel/keywords', KeywordIndex::class)->name('keywords.index');
+        Route::get('rel/tags', TagIndex::class)->name('tags.index');
 
         Route::get('rel/preliminar', SearchResultIndex::class)->name('search-results.index');
 

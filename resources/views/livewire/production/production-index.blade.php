@@ -39,6 +39,7 @@
             <th x-show="city">Cidade</th>
             <th x-show="state">UF</th>
             <th x-show="url">URL</th>
+            <th></th>
         </x-slot>
         <x-slot name="body">
             @foreach ($productions as $production)
@@ -81,6 +82,9 @@
                         @if ($production->url)
                             <a href="{{ $production->url }}" target="_black">{{ $production->url }}</a>
                         @endif
+                    </td>
+                    <td>
+                        <x-ts-button icon="tag" x-on:click="$dispatch('select-production', { production: {{ $production }} })" sm flat />
                     </td>
                 </tr>
             @endforeach
@@ -134,6 +138,7 @@
             <x-ts-toggle x-model="url" label="URL" />
         </div>
     </x-ts-slide>
+    @livewire('tag.tag-production-modal')
 </section>
 @push('scripts')
     <script>

@@ -128,4 +128,9 @@ class Production extends Model
     {
         return $this->hasMany(Citation::class);
     }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }

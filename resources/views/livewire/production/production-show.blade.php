@@ -104,24 +104,32 @@
         </div>
         <div class="mb-6 space-y-6">
             <x-ts-card header="Palavras-chave">
-                <div class="detail">
-                    <div>
-                        <dl>
-                            @forelse ($production->keywords->data as $kw)
-                                {{ $kw }}
-                                @if (!$loop->last)
-                                    ;
-                                @endif
-                            @empty
-                                <p>Não adicionado</p>
-                            @endforelse
-                        </dl>
-                    </div>
-                </div>
+                <ul class="space-y-1">
+                    @forelse ($production->keywords->data as $kw)
+                        <li>{{ $kw }}</li>
+                    @empty
+                        <p>Nenhuma tag adicionada</p>
+                    @endforelse
+                </ul>
                 <div class="card-footer">
                     {{-- <x-ts-link text="Ver mais" :href="route('projects.productions.content', [$project, $production])" wire:navigate /> --}}
                     {{-- <x-ts-link text="Editar resumo" :href="route('projects.productions.abstract', [$project, $production])" wire:navigate /> --}}
                     {{-- <x-ts-link text="Editar conteúdo" :href="route('projects.productions.body', [$project, $production])" wire:navigate /> --}}
+                </div>
+            </x-ts-card>
+
+            <x-ts-card header="Tags">
+                <div class="detail">
+                    <ul class="space-y-1">
+                        @forelse ($production->tags as $tag)
+                            <li>{{ $tag->name }}</li>
+                        @empty
+                            <p>Nenhuma tag adicionada</p>
+                        @endforelse
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <x-ts-link text="Gerenciar" :href="route('project.bibliometrics.productions.tags', [$project, $production])" wire:navigate />
                 </div>
             </x-ts-card>
 

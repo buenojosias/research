@@ -6,6 +6,8 @@
                     wire:navigate>Sobre</a>
                 <a href="{{ route('project.bibliometrics.productions.keywords', [$project, $production]) }}"
                     wire:navigate>Palavras-chave</a>
+                <a href="{{ route('project.bibliometrics.productions.tags', [$project, $production]) }}"
+                    wire:navigate>Tags</a>
                 <hr>
                 {{-- @if ($production->type->value === 'Tese' || $production->type->value === 'Dissertação') --}}
                 {{-- @if (in_array($production->type->value, ['Tese', 'Dissertação', 'Artigo científico'])) --}}

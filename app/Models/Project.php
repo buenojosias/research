@@ -90,4 +90,9 @@ class Project extends Model
     {
         return $this->hasManyThrough(Citation::class, Production::class);
     }
+
+    public function tags(): HasMany
+    {
+        return $this->hasMany(Tag::class);
+    }
 }

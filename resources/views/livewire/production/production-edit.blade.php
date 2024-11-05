@@ -1,6 +1,6 @@
 <section>
     <x-ts-toast />
-    <x-page-header title="Adicionar produção" :subtitle="$production->title" />
+    <x-page-header title="Editar produção" :subtitle="$production->title" />
     <form wire:submit="save">
         <x-ts-card class="lg:grid grid-cols-6 gap-4 space-y-4 lg:space-y-0">
             <div class="col-span-4">

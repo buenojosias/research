@@ -90,7 +90,7 @@
                     <x-slot name="body">
                         @foreach ($tableByYear as $program => $years)
                             <tr>
-                                <td>{{ $program ?? 'Não informado' }}</td>
+                                <td class="!text-wrap">{{ $program ?? 'Não informado' }}</td>
                                 @foreach ($years as $year)
                                     <td class="text-center">{{ $year ?? 0 }}</td>
                                 @endforeach
@@ -105,7 +105,7 @@
                     </x-slot>
                 </x-table>
 
-                <x-table label="Quantidade por tipo" collapsable>
+                <x-table label="Quantidade por tipo" exportable="programa_ano" collapsable>
                     <x-slot name="header">
                         <tr>
                             <th>Programas</th>
@@ -118,7 +118,7 @@
                     <x-slot name="body">
                         @foreach ($tableByType as $program => $types)
                             <tr>
-                                <td>{{ $program ?? 'Não informado' }}</td>
+                                <td class="!text-wrap">{{ $program ?? 'Não informado' }}</td>
                                 @foreach ($types as $type)
                                     <td class="text-center">{{ $type ?? 0 }}</td>
                                 @endforeach

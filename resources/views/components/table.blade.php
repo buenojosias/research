@@ -1,4 +1,4 @@
-@props(['label' => null, 'screen' => null, 'collapsable' => null])
+@props(['label' => null, 'screen' => null, 'collapsable' => null, 'exportable' => null])
 @php
     $classes = $screen ?? false ? 'screen overflow-y-auto' : 'overflow-y-auto';
 @endphp
@@ -19,7 +19,7 @@
         @endif
     </div>
     <div {{ $attributes->merge(['class' => $classes]) }} x-show="expanded" x-collapse>
-        <table>
+        <table id="{{ $exportable ?? null }}">
             @if (isset($header))
                 <thead class="rounded">
                     <tr>
@@ -41,6 +41,11 @@
     @if (isset($pagination))
         <div class="p-2">
             {{ $pagination }}
+        </div>
+    @endif
+    @if ($exportable)
+        <div class="p-4 border-t">
+            <button onclick="exportToExcel('{{ $exportable }}')">Exportar para Excel</button>
         </div>
     @endif
 </div>

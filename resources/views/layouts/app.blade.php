@@ -51,6 +51,7 @@
                     <a href="{{ route('project.bibliometrics.content.index', request()->route()->project) }}">Resumos</a>
                     <a href="{{ route('project.bibliometrics.content.goals', request()->route()->project) }}">Objetivos</a>
                     <a href="{{ route('project.bibliometrics.keywords.index', request()->route()->project) }}">Palavras-chave</a>
+                    <a href="{{ route('project.bibliometrics.tags.index', request()->route()->project) }}">Tags</a>
                     <a href="{{ route('project.bibliometrics.wordcounts.index', request()->route()->project) }}">Contagem de palavras</a>
                     <a href="{{ route('project.bibliometrics.wordrankings.index', request()->route()->project) }}">Ranking de palavras</a>
                     <a href="#">Nuvem de palavras</a>
@@ -79,6 +80,24 @@
 
     @livewireScripts
     @stack('scripts')
+    <script>
+        function exportToExcel(tableId) {
+            let tableData = document.getElementById(tableId).outerHTML;
+            let utf8MetaTag = '<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
+
+            let a = document.createElement('a');
+            a.href = `data:application/vnd.ms-excel, ${encodeURIComponent(tableData)}`
+            a.download = tableId + '_' + getRandomNumbers() + '.xls'
+            a.click()
+        }
+
+        function getRandomNumbers() {
+            let dateObj = new Date()
+            let dateTime = `${dateObj.getHours()}${dateObj.getMinutes()}${dateObj.getSeconds()}`
+
+            return `${dateTime}${Math.floor((Math.random().toFixed(2)*100))}`
+        }
+    </script>
 </body>
 
 </html>
