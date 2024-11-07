@@ -20,10 +20,7 @@
                                 <td class="!text-wrap">
                                     <a
                                         href="{{ route('project.bibliometrics.productions.show', [$project, $kw->production]) }}">
-                                        {{ $kw->production->title }}
-                                        @if ($kw->production->subtitle)
-                                            : {{ $kw->production->subtitle }}
-                                        @endif
+                                        {{ $kw->production->full_title }}
                                         ({{ $kw->production->year }})
                                     </a>
                                 </td>

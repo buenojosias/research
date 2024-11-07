@@ -26,8 +26,6 @@ class ProductionTags extends Component
         $this->production = $project
             ->productions()
             ->findOrFail($production);
-
-        // $this->getTags();
     }
 
     public function getTags()
@@ -42,10 +40,9 @@ class ProductionTags extends Component
     public function render()
     {
         $this->tags = $this->production->tags()
-        ->doesntHave('subtags')
-        ->with('parent')
-        ->orderBy('name')
-        ->get();
+            ->with('parent')
+            ->orderBy('name')
+            ->get();
 
         return view('livewire.production.production-tags')
             ->layout('layouts.production')
@@ -59,15 +56,16 @@ class ProductionTags extends Component
     public function selectTag(Tag $tag)
     {
         $this->selectedTag = $tag;
-        $this->selectedTag->load(['productions' => function($query) {
-            $query->where('production_id', '<>', $this->production->id);
-        }]);
+        $this->selectedTag->load([
+            'productions' => function ($query) {
+                $query->where('production_id', '<>', $this->production->id);
+            }
+        ]);
     }
 
     #[On('tag-attached')]
     public function tagAttached()
     {
-        // $this->getTags();
         $this->toast()->success('Tag vinculada com sucesso!')->send();
     }
 

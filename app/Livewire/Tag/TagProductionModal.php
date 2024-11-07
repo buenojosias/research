@@ -25,19 +25,6 @@ class TagProductionModal extends Component
         $this->modal = true;
     }
 
-    #[On('tag-attached')]
-    public function tagAttached()
-    {
-        $this->tags = $this->production->tags;
-    }
-
-    public function detachTag($tag)
-    {
-        $this->production->tags()->detach($tag['id']);
-
-        $this->tags = $this->production->tags;
-    }
-
     public function render()
     {
         return view('livewire.tag.tag-production-modal');

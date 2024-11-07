@@ -10,17 +10,12 @@
                     @endif
                     {{ $tag->name }}
                 </p>
-                <x-ts-button wire:click="detachTag({{ $tag }})" icon="trash"
-                    color="red" sm flat />
             </div>
         @empty
             <p class="text-center text-sm font-semibold">Nenhuma tag adicionada.</p>
         @endforelse
-
-        <x-slot:footer>
-            <x-ts-button text="Adicionar tag"
-                x-on:click="$dispatch('open-attach-modal', { production: {{ $production }} })" class="w-full" flat />
-        </x-slot:footer>
+        {{-- <x-slot:footer>
+            <x-ts-button text="Gerenciar" :href="route('project.bibliometrics.productions.tags', [$production['project'], $production])" class="w-full" flat />
+        </x-slot:footer> --}}
     </x-ts-modal>
-    @livewire('tag.tag-attach', ['production' => $production])
 </div>
