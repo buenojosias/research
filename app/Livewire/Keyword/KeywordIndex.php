@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Keyword;
 
-use App\Models\Production;
 use App\Models\Project;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -15,7 +14,7 @@ class KeywordIndex extends Component
 
     public $keywords;
 
-    public $kw_publ = [];
+    public $keywordProductions = [];
 
     #[Url('palavra', except: '')]
     public $selectedKeyword = '';
@@ -32,53 +31,50 @@ class KeywordIndex extends Component
             $this->selectWord($this->selectedKeyword);
     }
 
-    public function ksort()
-    {
-        ksort($this->keywords);
-    }
+    // public function sort_by_value()
+    // {
+    //     $this->keywords->sortBy('value')->all();
+    // }
 
-    public function arsort()
-    {
-        arsort($this->keywords);
-    }
+    // public function arsort()
+    // {
+    //     arsort($this->keywords);
+    // }
 
     public function selectWord($word)
     {
         $this->selectedKeyword = $word;
-        $this->kw_publ = $this->project->keywords()
-            ->whereJsonContains('data', $word)
-            ->when($this->production_types, function ($q) {
-                $q->whereRelation('production', function ($query) {
-                    $query->whereIn('type', $this->production_types);
-                });
+
+        $this->keywordProductions = $this->project->productions()
+            ->whereHas('keywords', function ($query) {
+                $query->where('value', $this->selectedKeyword);
             })
-            ->with('production')
+            ->when($this->production_types, function ($query) {
+                $query->whereIn('type', $this->production_types);
+            })
+            ->with('keywords')
             ->get();
-    }
+        }
 
     public function deleteProduction($id)
     {
-        Production::where('id', $id)->first()->delete();
+        $this->project->productions()->where('id', $id)->first()->delete();
     }
 
     public function render()
     {
-        $data = $this->project->keywords()
+        $keywords = $this->project->keywords()
+            ->select(['production_id', 'value'])
+            ->whereNotNull('value')
+            ->where('value', '!=', '')
             ->when($this->production_types, function ($q) {
                 $q->whereRelation('production', function ($query) {
                     $query->whereIn('type', $this->production_types);
                 });
             })
-            ->select('data')
-            ->get()
-            ->pluck('data')
-            ->toArray();
+            ->get();
 
-        $allData = array_merge(...$data);
-        $allData = array_filter($allData);
-        $allData = array_map('strtolower', $allData);
-
-        $this->keywords = array_count_values($allData);
+        $this->keywords = $keywords->sortBy('value')->groupBy('value')->all();
 
         return view('livewire.keyword.keyword-index');
     }

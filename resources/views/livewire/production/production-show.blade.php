@@ -105,10 +105,10 @@
         <div class="mb-6 space-y-6">
             <x-ts-card header="Palavras-chave">
                 <ul class="space-y-1">
-                    @forelse ($production->keywords->data as $kw)
-                        <li>{{ $kw }}</li>
+                    @forelse ($production->keywords as $keyword)
+                        <li>{{ $keyword->value }}</li>
                     @empty
-                        <p>Nenhuma tag adicionada</p>
+                        <p>Nenhuma palavra-chave adicionada</p>
                     @endforelse
                 </ul>
                 <div class="card-footer">

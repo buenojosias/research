@@ -12,6 +12,7 @@ class Keyword extends Model
 
     protected $fillable = [
         'production_id',
+        'value',
         'data'
     ];
 

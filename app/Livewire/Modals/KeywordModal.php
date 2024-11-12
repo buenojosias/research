@@ -28,14 +28,20 @@ class KeywordModal extends Component
 
     public function submit()
     {
-        $object = json_decode($this->keywords, true);
-        $data = $object['data'];
-        array_push($data, strtolower($this->input));
-        $json = $data;
+        $this->validate([
+            'input' => 'required|string'
+        ]);
 
-        if($this->keywords->update(['data' => $json]))
-            $this->dispatch('keyword-added');
-            $this->reset('input');
-            $this->modal = false;
+        $words = explode(';', $this->input);
+        foreach ($words as $word) {
+            $this->production->keywords()->create([
+                'value' => $word,
+                'data' => []
+            ]);
+        }
+
+        $this->dispatch('keyword-added');
+        $this->reset('input');
+        $this->modal = false;
     }
 }

@@ -2,7 +2,7 @@
     <x-page-header title="Palavras-chave" :subtitle="$project->theme" />
     <div class="flex flex-col lg:flex-row-reverse gap-6">
         <div class="lg:w-2/3">
-            @if ($selectedKeyword && $kw_publ)
+            @if ($selectedKeyword && $keywordProductions)
                 <x-table>
                     <div class="px-4 py-2 flex justify-between gap-4 items-center text-gray-800 font-semibold">
                         <h4>Publicações com a palavra-chave: {{ $selectedKeyword }}</h4>
@@ -15,28 +15,28 @@
                         <th width="1"></th>
                     </x-slot>
                     <x-slot name="body">
-                        @forelse ($kw_publ as $kw)
+                        @forelse ($keywordProductions as $production)
                             <tr>
                                 <td class="!text-wrap">
                                     <a
-                                        href="{{ route('project.bibliometrics.productions.show', [$project, $kw->production]) }}">
-                                        {{ $kw->production->full_title }}
-                                        ({{ $kw->production->year }})
+                                        href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}">
+                                        {{ $production->full_title }}
+                                        ({{ $production->year }})
                                     </a>
                                 </td>
                                 <td class="!text-wrap">
-                                    @foreach ($kw->data as $kws)
-                                        {{ $kws }}
+                                    @foreach ($production->keywords as $keyword)
+                                        {{ $keyword->value }}
                                         @if (!$loop->last)
                                             /
                                         @endif
                                     @endforeach
                                 </td>
                                 <td>
-                                    {{ $kw->production->type }}
+                                    {{ $production->type }}
                                 </td>
                                 <td>
-                                    <x-ts-button wire:click="deleteProduction({{ $kw->production }})"
+                                    <x-ts-button wire:click="deleteProduction({{ $production }})"
                                         icon="archive-box-arrow-down" color="red" flat sm />
                                 </td>
                             </tr>
@@ -72,13 +72,13 @@
                     <th class="cursor-pointer" wire:click="arsort">Produções</th>
                 </x-slot>
                 <x-slot name="body">
-                    @foreach ($keywords as $key => $keyword)
+                    @foreach ($keywords as $keyword => $productions)
                         <tr>
                             <td>
                                 <span class="cursor-pointer"
-                                    wire:click="selectWord('{{ $key }}')">{{ $key }}</span>
+                                    wire:click="selectWord('{{ $keyword }}')">{{ $keyword }}</span>
                             </td>
-                            <td width="1" class="text-center">{{ $keyword }}</td>
+                            <td width="1" class="text-center">{{ $productions->count() }}</td>
                         </tr>
                     @endforeach
                 </x-slot>

@@ -13,7 +13,7 @@ class KeywordSeeder extends Seeder
     {
         $productions = Production::select('id')->inRandomOrder('id')->limit(20)->get();
         $productions->each(function (Production $production){
-            Keyword::factory(1)->create([
+            Keyword::factory(rand(2, 5))->create([
                 'production_id' => $production->id
             ]);
         });

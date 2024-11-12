@@ -4,6 +4,7 @@ namespace App\Livewire\Production;
 
 use App\Enums\ProductionSectionEnum;
 use App\Models\Project;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use TallStackUi\Traits\Interactions;
 
@@ -50,5 +51,11 @@ class ProductionContent extends Component
                 'project' => $this->project,
                 'production' => $this->production,
             ]);
+    }
+
+    #[On('tag-attached')]
+    public function tagAttached()
+    {
+        $this->toast()->success('Tag vinculada com sucesso!')->send();
     }
 }

@@ -88,8 +88,6 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('citacoes', CitationIndex::class)->name('citations.index');
 
-        Route::get('tags', TagIndex::class)->name('tags.index');
-
         Route::get('rel/keywords', KeywordIndex::class)->name('keywords.index');
         Route::get('rel/tags', TagIndex::class)->name('tags.index');
 
@@ -123,6 +121,8 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::get('autores', [\App\Http\Controllers\AuthorController::class, 'index'])->name('authors.index');
     Route::get('autores/check', [\App\Http\Controllers\AuthorController::class, 'check'])->name('authors.check');
+    Route::get('keywords', [\App\Http\Controllers\KeywordController::class, 'index'])->name('keywords.index');
+    Route::get('keywords/check', [\App\Http\Controllers\KeywordController::class, 'check'])->name('keywords.check');
 
     // Route::view('profile', 'profile')->name('profile');
 

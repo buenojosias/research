@@ -54,8 +54,8 @@
                                             @endif
                                             <p x-show="showKeywords" x-trasition class="text-gray-700">
                                                 <span>Palavras-chave:</span>
-                                                @foreach ($production->keywords->data as $kw)
-                                                    {{ $kw }}@if (!$loop->last); @endif
+                                                @foreach ($production->keywords as $keyword)
+                                                    {{ $keyword->value }}@if (!$loop->last); @endif
                                                 @endforeach
                                             </p>
                                         </div>

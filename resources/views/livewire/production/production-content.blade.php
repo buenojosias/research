@@ -17,5 +17,10 @@
                 </div>
             @endif
         </x-ts-card>
+        <div class="pt-4">
+            <x-ts-button text="Vincular tag"
+                x-on:click="$dispatch('open-attach-modal', { production: {{ $production->id }} })" />
+        </div>
     </div>
+    @livewire('tag.tag-attach', ['production' => $production])
 </div>

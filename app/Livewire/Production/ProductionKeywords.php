@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Production;
 
+use App\Models\Keyword;
 use App\Models\Project;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -22,12 +23,12 @@ class ProductionKeywords extends Component
         $this->production = $project
             ->productions()
             ->findOrFail($production);
-
-        $this->keywords = $this->production->keywords;
     }
 
     public function render()
     {
+        $this->keywords = $this->production->keywords;
+
         return view('livewire.production.production-keywords')
             ->layout('layouts.production')
             ->layoutData([
@@ -44,16 +45,9 @@ class ProductionKeywords extends Component
         $this->toast()->success('Palavra-chave adicionada.')->send();
     }
 
-    public function deleteKeyword($keyword)
+    public function deleteKeyword(Keyword $keyword)
     {
-        $object = json_decode($this->keywords, true);
-        $data = $object['data'];
-        array_splice($data, $keyword, 1);
-        $json = $data;
-        $this->keywords->data = $json;
-
-        if ($this->keywords->update(['data' => $json]))
-            $this->toast()->success('Palavra-chave removida.')->send();
+        if($keyword->delete());
+        $this->toast()->success('Palavra-chave removida.')->send();
     }
-
 }
