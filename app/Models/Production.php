@@ -56,6 +56,11 @@ class Production extends Model
         return $this->belongsTo(Project::class);
     }
 
+    public function customFields(): BelongsToMany
+    {
+        return $this->belongsToMany(CustomField::class)->withPivot('value')->withTimestamps();
+    }
+
     public function state(): BelongsTo
     {
         return $this->belongsTo(State::class);

@@ -24,8 +24,9 @@ class ProjectShow extends Component
             ->withCount('productions')
             ->findOrFail($project);
 
-        if (isset($project->bibliometric))
-            $this->project->bibliometric->period = $this->project->bibliometric->start_year . ' - '. $this->project->bibliometric->end_year;
+        if ($this->project->bibliometric) {
+            $this->project->bibliometric->period = $this->project->bibliometric->start_year . ' - ' . $this->project->bibliometric->end_year;
+        }
     }
 
     public function render()

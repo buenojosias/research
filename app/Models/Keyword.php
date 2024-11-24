@@ -16,13 +16,6 @@ class Keyword extends Model
         'data'
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'data' => 'array',
-        ];
-    }
-
     public function production(): BelongsTo
     {
         return $this->belongsTo(Production::class);

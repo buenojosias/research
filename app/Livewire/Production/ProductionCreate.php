@@ -88,13 +88,18 @@ class ProductionCreate extends Component
 
         \DB::beginTransaction();
         $createdProduction = $this->project->productions()->create($data);
-        $createdKeywords = $createdProduction->keywords()->create(['data' => $keywords]);
+        // $createdKeywords = $createdProduction->keywords()->create(['data' => $keywords]);
         $createdAuthors = $createdProduction->authors()->createMany($this->authors);
         if($abstractData = $this->serializeAbstract())
             $createdProduction->abstract()->create($abstractData);
 
-        if($createdProduction && $createdKeywords && $createdAuthors) {
+        if($createdProduction && $createdAuthors) {
             \DB::commit();
+
+            foreach($keywords as $keyword) {
+                $createdProduction->keywords()->create(['value' => $keyword, 'data' => []]);
+            }
+
             session()->flash('status', 'Produção adicionada com sucesso.');
             $this->redirectRoute('project.bibliometrics.productions.show', [$this->project, $createdProduction], navigate: true);
         } else {
@@ -108,7 +113,6 @@ class ProductionCreate extends Component
         $keywords = str_replace(['.',';'], ',', $this->keywords);
         $keywords = array_filter(explode(',', $keywords));
         $keywords = array_map('trim', $keywords);
-        $keywords = array_map('strtolower', $keywords);
         return $keywords;
     }
 

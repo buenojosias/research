@@ -39,7 +39,6 @@ class BibliometricForm extends Component
     #[Validate('required|array')]
     public $languages = ['Portugês'];
 
-
     public $avaliable_types = [];
     public int $current_year;
 
@@ -84,16 +83,5 @@ class BibliometricForm extends Component
             session()->flash('status', 'Bibliometria adicionada com sucesso.');
             $this->redirectRoute('project.bibliometrics.show', $this->project, navigate: true);
         }
-
-        // try {
-        //     $research = Research::updateOrCreate([
-        //         'pid' => $this->pid,
-        //         'user_id' => $this->user_id,
-        //     ],
-        //         $data->all()
-        //     );
-        // } catch (\Throwable $th) {
-        //     dd($th);
-        // }
     }
 }

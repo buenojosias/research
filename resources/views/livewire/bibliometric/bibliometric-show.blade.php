@@ -41,14 +41,19 @@
                 @endslot
             </x-table>
 
-            <x-ts-card>
-                <div class="pb-3 border-b">
-                    <x-ts-link href="#" wire:navigate text="Ranking de palavras" />
+            <div class="grid sm:grid-cols-2 gap-4">
+                @livewire('bibliometric.custom-fields', ['bibliometric' => $bibliometric])
+                <div>
+                    <x-ts-card>
+                        <div class="pb-3 border-b">
+                            <x-ts-link href="#" wire:navigate text="Ranking de palavras" />
+                        </div>
+                        <div class="pt-3">
+                            <x-ts-link href="#" wire:navigate text="Frequência de palavras" />
+                        </div>
+                    </x-ts-card>
                 </div>
-                <div class="pt-3">
-                    <x-ts-link href="#" wire:navigate text="Frequência de palavras" />
-                </div>
-            </x-ts-card>
+            </div>
         </div>
     </div>
 </section>
