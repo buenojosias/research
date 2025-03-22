@@ -2,71 +2,80 @@
     <x-ts-toast />
     <x-page-header title="Editar produção" :subtitle="$production->title" />
     <form wire:submit="save">
-        <x-ts-card class="lg:grid grid-cols-6 gap-4 space-y-4 lg:space-y-0">
-            <div class="col-span-4">
-                <x-ts-input label="URL do resultado" wire:model="url" />
-            </div>
-            <div class="col-span-2">
-                <x-ts-select.styled label="Repositório *" wire:model="repository" :options="$bibliometric->repositories" />
-            </div>
-            <div class="col-span-3">
-                <x-ts-input label="Título *" wire:model="title">
-                    <x-slot:suffix>
-                        <x-ts-button wire:click.prevent="titleToLower" icon="language" color="slate" outline />
-                    </x-slot:suffix>
-                </x-ts-input>
-            </div>
-            <div class="col-span-3">
-                <x-ts-input label="Subtítulo" wire:model="subtitle">
-                    <x-slot:suffix>
-                        <x-ts-button wire:click.prevent="subtitleToLower" icon="language" color="slate" outline />
-                    </x-slot:suffix>
-                </x-ts-input>
-            </div>
-            <div class="">
-                <x-ts-select.styled label="Ano *" wire:model="year" :options="$years" />
-            </div>
-            <div class="col-span-3">
-                <x-ts-input label="Autor(es) *" wire:model="authors_display" x-on:click="$modalOpen('authors-modal')"
-                    readonly />
-            </div>
-            <div class="col-span-2">
-                <x-ts-select.styled label="Tipo *" wire:model="type" :options="$bibliometric->types" />
-            </div>
-            <div>
-                <x-ts-select.styled label="Idioma *" wire:model="language" :options="$bibliometric->languages" />
-            </div>
-            <div class="col-span-3">
-                <x-ts-select.styled label="Descritores *" placeholder="Selecione uma ou mais opções" wire:model="searched_terms" :options="$terms"
-                    multiple />
-            </div>
+        <x-ts-card>
+            <div class="lg:grid grid-cols-6 gap-4 space-y-4 lg:space-y-0">
+                <div class="col-span-4">
+                    <x-ts-input label="URL do resultado" wire:model="url" />
+                </div>
+                <div class="col-span-2">
+                    <x-ts-select.styled label="Repositório *" wire:model="repository" :options="$bibliometric->repositories" />
+                </div>
+                <div class="col-span-3">
+                    <x-ts-input label="Título *" wire:model="title">
+                        <x-slot:suffix>
+                            <x-ts-button wire:click.prevent="titleToLower" icon="language" color="slate" outline />
+                        </x-slot:suffix>
+                    </x-ts-input>
+                </div>
+                <div class="col-span-3">
+                    <x-ts-input label="Subtítulo" wire:model="subtitle">
+                        <x-slot:suffix>
+                            <x-ts-button wire:click.prevent="subtitleToLower" icon="language" color="slate" outline />
+                        </x-slot:suffix>
+                    </x-ts-input>
+                </div>
+                <div class="">
+                    <x-ts-select.styled label="Ano *" wire:model="year" :options="$years" />
+                </div>
+                <div class="col-span-3">
+                    <x-ts-input label="Autor(es) *" wire:model="authors_display"
+                        x-on:click="$modalOpen('authors-modal')" readonly />
+                </div>
+                <div class="col-span-2">
+                    <x-ts-select.styled label="Tipo *" wire:model="type" :options="$bibliometric->types" />
+                </div>
+                <div>
+                    <x-ts-select.styled label="Idioma *" wire:model="language" :options="$bibliometric->languages" />
+                </div>
+                <div class="col-span-3">
+                    <x-ts-select.styled label="Descritores *" placeholder="Selecione uma ou mais opções"
+                        wire:model="searched_terms" :options="$terms" multiple />
+                </div>
 
-            @if (in_array('Tese', $bibliometric->types) ||
-                    in_array('Dissertação', $bibliometric->types) ||
-                    in_array('Artigo científico', $bibliometric->types))
-                <div class="col-span-3">
-                    <x-ts-input label="Instituição (universidade)" wire:model="institution" />
-                </div>
-                <div class="col-span-3">
-                    <x-ts-input label="Programa" wire:model="program" />
-                </div>
-            @endif
+                @if (in_array('Tese', $bibliometric->types) ||
+                        in_array('Dissertação', $bibliometric->types) ||
+                        in_array('Artigo científico', $bibliometric->types))
+                    <div class="col-span-3">
+                        <x-ts-input label="Instituição (universidade)" wire:model="institution" />
+                    </div>
+                    <div class="col-span-3">
+                        <x-ts-input label="Programa" wire:model="program" />
+                    </div>
+                @endif
 
-            @if (in_array('Periódico', $bibliometric->types) || in_array('Artigo científico', $bibliometric->types))
-                <div class="col-span-3">
-                    <x-ts-input label="Revista" wire:model="periodical" />
-                </div>
-                <div class="col-span-3">
-                    <x-ts-input label="DOI" wire:model="doi" />
-                </div>
-            @endif
+                @if (in_array('Periódico', $bibliometric->types) || in_array('Artigo científico', $bibliometric->types))
+                    <div class="col-span-3">
+                        <x-ts-input label="Revista" wire:model="periodical" />
+                    </div>
+                    <div class="col-span-3">
+                        <x-ts-input label="DOI" wire:model="doi" />
+                    </div>
+                @endif
 
-            <div class="col-span-2">
-                <x-ts-input label="Cidade" wire:model="city" />
+                <div class="col-span-2">
+                    <x-ts-input label="Cidade" wire:model="city" />
+                </div>
+                <div class="">
+                    <x-ts-select.styled label="UF" wire:model="state_id" :options="$states"
+                        select="label:abbreviation|value:id" searchable />
+                </div>
             </div>
-            <div class="">
-                <x-ts-select.styled label="UF" wire:model="state_id" :options="$states"
-                    select="label:abbreviation|value:id" searchable />
+            <div class="mt-4 lg:grid grid-cols-3 gap-4 space-y-4 lg:space-y-0">
+                @foreach ($customFields as $field)
+                    <div>
+                        <x-ts-input label="{{ $field->name }}" wire:model="customValues.{{ $field->id }}" />
+                    </div>
+                @endforeach
             </div>
 
             <x-slot:footer>

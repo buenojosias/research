@@ -67,6 +67,10 @@ class ProductionEdit extends Component
     #[Validate('nullable|string')]
     public $doi;
 
+    public $customFields = [];
+    public $customValues = [];
+
+
     public function mount(Project $project, $production)
     {
         $this->project = $project;
@@ -95,6 +99,9 @@ class ProductionEdit extends Component
         $this->doi = $this->production->doi;
 
         $this->authors = $this->production->authors->toArray();
+
+        dd($this->customFields = $this->bibliometric->customFields()->with('productions')->get()->toArray());
+        // dd($this->customValues = $this->production->customFields());
 
         foreach($this->authors as $author) {
             array_push($this->authors_display, ' ' . $author['forename'] .' '. $author['lastname']);

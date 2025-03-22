@@ -68,17 +68,21 @@ class ProductionCreate extends Component
     public $abstract;
     public $abstract_preview;
 
+    public $customFields = [];
+    public $customValues = [];
+
     public function mount(Project $project)
     {
         $this->project = $project;
 
         $this->bibliometric = $project->bibliometric;
 
-        for($i = intval($this->bibliometric->start_year); $i <= $this->bibliometric->end_year; $i++) {
+        for ($i = intval($this->bibliometric->start_year); $i <= $this->bibliometric->end_year; $i++) {
             array_push($this->years, $i);
         }
 
         $this->states = State::select('id', 'abbreviation')->orderBy('abbreviation')->get()->toArray();
+        $this->customFields = $this->bibliometric->customFields;
     }
 
     public function save()
@@ -90,15 +94,17 @@ class ProductionCreate extends Component
         $createdProduction = $this->project->productions()->create($data);
         // $createdKeywords = $createdProduction->keywords()->create(['data' => $keywords]);
         $createdAuthors = $createdProduction->authors()->createMany($this->authors);
-        if($abstractData = $this->serializeAbstract())
+        if ($abstractData = $this->serializeAbstract())
             $createdProduction->abstract()->create($abstractData);
 
-        if($createdProduction && $createdAuthors) {
+        if ($createdProduction && $createdAuthors) {
             \DB::commit();
 
-            foreach($keywords as $keyword) {
+            foreach ($keywords as $keyword) {
                 $createdProduction->keywords()->create(['value' => $keyword, 'data' => []]);
             }
+
+            $this->fillCustomFields($createdProduction);
 
             session()->flash('status', 'Produção adicionada com sucesso.');
             $this->redirectRoute('project.bibliometrics.productions.show', [$this->project, $createdProduction], navigate: true);
@@ -110,7 +116,7 @@ class ProductionCreate extends Component
 
     public function serializeKeywords()
     {
-        $keywords = str_replace(['.',';'], ',', $this->keywords);
+        $keywords = str_replace(['.', ';'], ',', $this->keywords);
         $keywords = array_filter(explode(',', $keywords));
         $keywords = array_map('trim', $keywords);
         return $keywords;
@@ -143,8 +149,8 @@ class ProductionCreate extends Component
             'author.forename' => 'required|string',
             'author.lastname' => 'required|string',
         ]);
-        array_push($this->authors, [ 'forename' => $this->author['forename'], 'lastname' => $this->author['lastname'] ]);
-        array_push($this->authors_display, ' ' . $this->author['forename'] .' '. $this->author['lastname']);
+        array_push($this->authors, ['forename' => $this->author['forename'], 'lastname' => $this->author['lastname']]);
+        array_push($this->authors_display, ' ' . $this->author['forename'] . ' ' . $this->author['lastname']);
         $this->reset('author');
     }
 
@@ -175,6 +181,25 @@ class ProductionCreate extends Component
     {
         $program = \Str::lower($this->program);
         $this->program = \Str::title($program);
+    }
+
+    public function fillCustomFields($production)
+    {
+        $customValues = array_filter($this->customValues);
+
+        $pivotData = [];
+        foreach ($customValues as $customFieldId => $value) {
+            $pivotData[$customFieldId] = ['value' => $value];
+        }
+
+        if ($production) {
+            $production->customFields()->sync($pivotData);
+        }
+
+        // $this->customValues = [];
+        // foreach ($this->customFields as $field) {
+        //     $this->customValues[$field['name']] = null;
+        // }
     }
 
 }
