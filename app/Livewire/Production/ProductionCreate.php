@@ -101,7 +101,7 @@ class ProductionCreate extends Component
             \DB::commit();
 
             foreach ($keywords as $keyword) {
-                $createdProduction->keywords()->create(['value' => $keyword, 'data' => []]);
+                $createdProduction->keywords()->create(['value' => $keyword]);
             }
 
             $this->fillCustomFields($createdProduction);

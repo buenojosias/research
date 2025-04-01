@@ -48,7 +48,7 @@ class InternalForm extends Component
         $this->project = $project;
 
         $this->production = $this->project->productions()
-            ->select(['id', 'title', 'subtitle', 'year', 'authors'])
+            ->select(['id', 'title', 'subtitle', 'year'])
             ->findOrFail($production);
 
         $this->file = $this->production->file;
