@@ -57,6 +57,9 @@ class ProductionCreate extends Component
     #[Validate('nullable|integer|in_array:states.*.id')]
     public $state_id;
 
+    #[Validate('nullable|string|max:60')]
+    public $country = 'Brasil';
+
     #[Validate('nullable|string')]
     public $periodical;
 
@@ -66,7 +69,6 @@ class ProductionCreate extends Component
     public $keywords;
 
     public $abstract;
-    public $abstract_preview;
 
     public $customFields = [];
     public $customValues = [];

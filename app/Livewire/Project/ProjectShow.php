@@ -3,6 +3,7 @@
 namespace App\Livewire\Project;
 
 use App\Models\Project;
+use App\Models\Scopes\ProjectScope;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -21,7 +22,9 @@ class ProjectShow extends Component
     {
         $this->project = Project::query()
             ->with('bibliometric')
-            ->withCount('productions')
+            ->withCount(['productions' => function ($q) {
+                $q->withoutGlobalScope(ProjectScope::class);
+            }])
             ->findOrFail($project);
 
         if ($this->project->bibliometric) {

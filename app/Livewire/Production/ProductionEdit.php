@@ -61,6 +61,9 @@ class ProductionEdit extends Component
     #[Validate('nullable|integer|in_array:states.*.id')]
     public $state_id;
 
+    #[Validate('nullable|string|max:60')]
+    public $country;
+
     #[Validate('nullable|string')]
     public $periodical;
 
@@ -95,12 +98,13 @@ class ProductionEdit extends Component
         $this->program = $this->production->program;
         $this->city = $this->production->city;
         $this->state_id = $this->production->state_id;
+        $this->country = $this->production->country;
         $this->periodical = $this->production->periodical;
         $this->doi = $this->production->doi;
 
         $this->authors = $this->production->authors->toArray();
 
-        dd($this->customFields = $this->bibliometric->customFields()->with('productions')->get()->toArray());
+        // dd($this->customFields = $this->bibliometric->customFields()->with('productions')->get()->toArray());
         // dd($this->customValues = $this->production->customFields());
 
         foreach($this->authors as $author) {

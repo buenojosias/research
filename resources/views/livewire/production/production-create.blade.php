@@ -79,16 +79,18 @@
                     <x-ts-select.styled label="UF" wire:model="state_id" :options="$states"
                         select="label:abbreviation|value:id" searchable />
                 </div>
-                <div class="col-span-3"></div>
+                <div>
+                    <x-ts-input label="País" wire:model="country" />
+                </div>
+                <div></div>
 
-                <div class="col-span-3 pt-4 mt-2 border-t">
+                <div class="col-span-6 pt-4 mt-2 border-t">
                     <x-ts-input label="Palavras-chave" wire:model="keywords"
                         hint="Separe usando vírgula, ponto ou ponto e vírgula." />
                 </div>
 
-                <div class="col-span-3 pt-4 mt-2 border-t">
-                    <x-ts-input label="Resumo" wire:model="abstract" x-on:click="$modalOpen('modal-abstract')"
-                        readonly />
+                <div class="col-span-6 mt-2">
+                    <x-ts-textarea label="Resumo" wire:model="abstract" rows="6" />
                 </div>
             </div>
             <div class="mt-4 lg:grid grid-cols-3 gap-4 space-y-4 lg:space-y-0">
@@ -127,12 +129,6 @@
                     <x-ts-icon name="check" class="w-4" wire:click="addAuthor" />
                 </div>
             </div>
-        </div>
-    </x-ts-modal>
-    <x-ts-modal title="Resumo da produção" id="modal-abstract" size="4xl" x-on:close="info()">
-        <x-ts-textarea wire:model="abstract" rows="6" />
-        <div class="card-footer">
-            <x-ts-button text="OK" x-on:click="$modalClose('modal-abstract')" />
         </div>
     </x-ts-modal>
 </section>

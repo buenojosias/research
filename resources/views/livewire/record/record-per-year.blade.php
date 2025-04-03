@@ -13,7 +13,7 @@
                         @foreach ($productionsByYear as $year => $productions)
                             <tr>
                                 <td>
-                                    <span class="cursor-pointer" wire:click="selectyear('{{ $year }}')">
+                                    <span class="cursor-pointer" wire:click="selectYear('{{ $year }}')">
                                         {{ $year }}
                                     </span>
                                 </td>
@@ -25,6 +25,39 @@
             </div>
 
             <div class="col-span-3 space-y-4">
+                @if ($selectedYear && $yearProductions)
+                    <x-table>
+                        <div class="px-4 py-2 flex justify-between gap-4 items-center text-gray-800 font-semibold">
+                            <h4>Publicações do ano: {{ $selectedYear }}</h4>
+                            <x-ts-button wire:click="selectYear('')" icon="x-mark" outline />
+                        </div>
+                        <x-slot name="header">
+                            <th>Título</th>
+                            <th width="1">Tipo</th>
+                        </x-slot>
+                        <x-slot name="body">
+                            @foreach ($yearProductions as $production)
+                                <tr>
+                                    <td class="!text-wrap">
+                                        <a
+                                            href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}">
+                                            {{ $production->full_title }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {{ $production->type }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </x-slot>
+                    </x-table>
+                @else
+                    <x-ts-card>
+                        Selecione um ano na tabela <span class="lg:hidden">abaixo</span> <span
+                            class="hidden lg:inline-flex">ao lado</span> para listar as respectivas produções.
+                    </x-ts-card>
+                @endif
+
                 <x-table label="Lista por tipo" collapsable>
                     <x-slot name="header">
                         <tr>

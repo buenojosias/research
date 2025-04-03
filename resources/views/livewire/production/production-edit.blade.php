@@ -69,6 +69,9 @@
                     <x-ts-select.styled label="UF" wire:model="state_id" :options="$states"
                         select="label:abbreviation|value:id" searchable />
                 </div>
+                <div class="">
+                    <x-ts-input label="País" wire:model="country" />
+                </div>
             </div>
             <div class="mt-4 lg:grid grid-cols-3 gap-4 space-y-4 lg:space-y-0">
                 @foreach ($customFields as $field)

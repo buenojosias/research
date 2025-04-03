@@ -28,10 +28,10 @@
             @endif
             <x-ts-card>
                 <div class="detail">
-                    <x-detail label="Título" :value="$production->title" />
-                    @if ($production->subtitle)
+                    <x-detail label="Título" :value="$production->full_title" />
+                    {{-- @if ($production->subtitle)
                         <x-detail label="Subtítulo" :value="$production->subtitle" />
-                    @endif
+                    @endif --}}
                     <x-detail label="Ano" :value="$production->year" />
                     <div>
                         <dl class="w-full">

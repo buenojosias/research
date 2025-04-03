@@ -22,6 +22,9 @@ class User extends Authenticatable
         'active',
         'provider',
         'provider_id',
+        'selected_project_id',
+        'selected_project_theme',
+        'selected_project_role',
     ];
 
     protected $hidden = [
@@ -47,6 +50,11 @@ class User extends Authenticatable
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class);
+    }
+
+    public function selectedProject()
+    {
+        return $this->belongsTo(Project::class, 'selected_project_id');
     }
 
     public function bibliometrics(): HasManyThrough

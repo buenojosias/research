@@ -10,6 +10,8 @@ class RecordPerYear extends Component
 {
     public $project;
     public $productions = [];
+    public $selectedYear = '';
+    public $yearProductions = [];
 
     public function mount(Project $project)
     {
@@ -94,5 +96,11 @@ class RecordPerYear extends Component
             'typeTotals', 'stateTotals'
         ))
             ->title('Relatório por ano');
+    }
+
+    public function selectYear($year)
+    {
+        $this->selectedYear = $year;
+        $this->yearProductions = $this->productions->where('year', $year);
     }
 }

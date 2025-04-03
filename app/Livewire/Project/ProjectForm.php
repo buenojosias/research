@@ -67,6 +67,11 @@ class ProjectForm extends Component
             $this->modal = false;
         } else {
             $project = Project::create($data);
+            auth()->user()->update([
+                'selected_project_id' => $project->id,
+                'selected_project_theme' => $project->theme,
+                'selected_project_role' => 'owner',
+            ]);
             session()->flash('status', 'Projeto criado com sucesso.');
             $this->redirectRoute('project.show', $project, navigate: true);
         }
