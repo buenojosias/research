@@ -30,10 +30,10 @@ class BibliometricForm extends Component
     #[Validate('required:array')]
     public $combinations = [];
 
-    #[Validate('required|integer|digits:4|min:2000|max:2024')]
+    #[Validate('required|integer|digits:4|min:1990|max:2025')]
     public $start_year;
 
-    #[Validate('required|integer|digits:4|min:2000|max:2024')]
+    #[Validate('required|integer|digits:4|min:1990|max:2025')]
     public $end_year;
 
     #[Validate('required|array')]
