@@ -80,7 +80,7 @@ class ProductionEdit extends Component
         $this->bibliometric = $project->bibliometric;
         $this->production = $project->productions()->findOrFail($production);
 
-        for($i = intval($this->bibliometric->start_year); $i <= $this->bibliometric->end_year; $i++) {
+        for ($i = intval($this->bibliometric->start_year); $i <= $this->bibliometric->end_year; $i++) {
             array_push($this->years, $i);
         }
 
@@ -104,11 +104,12 @@ class ProductionEdit extends Component
 
         $this->authors = $this->production->authors->toArray();
 
-        // dd($this->customFields = $this->bibliometric->customFields()->with('productions')->get()->toArray());
-        // dd($this->customValues = $this->production->customFields());
+        // $this->customFields = $this->bibliometric->customFields()->with('productions', function($query) {
+        //     $query->where('productions.id', $this->production->id)->select('productions.id');
+        // })->get();
 
-        foreach($this->authors as $author) {
-            array_push($this->authors_display, ' ' . $author['forename'] .' '. $author['lastname']);
+        foreach ($this->authors as $author) {
+            array_push($this->authors_display, ' ' . $author['forename'] . ' ' . $author['lastname']);
         }
     }
 
@@ -136,8 +137,8 @@ class ProductionEdit extends Component
             'author.lastname' => 'required|string',
         ]);
         $this->production->authors()->create($this->author);
-        array_push($this->authors, [ 'forename' => $this->author['forename'], 'lastname' => $this->author['lastname'] ]);
-        array_push($this->authors_display, ' ' . $this->author['forename'] .' '. $this->author['lastname']);
+        array_push($this->authors, ['forename' => $this->author['forename'], 'lastname' => $this->author['lastname']]);
+        array_push($this->authors_display, ' ' . $this->author['forename'] . ' ' . $this->author['lastname']);
         $this->reset('author');
     }
 

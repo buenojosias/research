@@ -33,7 +33,6 @@ class Upload extends Component
         $this->production_id = $production->id;
 
         $this->filename =
-            $this->production->author_lastname . ' - ' .
             $this->production->title . ' (' .
             $this->production->year . ')';
     }
@@ -47,14 +46,13 @@ class Upload extends Component
 
     public function store(): void
     {
-        $saved = $this->file->store(path: 'files');
-        $this->path = $saved;
-        $path = storage_path('app/'.$saved);
+        $saved = $this->file->store('pdfs');
+        $this->path = str_replace('pdfs/', '', $saved);
+        $file = Storage::disk('s3')->get($saved);
 
         $parser = new \Smalot\PdfParser\Parser();
-        $pdf = $parser->parseFile($path);
-        $details = $pdf->getDetails();
-        $this->pages = $details['Pages'] ?? 1;
+        $pdf = $parser->parseContent($file);
+        $this->pages = count($pdf->getPages());
 
         $this->save();
     }

@@ -73,13 +73,15 @@
                     <x-ts-input label="País" wire:model="country" />
                 </div>
             </div>
-            <div class="mt-4 lg:grid grid-cols-3 gap-4 space-y-4 lg:space-y-0">
+            {{-- <div class="mt-4 lg:grid grid-cols-3 gap-4 space-y-4 lg:space-y-0">
                 @foreach ($customFields as $field)
                     <div>
+                        @dump($field)
                         <x-ts-input label="{{ $field->name }}" wire:model="customValues.{{ $field->id }}" />
+                        {{ $field->productions->first()->value }}
                     </div>
                 @endforeach
-            </div>
+            </div> --}}
 
             <x-slot:footer>
                 <x-ts-button type="button" :href="route('project.bibliometrics.productions.show', [$project, $production])" wire:navigate text="Ir para produção" outline />

@@ -10,7 +10,7 @@ class FileController extends Controller
 {
     public function index()
     {
-        $files = Storage::allFiles('files');
+        $files = Storage::allFiles('pdfs');
         dd($files);
     }
 
@@ -18,6 +18,9 @@ class FileController extends Controller
     {
         // $pdf = File::where('path', $path)->firstOrFail();
         // $path = $pdf->path;
-        return Storage::response('files/'.$path);
+        // return Storage::response('files/'.$path);
+        $path = 'pdfs/' . $path;
+
+        return Storage::response($path);
     }
 }

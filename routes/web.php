@@ -49,7 +49,8 @@ use App\Livewire\WordRanking\WordRankingShow;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
-Route::get('files/{path}', [FileController::class, 'show'])->name('files');
+Route::get('pdfs/{path}', [FileController::class, 'show'])->name('files');
+Route::get('pdfs', [FileController::class, 'index'])->name('files.index');
 
 Route::middleware(['auth'])->group(function () {
 

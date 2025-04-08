@@ -90,6 +90,9 @@
                         <x-detail label="Periódico" :value="$production->periodical" />
                         <x-detail label="DOI" :value="$production->doi" />
                     @endif
+                    @foreach ($production->customFields as $field)
+                        <x-detail label="{{ $field->name }}" :value="$field->pivot->value" />
+                    @endforeach
                 </div>
                 <div class="card-footer">
                     <x-ts-link :href="route('project.bibliometrics.productions.edit', [$project, $production])" wire:navigate text="Editar" />

@@ -19,7 +19,7 @@ class ProductionShow extends Component
         $this->production = $project
             ->productions()
             ->withTrashed()
-            ->with('state','file')
+            ->with('state','file','customFields')
             ->findOrFail($production);
     }
 
