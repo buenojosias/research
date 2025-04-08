@@ -52,7 +52,7 @@ class Upload extends Component
 
         $parser = new \Smalot\PdfParser\Parser();
         $pdf = $parser->parseContent($file);
-        $this->pages = count($pdf->getPages());
+        $this->pages = count($pdf->getPages()) ?? null;
 
         $this->save();
     }
