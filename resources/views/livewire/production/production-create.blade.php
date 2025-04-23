@@ -6,6 +6,7 @@
             <div class="lg:grid grid-cols-6 gap-4 space-y-4 lg:space-y-0">
                 <div class="col-span-4">
                     <x-ts-input label="URL do resultado" wire:model="url" />
+                    <x-ts-button loading="autoFill" text="Preencher" wire:click="autoFill" />
                 </div>
                 <div class="col-span-2">
                     <x-ts-select.styled label="Repositório *" wire:model="repository" :options="$bibliometric->repositories" />

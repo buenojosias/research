@@ -27,11 +27,11 @@
                             <x-ts-button x-on:click="show = !show" sm outline>Seções</x-ts-button>
                         </x-slot:action>
                         <x-ts-dropdown.items>
-                            <x-ts-checkbox name="sections[]" wire:model="sections" value="Resumo" label="Resumo"
+                            <x-ts-checkbox name="sections[]" id="resumo" wire:model="sections" value="Resumo" label="Resumo"
                                 invalidate />
                         </x-ts-dropdown.items>
                         <x-ts-dropdown.items>
-                            <x-ts-checkbox name="sections[]" wire:model="sections" value="Textual"
+                            <x-ts-checkbox name="sections[]" id="textual" wire:model="sections" value="Textual"
                                 label="Conteúdo textual" invalidate />
                         </x-ts-dropdown.items>
                     </x-ts-dropdown>

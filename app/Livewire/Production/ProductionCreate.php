@@ -4,6 +4,8 @@ namespace App\Livewire\Production;
 
 use App\Models\Project;
 use App\Models\State;
+use App\Services\AutoFillService;
+use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -118,8 +120,8 @@ class ProductionCreate extends Component
 
     public function serializeKeywords()
     {
-        $keywords = str_replace(['.', ';'], ',', $this->keywords);
-        $keywords = array_filter(explode(',', $keywords));
+        $keywords = str_replace(['.'], ';', $this->keywords);
+        $keywords = array_filter(explode(';', $keywords));
         $keywords = array_map('trim', $keywords);
         return $keywords;
     }
@@ -204,4 +206,42 @@ class ProductionCreate extends Component
         // }
     }
 
+    public function autoFill(AutoFillService $autoFillService)
+    {
+        $html = Http::get($this->url)->body();
+
+        $result = $autoFillService->fill($html);
+
+        if (isset($result['error'])) {
+            session()->flash('error', 'Erro ao preencher os dados automaticamente: ' . $result['error']);
+            return;
+        }
+
+        $content = $result['choices'][0]['message']['content'];
+
+        // Remove blocos de markdown (```json e ```)
+        $cleanJson = trim($content);
+        $cleanJson = preg_replace('/^```json|```$/', '', $cleanJson);
+
+        // Decodifica para array associativo
+        $data = json_decode($cleanJson, true);
+
+        // Agora você pode acessar diretamente:
+        $this->title = $data['title'] ?? null;
+        $this->subtitle = $data['subtitle'] ?? null;
+        $this->year = $data['year'] ?? null;
+        $this->authors = $data['authors'] ?? [];
+        $this->type = $data['type'] ?? null;
+        $this->institution = $data['institution'] ?? null;
+        $this->program = $data['program'] ?? null;
+        $this->city = $data['city'] ?? null;
+        $this->keywords = $data['keywords'] ?? null;
+        $this->abstract = $data['abstract'] ?? null;
+        $this->periodical = $data['periodical'] ?? null;
+        $this->doi = $data['doi'] ?? null;
+        $this->language = $data['language'] ?? null;
+        foreach ($this->authors as $author) {
+            array_push($this->authors_display, ' ' . $author['forename'] . ' ' . $author['lastname']);
+        }
+    }
 }

@@ -56,16 +56,14 @@
             @endforelse
         </div>
         <x-ts-card header="Produções sem arquivo">
-            @foreach ($noFileProductions as $productions)
+            @foreach ($noFileProductions as $production)
                 <div class="py-1.5 divide-y">
-                    <a href="#" class="flex items-center gap-2 text-sm">
+                    <a href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}" class="flex items-center gap-2 text-sm">
                         <x-ts-icon name="document-text" class="h-6 w-6" outline />
-                        {{ $productions->year }} - {{ $productions->title }}
+                        {{ $production->year }} - {{ $production->title }}
                     </a>
                 </div>
             @endforeach
         </x-ts-card>
-
     </div>
-
 </section>

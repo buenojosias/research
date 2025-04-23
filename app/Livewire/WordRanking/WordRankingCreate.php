@@ -43,10 +43,11 @@ class WordRankingCreate extends Component
         'pela', 'pelo', 'pelas', 'pelos',
         'são',
         'sobre',
-        'também',
+        'também', 'além',
         'mais',
         'acerca',
         'seu','sua','seus', 'suas',
+        'teve', 'qual'
     ];
 
     public $results = [];
