@@ -32,11 +32,14 @@ class KeywordModal extends Component
             'input' => 'required|string'
         ]);
 
-        $words = explode(';', $this->input);
+        $words = str_replace('.', ';', $this->input);
+        $words = array_filter(explode(';', $words));
+        $words = array_map('trim', $words);
+
         foreach ($words as $word) {
+            $word = \Str::ucfirst($word);
             $this->production->keywords()->create([
                 'value' => $word,
-                'data' => []
             ]);
         }
 

@@ -74,6 +74,11 @@ class KeywordIndex extends Component
             })
             ->get();
 
+        $keywords = $keywords->map(function ($keyword) {
+            $keyword->value = ucfirst($keyword->value);
+            return $keyword;
+        });
+
         $this->keywords = $keywords->sortBy('value')->groupBy('value')->all();
 
         return view('livewire.keyword.keyword-index');

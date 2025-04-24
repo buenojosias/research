@@ -123,6 +123,9 @@ class ProductionCreate extends Component
         $keywords = str_replace(['.'], ';', $this->keywords);
         $keywords = array_filter(explode(';', $keywords));
         $keywords = array_map('trim', $keywords);
+        $keywords = array_map(function ($keyword) {
+            return \Str::ucfirst($keyword);
+        }, $keywords);
         return $keywords;
     }
 

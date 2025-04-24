@@ -87,7 +87,7 @@
 
                 <div class="col-span-6 pt-4 mt-2 border-t">
                     <x-ts-input label="Palavras-chave" wire:model="keywords"
-                        hint="Separe usando vírgula, ponto ou ponto e vírgula." />
+                        hint="Separe usando ponto ou ponto e vírgula." />
                 </div>
 
                 <div class="col-span-6 mt-2">
