@@ -12,7 +12,7 @@ class KeywordIndex extends Component
 
     public $bibliometric;
 
-    public $keywords;
+    // public $keywords;
 
     public $keywordProductions = [];
 
@@ -79,8 +79,8 @@ class KeywordIndex extends Component
             return $keyword;
         });
 
-        $this->keywords = $keywords->sortBy('value')->groupBy('value')->all();
+        $keywords = $keywords->sortBy('value')->groupBy('value')->all();
 
-        return view('livewire.keyword.keyword-index');
+        return view('livewire.keyword.keyword-index', compact('keywords'));
     }
 }
