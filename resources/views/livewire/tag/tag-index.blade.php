@@ -10,33 +10,16 @@
                 </x-slot>
                 <x-slot name="body">
                     @foreach ($tags as $tag)
-                        <div x-data="{ showsubtags: false }">
+                        <div>
                             <tr>
                                 <td class="font-semibold text-gray-900">
                                     <a wire:click="selectTag({{ $tag }})"
                                         class="cursor-pointer">{{ $tag->name }}</a>
-                                    @if ($tag->subtags->count() > 0)
-                                        <x-ts-button icon="plus" sm flat x-on:click="showsubtags = !showsubtags" />
-                                    @endif
                                 </td>
                                 <td class="text-right">
                                     {{ $tag->productions_count }}
                                 </td>
                             </tr>
-                            @if ($tag->subtags->count() > 0)
-                                <div class="pl-2" x-show="showsubtags">
-                                    @foreach ($tag->subtags->sortBy('name') as $subtag)
-                                        <tr>
-                                            <td class="text-gray-700">
-                                                <span class="ml-2">&rarr;</span>
-                                                <a wire:click="selectTag({{ $subtag }})"
-                                                    class="cursor-pointer">{{ $subtag->name }}</a>
-                                            </td>
-                                            <td class="text-right">{{ $subtag->productions_count }}</td>
-                                        </tr>
-                                    @endforeach
-                                </div>
-                            @endif
                         </div>
                     @endforeach
                 </x-slot>
@@ -124,7 +107,7 @@
     </div>
 
     <x-ts-modal title="Criar tag" persistent wire size="sm">
-        <x-ts-input type="text" wire:model="newTag" placeholder="Nome da tag (use : para criar com subtag)" required />
+        <x-ts-input type="text" wire:model="newTag" placeholder="Nome da tag" required />
         <x-slot:footer>
             <x-ts-button text="Salvar" wire:click="createTag" class="w-full" />
         </x-slot:footer>

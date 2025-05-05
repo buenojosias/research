@@ -31,8 +31,6 @@ class ProductionTags extends Component
     public function getTags()
     {
         $this->tags = $this->production->tags()
-            ->doesntHave('subtags')
-            ->with('parent')
             ->orderBy('name')
             ->get();
     }
@@ -40,7 +38,6 @@ class ProductionTags extends Component
     public function render()
     {
         $this->tags = $this->production->tags()
-            ->with('parent')
             ->orderBy('name')
             ->get();
 

@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('parent_id')->nullable()->constrained('tags')->nullOnDelete();
             $table->string('name', length: 50);
         });
     }

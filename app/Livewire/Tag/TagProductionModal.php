@@ -17,8 +17,6 @@ class TagProductionModal extends Component
     {
         $this->production = $production;
         $this->tags = $this->production->tags()
-            ->doesntHave('subtags')
-            ->with('parent')
             ->orderBy('name')
             ->get();
 

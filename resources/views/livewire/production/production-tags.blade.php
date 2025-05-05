@@ -7,9 +7,6 @@
                     @foreach ($tags as $tag)
                         <li class="flex justify-between pt-2">
                             <span class="cursor-pointer" wire:click="selectTag({{ $tag }})">
-                                @if ($tag->parent)
-                                    <span class="text-gray-600">{{ $tag->parent->name }} &rarr;</span>
-                                @endif
                                 {{ $tag->name }}
                             </span>
                             <x-ts-button wire:click="detachTag({{ $tag }})" icon="trash" color="red" sm

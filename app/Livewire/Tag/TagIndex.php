@@ -48,11 +48,7 @@ class TagIndex extends Component
     public function loadTags()
     {
         $this->tags = $this->project->tags()
-            ->whereNull('parent_id')
             ->withCount('productions')
-            ->with('subtags', function ($query) {
-                $query->withCount('productions');
-            })
             ->get()
             ->sortBy('name');
     }
@@ -91,15 +87,9 @@ class TagIndex extends Component
     public function createTag()
     {
         $this->validate();
-
-        $tag = explode(':', $this->newTag);
-        $parentTag = $this->project->tags()->firstOrCreate(['name' => $tag[0], 'parent_id' => null]);
-
-        if ($tag[1] ?? false) {
-            $subTag = $parentTag->subtags()->firstOrCreate(['project_id' => $parentTag->project_id, 'name' => $tag[1]]);
-        }
+        $this->project->tags()->firstOrCreate(['name' => $this->newTag]);
         $this->toast()->success('Tag salva.')->send();
         $this->modal = false;
-        $this->newTag = '';
+        $this->reset('newTag');
     }
 }

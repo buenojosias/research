@@ -32,24 +32,11 @@ class TagAttach extends Component
     public function loadTags()
     {
         $this->tags = $this->project->tags()
-            ->whereNull('parent_id')
             ->where(function ($query) {
                 $query->whereDoesntHave('productions', function ($query) {
                     $query->where('productions.id', $this->production->id);
-                })
-                    ->orWhereHas('subtags', function ($query) {
-                        $query->whereHas('productions', function ($query) {
-                            $query->where('productions.id', $this->production->id);
-                        });
-                    });
+                });
             })
-            ->with([
-                'subtags' => function ($query) {
-                    $query->whereDoesntHave('productions', function ($query) {
-                        $query->where('productions.id', $this->production->id);
-                    });
-                }
-            ])
             ->get();
     }
 
@@ -79,17 +66,13 @@ class TagAttach extends Component
             return;
         }
 
-        $tag = explode(':', $this->newTag);
-        $parentTag = $this->project->tags()->firstOrCreate(['name' => $tag[0], 'parent_id' => null]);
-
-        if ($tag[1] ?? false) {
-            $subTag = $parentTag->subtags()->firstOrCreate(['project_id' => $parentTag->project_id, 'name' => $tag[1]]);
-        }
+        $tag = $this->project->tags()->firstOrCreate(['name' => $this->newTag]);
+        $this->reset('newTag');
         $this->loadTags();
-        $this->selectedTags[] = $subTag->id ?? $parentTag->id;
+        $this->selectedTags[] = $tag->id;
 
         // $this->tags = $this->project->tags()->select('id', 'name')->get()->toArray();
         // $this->selectedTagId = $createdTag->id;
-        // $this->submit();
+        $this->submit();
     }
 }

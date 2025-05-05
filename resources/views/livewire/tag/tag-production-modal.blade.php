@@ -3,11 +3,6 @@
         @forelse ($tags as $tag)
             <div class="flex justify-between items-center border-b py-1">
                 <p>
-                    @if ($tag->parent)
-                        <span class="text-gray-600">
-                            {{ $tag->parent->name }} &rarr;
-                        </span>
-                    @endif
                     {{ $tag->name }}
                 </p>
             </div>
