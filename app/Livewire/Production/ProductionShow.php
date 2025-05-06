@@ -60,6 +60,25 @@ class ProductionShow extends Component
             'project' => $this->project,
             'production' => $this->production,
         ]);
+    }
 
+    public function deleteNote($noteId)
+    {
+        $this->dialog()
+            ->question('Você tem certeza que deseja excluir essa anotação?')
+            ->confirm(method: 'deleteNoteConfirmed', params: $noteId)
+            ->send();
+    }
+
+    public function deleteNoteConfirmed($noteId)
+    {
+        $note = $this->project->notes()->find($noteId);
+
+        if ($note) {
+            $note->delete();
+            $this->toast()->success('Anotação excluída com sucesso!')->send();
+        } else {
+            $this->toast()->error('Anotação não encontrada.')->send();
+        }
     }
 }

@@ -43,6 +43,7 @@
             @if (request()->routeIs('*bibliometric*'))
                 <x-nav-link label="Projeto" :href="route('project.show', request()->route()->project)" />
                 <x-nav-link label="Produções" :href="route('project.bibliometrics.productions.index', request()->route()->project)" :active="request()->routeIs('*productions*')" />
+                <x-nav-link label="Anotações" :href="route('project.bibliometrics.notes.index', request()->route()->project)" :active="request()->routeIs('*bibliometrics.notes*')" />
                 <x-nav-link label="Arquivos" :href="route('project.bibliometrics.files.index', request()->route()->project)" :active="request()->routeIs('*bibliometrics.files*')" />
                 <x-nav-link label="Referências" :href="route('project.bibliometrics.references.index', request()->route()->project)" :active="request()->routeIs('*bibliometrics.references*')" />
                 <x-nav-link label="Citações" :href="route('project.bibliometrics.citations.index', request()->route()->project)" :active="request()->routeIs('*bibliometrics.citations*')" />

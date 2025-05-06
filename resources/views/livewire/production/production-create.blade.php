@@ -93,6 +93,10 @@
                 <div class="col-span-6 mt-2">
                     <x-ts-textarea label="Resumo" wire:model="abstract" rows="6" />
                 </div>
+
+                <div class="col-span-6 mt-2">
+                    <x-ts-textarea label="Anotação/observação" wire:model="note" rows="2" />
+                </div>
             </div>
             <div class="mt-4 lg:grid grid-cols-3 gap-4 space-y-4 lg:space-y-0">
                 @foreach ($customFields as $field)

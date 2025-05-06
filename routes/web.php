@@ -10,6 +10,7 @@ use App\Livewire\Dashboard\DashboardIndex;
 use App\Livewire\File\FileIndex;
 use App\Livewire\File\FileShow;
 use App\Livewire\Keyword\KeywordIndex;
+use App\Livewire\Note\NoteIndex;
 use App\Livewire\Production\ProductionCitation;
 use App\Livewire\Production\ProductionContent;
 use App\Livewire\Production\ProductionCreate;
@@ -86,6 +87,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('referencias', ReferenceIndex::class)->name('references.index');
         Route::get('referencias/{reference}', ReferenceShow::class)->name('references.show');
         Route::get('referencias/{reference}/citacoes', ReferenceCitation::class)->name('references.citations');
+
+        Route::get('anotacoes', NoteIndex::class)->name('notes.index');
 
         Route::get('citacoes', CitationIndex::class)->name('citations.index');
 

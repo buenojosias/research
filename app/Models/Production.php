@@ -142,4 +142,9 @@ class Production extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class);
+    }
 }

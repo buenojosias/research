@@ -72,6 +72,8 @@ class ProductionCreate extends Component
 
     public $abstract;
 
+    public $note;
+
     public $customFields = [];
     public $customValues = [];
 
@@ -106,6 +108,13 @@ class ProductionCreate extends Component
 
             foreach ($keywords as $keyword) {
                 $createdProduction->keywords()->create(['value' => $keyword]);
+            }
+
+            if ($this->note) {
+                $createdProduction->notes()->create([
+                    'project_id' => $this->project->id,
+                    'content' => $this->note
+                ]);
             }
 
             $this->fillCustomFields($createdProduction);

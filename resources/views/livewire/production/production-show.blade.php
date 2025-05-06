@@ -106,6 +106,24 @@
             </x-ts-card>
         </div>
         <div class="mb-6 space-y-6">
+            <x-ts-card header="Anotações" class="space-y-4">
+                @forelse ($production->notes as $note)
+                    <div class="flex justify-between items-center gap-4 text-sm">
+                        <p>{{ $note->content }}</p>
+                        <div>
+                            <x-ts-button icon="trash" color="red" wire:click="deleteNote({{ $note->id }})" flat
+                                sm />
+                        </div>
+                    </div>
+                @empty
+                    <p>Nenhuma anotação adicionada</p>
+                @endforelse
+                <div class="card-footer">
+                    <x-ts-button text="Adicionar anotação"
+                        wire:click="$dispatch('open-modal', { production: {{ $production }} })" />
+                </div>
+            </x-ts-card>
+
             <x-ts-card header="Palavras-chave">
                 <ul class="space-y-1">
                     @forelse ($production->keywords as $keyword)
@@ -163,4 +181,5 @@
             @endif
         </div>
     </div>
+    @livewire('note.note-create', ['project' => $production->project])
 </div>
