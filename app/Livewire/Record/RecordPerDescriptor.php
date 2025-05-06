@@ -22,6 +22,7 @@ class RecordPerDescriptor extends Component
     public $bibliometricYears = [];
 
     public $withTrashed = false;
+    public $descriptor = null;
 
     public function mount(Project $project)
     {
@@ -46,6 +47,7 @@ class RecordPerDescriptor extends Component
 
         $records = Production::query()
             ->select(['id', 'title', 'subtitle', 'type', 'year', 'searched_terms'])
+            ->with('authors')
             ->where('project_id', $this->project->id)
             ->whereRaw('JSON_LENGTH(searched_terms) = ?', [count($this->selectedWords)])
             ->whereRaw('JSON_CONTAINS(searched_terms, ?)', [$selectedWordsJson])
@@ -55,11 +57,9 @@ class RecordPerDescriptor extends Component
             ->when($this->withTrashed, function($query) {
                 $query->withTrashed();
             })
-            ->get()
-            ->groupBy('type');
-
+            ->get();
+            // ->groupBy('type');
         // FIM VERSÃO 1
-
 
         // VERSÃO 2
         $productions = collect($this->project->productions);
@@ -70,6 +70,7 @@ class RecordPerDescriptor extends Component
             return json_encode($words);
         });
 
+        $tableByWord = [];
         $tableByType = [];
         $tableByRepository = [];
         $tableByYear = [];
@@ -81,6 +82,15 @@ class RecordPerDescriptor extends Component
         $types = $this->bibliometricTypes;
         $repositories = $this->bibliometricRepositories;
         $years = $this->bibliometricYears;
+
+        foreach ($groupedByWords as $words => $group) {
+            $wordsArray = json_decode($words, true);
+            $wordsKey = implode(' AND ', $wordsArray);
+
+            $tableByWord[$wordsKey] = [
+                'total' => $group->count(),
+            ];
+        }
 
         foreach($types as $type) {
             $typeTotals[$type] = 0;
@@ -101,6 +111,7 @@ class RecordPerDescriptor extends Component
             $wordsArray = json_decode($words, true);
             $wordsKey = implode(' AND ', $wordsArray);
 
+            $wordTotal = 0;
             $typeTotal = 0;
             $repositoryTotal = 0;
             $yearTotal = 0;
@@ -145,7 +156,14 @@ class RecordPerDescriptor extends Component
         }
         // FIM VERSÃO 2
 
-        return view('livewire.record.record-per-descriptor', compact('records', 'tableByType', 'tableByRepository', 'tableByYear', 'types', 'repositories', 'years', 'typeTotals', 'repositoryTotals', 'yearTotals'))
+        return view('livewire.record.record-per-descriptor', compact('records', 'tableByWord', 'tableByType', 'tableByRepository', 'tableByYear', 'types', 'repositories', 'years', 'typeTotals', 'repositoryTotals', 'yearTotals'))
             ->title('Relatório por descritores');
+    }
+
+    public function selectWord($word)
+    {
+        $this->descriptor = $word;
+        $words = explode(' AND ', $word);
+        $this->selectedWords = array_map('trim', $words);
     }
 }

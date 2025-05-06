@@ -2,10 +2,61 @@
     <x-page-header title="Estatísticas por descritores" />
     <div class="sm:flex gap-x-6">
         @include('includes.records-nav')
-
-        <div class="flex-auto sm:grid grid-cols-6 gap-x-6">
-
-            <div class="col-span-6 mb-6">
+        <div class="flex-auto grid grid-cols-5 gap-x-6">
+            <div class="col-span-2">
+                <x-table>
+                    @slot('header')
+                        <th>Combinações</th>
+                        <th width="1">Produções</th>
+                    @endslot
+                    @slot('body')
+                        @foreach ($tableByWord as $word => $total)
+                            <tr>
+                                <td>
+                                    <span class="cursor-pointer text-wrap" wire:click="selectWord('{{ $word }}')">
+                                        {{ $word }}
+                                    </span>
+                                </td>
+                                <td class="text-center">{{ $total['total'] }}</td>
+                            </tr>
+                        @endforeach
+                    @endslot
+                </x-table>
+            </div>
+            <div class="col-span-3 space-y-3">
+                @if ($selectedWords && $records->count())
+                    <x-table>
+                        <div class="px-4 py-2 flex justify-between gap-4 items-center text-gray-800 font-semibold">
+                            <h4>Produções com o descritor: {{ $descriptor }}</h4>
+                            <x-ts-button wire:click="selectWord('')" icon="x-mark" outline />
+                        </div>
+                        <x-slot name="header">
+                            <th>Título</th>
+                            <th>Tipo</th>
+                            <th>Autor(es)</th>
+                            <th>Ano</th>
+                        </x-slot>
+                        <x-slot name="body">
+                            @foreach ($records as $record)
+                                <tr>
+                                    <td class="!text-wrap">{{ $record->full_title }}</td>
+                                    <td>{{ $record->type }}</td>
+                                    <td class="!text-wrap">
+                                        @foreach ($record->authors as $author)
+                                            {{ $author->forename . ' ' . $author->lastname }}{!! !$loop->last ? ';<br>' : '' !!}
+                                        @endforeach
+                                    </td>
+                                    <td class="text-center">{{ $record->year }}</td>
+                                </tr>
+                            @endforeach
+                        </x-slot>
+                    </x-table>
+                @else
+                    <x-ts-card>
+                        Selecione um descritor na tabela <span class="lg:hidden">abaixo</span> <span
+                            class="hidden lg:inline-flex">ao lado</span> para listar as respectivas produções.
+                    </x-ts-card>
+                @endif
                 <x-table label="Lista por tipo de produção" collapsable>
                     <x-slot name="header">
                         <tr>
@@ -24,18 +75,15 @@
                                     <td class="text-center">{{ $type ?? 0 }}</td>
                                 @endforeach
                             </tr>
+                        @endforeach
+                        <tr>
+                            <td class="font-semibold">Total</td>
+                            @foreach ($types as $key => $type)
+                                <td class="text-center font-semibold">{{ $typeTotals[$key] }}</td>
                             @endforeach
-                            <tr>
-                                <td class="font-semibold">Total</td>
-                                @foreach($types as $key => $type)
-                                    <td class="text-center font-semibold">{{ $typeTotals[$key] }}</td>
-                                @endforeach
-                            </tr>
+                        </tr>
                     </x-slot>
                 </x-table>
-            </div>
-
-            <div class="col-span-6 mb-6">
                 <x-table label="Lista por repositório" collapsable>
                     <x-slot name="header">
                         <tr>
@@ -54,18 +102,15 @@
                                     <td class="text-center">{{ $repository ?? 0 }}</td>
                                 @endforeach
                             </tr>
+                        @endforeach
+                        <tr>
+                            <td class="font-semibold">Total</td>
+                            @foreach ($repositories as $key => $repository)
+                                <td class="text-center font-semibold">{{ $repositoryTotals[$key] }}</td>
                             @endforeach
-                            <tr>
-                                <td class="font-semibold">Total</td>
-                                @foreach($repositories as $key => $repository)
-                                    <td class="text-center font-semibold">{{ $repositoryTotals[$key] }}</td>
-                                @endforeach
-                            </tr>
+                        </tr>
                     </x-slot>
                 </x-table>
-            </div>
-
-            <div class="col-span-6 mb-6">
                 <x-table label="Lista por ano" collapsable>
                     <x-slot name="header">
                         <tr>
@@ -84,17 +129,20 @@
                                     <td class="text-center">{{ $year ?? 0 }}</td>
                                 @endforeach
                             </tr>
+                        @endforeach
+                        <tr>
+                            <td class="font-semibold">Total</td>
+                            @foreach ($years as $key => $year)
+                                <td class="text-center font-semibold">{{ $yearTotals[$key] }}</td>
                             @endforeach
-                            <tr>
-                                <td class="font-semibold">Total</td>
-                                @foreach($years as $key => $year)
-                                    <td class="text-center font-semibold">{{ $yearTotals[$key] }}</td>
-                                @endforeach
-                            </tr>
+                        </tr>
                     </x-slot>
                 </x-table>
             </div>
+        </div>
 
+
+        {{-- <div class="flex-auto sm:grid grid-cols-6 gap-x-6">
             <div class="col-span-3">
                 <x-ts-card header="Filtros">
                     <x-ts-label label="Tipos" />
@@ -117,7 +165,7 @@
                 </x-ts-card>
             </div>
 
-            <div class="col-span-3">
+            <div class="col-span-6">
                 <x-table>
                     <x-slot name="header">
                         <th>Tipo</th>
@@ -154,6 +202,6 @@
                     <div class="bg-white text-center py-6">Nenhuma produção encontrada. Selecione mais descritores.</div>
                 @endif
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
