@@ -23,6 +23,7 @@ class RecordPerDescriptor extends Component
 
     public $withTrashed = false;
     public $descriptor = null;
+    public $selectedProductions = [];
 
     public function mount(Project $project)
     {
@@ -36,6 +37,11 @@ class RecordPerDescriptor extends Component
         for ($i = intval($bibliometric->start_year); $i <= $bibliometric->end_year; $i++) {
             array_push($this->bibliometricYears, $i);
         }
+    }
+
+    public function updatedSelectedProductions($value)
+    {
+        $this->dispatch('update-productions-list', $this->selectedProductions);
     }
 
     public function render()

@@ -9,6 +9,8 @@ use App\Livewire\Content\ContentGoal;
 use App\Livewire\Dashboard\DashboardIndex;
 use App\Livewire\File\FileIndex;
 use App\Livewire\File\FileShow;
+use App\Livewire\Group\GroupIndex;
+use App\Livewire\Group\GroupShow;
 use App\Livewire\Keyword\KeywordIndex;
 use App\Livewire\Note\NoteIndex;
 use App\Livewire\Production\ProductionCitation;
@@ -73,6 +75,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('producoes', ProductionIndex::class)->name('productions.index');
         Route::get('producoes/nova', ProductionCreate::class)->name('productions.create');
+        Route::get('producoes/grupos', GroupIndex::class)->name('productions.groups.index');
+        Route::get('producoes/grupos/{group}', GroupShow::class)->name('productions.groups.show');
         Route::get('producoes/{production}', ProductionShow::class)->name('productions.show');
         Route::get('producoes/{production}/editar', ProductionEdit::class)->name('productions.edit');
         Route::get('producoes/{production}/arquivo', FileShow::class)->name('productions.files.show');

@@ -147,4 +147,10 @@ class Production extends Model
     {
         return $this->hasMany(Note::class);
     }
+
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class, 'group_production')
+            ->withPivot('note');
+    }
 }

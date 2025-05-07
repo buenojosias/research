@@ -100,4 +100,9 @@ class Project extends Model
     {
         return $this->hasMany(Note::class);
     }
+
+    public function groups(): HasMany
+    {
+        return $this->hasMany(Group::class);
+    }
 }

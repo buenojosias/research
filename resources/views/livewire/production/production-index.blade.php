@@ -12,13 +12,17 @@
     url: false,
 }">
     <x-page-header title="Produções encontradas" :subtitle="$project->theme">
-        <x-ts-button text="Adicionar produção" :href="route('project.bibliometrics.productions.create', $project)" wire:navigate />
+        <div class="flex flex-col gap-1">
+            <x-ts-button text="Adicionar produção" :href="route('project.bibliometrics.productions.create', $project)" wire:navigate />
+            <x-ts-button text="Grupos" icon="rectangle-group" :href="route('project.bibliometrics.productions.groups.index', $project)" flat />
+        </div>
     </x-page-header>
 
     <x-table screen>
         <div class="table-header flex justify-between items-center">
             <div class="w-1/2">
-                <x-ts-input wire:model.live.debounce="q" placehoder="Buscar título ou subtítulo" icon="magnifying-glass" />
+                <x-ts-input wire:model.live.debounce="q" placehoder="Buscar título ou subtítulo"
+                    icon="magnifying-glass" />
             </div>
             <div>
                 <span class="mr-2 text-sm font-normal">{{ $productions->count() }} resultados</span>
@@ -84,7 +88,8 @@
                         @endif
                     </td>
                     <td>
-                        <x-ts-button icon="tag" x-on:click="$dispatch('select-production', { production: {{ $production }} })" sm flat />
+                        <x-ts-button icon="tag"
+                            x-on:click="$dispatch('select-production', { production: {{ $production }} })" sm flat />
                     </td>
                 </tr>
             @endforeach

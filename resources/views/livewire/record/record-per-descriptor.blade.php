@@ -1,4 +1,5 @@
 <div>
+    <x-ts-toast />
     <x-page-header title="Estatísticas por descritores" />
     <div class="sm:flex gap-x-6">
         @include('includes.records-nav')
@@ -31,6 +32,14 @@
                             <x-ts-button wire:click="selectWord('')" icon="x-mark" outline />
                         </div>
                         <x-slot name="header">
+                            <th width="20">
+                                @if (!empty($selectedProductions))
+                                    <x-ts-dropdown icon="ellipsis-vertical" static>
+                                        <x-ts-dropdown.items text="Adicionar a grupo"
+                                            wire:click="$dispatch('open-slide')" />
+                                    </x-ts-dropdown>
+                                @endif
+                            </th>
                             <th>Título</th>
                             <th>Tipo</th>
                             <th>Autor(es)</th>
@@ -39,6 +48,10 @@
                         <x-slot name="body">
                             @foreach ($records as $record)
                                 <tr>
+                                    <td>
+                                        <x-ts-checkbox wire:model.live="selectedProductions"
+                                            name="selectedProductions[]" :value="$record->id" />
+                                    </td>
                                     <td class="!text-wrap">{{ $record->full_title }}</td>
                                     <td>{{ $record->type }}</td>
                                     <td class="!text-wrap">
@@ -204,4 +217,7 @@
             </div>
         </div> --}}
     </div>
+    @if ($selectedWords && $records->count())
+        @livewire('group.attach-group', ['project' => $project])
+    @endif
 </div>
