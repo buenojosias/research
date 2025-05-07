@@ -14,6 +14,7 @@ class GroupShow extends Component
 
     public $project;
     public $group;
+    public $showAbstract = false;
     // public $groupProductions = [];
 
     public function mount(Project $project, $group)
@@ -58,5 +59,11 @@ class GroupShow extends Component
         $this->group->productions()->detach($id);
         $this->dispatch('production-detached');
         $this->toast()->success('Produção removida do grupo com sucesso.')->send();
+    }
+
+    public function loadAbstract()
+    {
+        $this->groupProductions->load('abstract');
+        $this->showAbstract = true;
     }
 }
