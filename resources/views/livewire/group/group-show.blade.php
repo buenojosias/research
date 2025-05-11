@@ -38,7 +38,7 @@
                     <td>{{ $production->year }}</td>
                     <td class="!text-wrap">{{ $production->pivot->note }}</td>
                     @if ($showAbstract)
-                        <td class="!text-wrap">{{ $production->abstract->content }}</td>
+                        <td class="!text-wrap">{{ $production->abstract->content ?? '' }}</td>
                     @endif
                     <td>
                         <x-ts-button icon="link-slash" wire:click="detach({{ $production->id }})" color="red" flat
