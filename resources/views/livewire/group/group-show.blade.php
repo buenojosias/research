@@ -41,8 +41,7 @@
                         <td class="!text-wrap">{{ $production->abstract->content ?? '' }}</td>
                     @endif
                     <td>
-                        <x-ts-button icon="eye" :href="route('project.bibliometrics.productions.show', [$project, $production])" flat
-                            sm />
+                        <x-ts-button icon="eye" x-on:click="$dispatch('preview-production', { id: {{$production->id}} })" sm flat />
                         <x-ts-button icon="link-slash" wire:click="detach({{ $production->id }})" color="red" flat
                             sm />
                     </td>
@@ -56,6 +55,6 @@
             @endforelse
         </x-slot>
     </x-table>
-
     @livewire('group.attach-production', ['project' => $project, 'group' => $group, 'groupProductions' => $this->groupProductions])
+    @livewire('production.production-slide', ['project' => $project])
 </div>

@@ -31,7 +31,6 @@
                     @endslot
                 </x-table>
             </div>
-
             <div class="col-span-3 space-y-4">
                 @if ($selectedProgram && $programProductions)
                     <x-table>
@@ -42,28 +41,26 @@
                         <x-slot name="header">
                             <th>Título</th>
                             <th>Tipo</th>
-                            <th width="1">Ano</th>
+                            <th>Ano</th>
+                            <th width="10"></th>
                         </x-slot>
                         <x-slot name="body">
                             @foreach ($programProductions as $program => $productions)
                                 <tr>
-                                    <td colspan="3" class="bg-gray-100 py-1.5 font-semibold text-gray-800">
+                                    <td colspan="4" class="bg-gray-100 py-1.5 font-semibold text-gray-800">
                                         {{ $program }}
                                     </td>
                                 </tr>
                                 @foreach ($productions as $production)
                                     <tr>
-                                        <td class="!text-wrap">
-                                            <a
-                                                href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}">
-                                                {{ $production->full_title }}
-                                            </a>
-                                        </td>
+                                    <tr>
+                                        <td class="!text-wrap">{{ $production->full_title }}</td>
+                                        <td>{{ $production->type }}</td>
+                                        <td>{{ $production->year }}</td>
                                         <td>
-                                            {{ $production->type }}
-                                        </td>
-                                        <td>
-                                            {{ $production->year }}
+                                            <x-ts-button icon="eye"
+                                                x-on:click="$dispatch('preview-production', { id: {{ $production->id }} })"
+                                                sm flat />
                                         </td>
                                     </tr>
                                 @endforeach
@@ -76,7 +73,6 @@
                             class="hidden lg:inline-flex">ao lado</span> para listar as respectivas produções.
                     </x-ts-card>
                 @endif
-
                 <x-table label="Quantidade por ano" collapsable>
                     <x-slot name="header">
                         <tr>
@@ -104,7 +100,6 @@
                         </tr>
                     </x-slot>
                 </x-table>
-
                 <x-table label="Quantidade por tipo" exportable="programa_ano" collapsable>
                     <x-slot name="header">
                         <tr>
@@ -135,4 +130,5 @@
             </div>
         </div>
     </div>
+    @livewire('production.production-slide', ['project' => $project])
 </div>

@@ -38,20 +38,17 @@
                     </div>
                     <x-slot name="header">
                         <th>Título</th>
-                        <th width="40%">Tags</th>
                         <th>Tipo</th>
+                        <th>Ano</th>
+                        <th width="40%">Tags</th>
                         <th width="1"></th>
                     </x-slot>
                     <x-slot name="body">
                         @forelse ($selectedTag->productions as $production)
                             <tr>
-                                <td class="!text-wrap">
-                                    <a
-                                        href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}">
-                                        {{ $production->full_title }}
-                                        ({{ $production->year }})
-                                    </a>
-                                </td>
+                                <td class="!text-wrap">{{ $production->full_title }}</td>
+                                <td>{{ $production->type }}</td>
+                                <td>{{ $production->year }}</td>
                                 <td class="!text-wrap">
                                     {{-- @foreach ($data as $kws)
                                         {{ $kws }}
@@ -61,9 +58,7 @@
                                     @endforeach --}}
                                 </td>
                                 <td>
-                                    {{ $production->type }}
-                                </td>
-                                <td>
+                                    <x-ts-button icon="eye" x-on:click="$dispatch('preview-production', { id: {{$production->id}} })" sm flat />
                                     <x-ts-button wire:click="deleteProduction({{ $production }})"
                                         icon="archive-box-arrow-down" color="red" flat sm />
                                 </td>
@@ -105,11 +100,11 @@
             @endif
         </div>
     </div>
-
     <x-ts-modal title="Criar tag" persistent wire size="sm">
         <x-ts-input type="text" wire:model="newTag" placeholder="Nome da tag" required />
         <x-slot:footer>
             <x-ts-button text="Salvar" wire:click="createTag" class="w-full" />
         </x-slot:footer>
     </x-ts-modal>
+    @livewire('production.production-slide', ['project' => $project])
 </div>

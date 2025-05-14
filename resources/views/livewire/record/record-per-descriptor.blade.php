@@ -44,6 +44,7 @@
                             <th>Tipo</th>
                             <th>Autor(es)</th>
                             <th>Ano</th>
+                            <th width="10"></th>
                         </x-slot>
                         <x-slot name="body">
                             @foreach ($records as $record)
@@ -60,6 +61,11 @@
                                         @endforeach
                                     </td>
                                     <td class="text-center">{{ $record->year }}</td>
+                                    <td>
+                                        <x-ts-button icon="eye"
+                                            x-on:click="$dispatch('preview-production', { id: {{ $record->id }} })" sm
+                                            flat />
+                                    </td>
                                 </tr>
                             @endforeach
                         </x-slot>
@@ -220,4 +226,5 @@
     @if ($selectedWords && $records->count())
         @livewire('group.attach-group', ['project' => $project])
     @endif
+    @livewire('production.production-slide', ['project' => $project])
 </div>

@@ -54,28 +54,25 @@
                         <x-slot name="header">
                             <th>Título</th>
                             <th>Tipo</th>
-                            <th width="1">Ano</th>
+                            <th>Ano</th>
+                            <th width="10"></th>
                         </x-slot>
                         <x-slot name="body">
                             @foreach ($stateProductions as $city => $productions)
                                 <tr>
-                                    <td colspan="3" class="bg-gray-100 py-1.5 font-semibold text-gray-800">
+                                    <td colspan="4" class="bg-gray-100 py-1.5 font-semibold text-gray-800">
                                         {{ $city }}
                                     </td>
                                 </tr>
                                 @foreach ($productions as $production)
                                     <tr>
-                                        <td class="!text-wrap">
-                                            <a
-                                                href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}">
-                                                {{ $production->full_title }}
-                                            </a>
-                                        </td>
+                                        <td class="!text-wrap">{{ $production->full_title }}</td>
+                                        <td>{{ $production->type }}</td>
+                                        <td>{{ $production->year }}</td>
                                         <td>
-                                            {{ $production->type }}
-                                        </td>
-                                        <td class="!text-wrap">
-                                            {{ $production->year }}
+                                            <x-ts-button icon="eye"
+                                                x-on:click="$dispatch('preview-production', { id: {{ $production->id }} })"
+                                                sm flat />
                                         </td>
                                     </tr>
                                 @endforeach
@@ -91,4 +88,5 @@
             </div>
         </div>
     </div>
+    @livewire('production.production-slide', ['project' => $project])
 </div>

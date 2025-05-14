@@ -32,7 +32,9 @@
                         </div>
                         <x-slot name="header">
                             <th>Título</th>
-                            <th width="1">Ano</th>
+                            <th>Tipo</th>
+                            <th>Ano</th>
+                            <th width="10"></th>
                         </x-slot>
                         <x-slot name="body">
                             @foreach ($authorProductions as $production)
@@ -46,8 +48,10 @@
                                             ({{ $production->institution }})
                                         @endif
                                     </td>
+                                    <td>{{ $production->type }}</td>
+                                    <td>{{ $production->year }}</td>
                                     <td>
-                                        {{ $production->year }}
+                                        <x-ts-button icon="eye" x-on:click="$dispatch('preview-production', { id: {{$production->id}} })" sm flat />
                                     </td>
                                 </tr>
                             @endforeach
@@ -62,5 +66,5 @@
             </div>
         </div>
     </div>
-</div>
+    @livewire('production.production-slide', ['project' => $project])
 </div>

@@ -41,19 +41,18 @@
                         </div>
                         <x-slot name="header">
                             <th>Título</th>
-                            <th width="1">Ano</th>
+                            <th>Tipo</th>
+                            <th>Ano</th>
+                            <th width="10"></th>
                         </x-slot>
                         <x-slot name="body">
                             @foreach ($periodicalProductions as $production)
                                 <tr>
-                                    <td class="!text-wrap">
-                                        <a
-                                            href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}">
-                                            {{ $production->full_title }}
-                                        </a>
-                                    </td>
+                                    <td class="!text-wrap">{{ $production->full_title }}</td>
+                                    <td>{{ $production->type }}</td>
+                                    <td>{{ $production->year }}</td>
                                     <td>
-                                        {{ $production->year }}
+                                        <x-ts-button icon="eye" x-on:click="$dispatch('preview-production', { id: {{$production->id}} })" sm flat />
                                     </td>
                                 </tr>
                             @endforeach
@@ -125,4 +124,5 @@
             </div>
         </div>
     </div>
+    @livewire('production.production-slide', ['project' => $project])
 </div>

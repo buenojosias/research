@@ -31,7 +31,7 @@
             <h2 class="mb-4 font-semibold">Produções encontradas</h2>
             @foreach ($wordcount->records as $record)
                 <x-ts-card x-data="{ details: false }">
-                    <div @click="details = !details" class="card-header justify-between"
+                    <div x-on:click="details = !details" class="card-header justify-between"
                         :class="details ? 'pb-4 mb-2 border-b' : ''">
                         <div class="cursor-pointer">
                             {{ $record['production']['year'] }}.
@@ -39,7 +39,8 @@
                         </div>
                         <div>
                             <x-ts-button color="gray" sm flat>
-                                <x-ts-icon name="chevron-down" class="w-5 transition" x-bind:class="details ? 'rotate-180' : ''" />
+                                <x-ts-icon name="chevron-down" class="w-5 transition"
+                                    x-bind:class="details ? 'rotate-180' : ''" />
                             </x-ts-button>
                         </div>
                     </div>
@@ -97,6 +98,7 @@
                 <th>Seção</th>
                 <th>Contagem</th>
                 <th>Percentual</th>
+                <th width="10"></th>
             </x-slot>
             <x-slot name="body">
                 @foreach ($records as $record)
@@ -111,15 +113,17 @@
                         <td>{{ $record['section'] }}</td>
                         <td>{{ $record['count'] }}</td>
                         <td>{{ $record['percentage'] }}%</td>
+                        <td>
+                            <x-ts-button icon="eye"
+                                x-on:click="$dispatch('preview-production', { id: {{ $record['production']['id'] }} })" sm flat />
+                        </td>
                     </tr>
                 @endforeach
             </x-slot>
         </x-table>
     </div>
-
-
     @if ($content)
         <livewire:word-count.word-count-context :$content :$word />
     @endif
-
+    @livewire('production.production-slide', ['project' => $project])
 </section>

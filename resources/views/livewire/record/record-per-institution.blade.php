@@ -31,7 +31,6 @@
                     @endslot
                 </x-table>
             </div>
-
             <div class="col-span-3 space-y-4">
                 @if ($selectedInstitution && $institutionProductions)
                     <x-table>
@@ -41,19 +40,20 @@
                         </div>
                         <x-slot name="header">
                             <th>Título</th>
-                            <th width="1">Ano</th>
+                            <th>Tipo</th>
+                            <th>Ano</th>
+                            <th width="10"></th>
                         </x-slot>
                         <x-slot name="body">
                             @foreach ($institutionProductions as $production)
                                 <tr>
-                                    <td class="!text-wrap">
-                                        <a
-                                            href="{{ route('project.bibliometrics.productions.show', [$project, $production]) }}">
-                                            {{ $production->full_title }}
-                                        </a>
-                                    </td>
+                                    <td class="!text-wrap">{{ $production->full_title }}</td>
+                                    <td>{{ $production->type }}</td>
+                                    <td>{{ $production->year }}</td>
                                     <td>
-                                        {{ $production->year }}
+                                        <x-ts-button icon="eye"
+                                            x-on:click="$dispatch('preview-production', { id: {{ $production->id }} })"
+                                            sm flat />
                                     </td>
                                 </tr>
                             @endforeach
@@ -65,7 +65,6 @@
                             class="hidden lg:inline-flex">ao lado</span> para listar as respectivas produções.
                     </x-ts-card>
                 @endif
-
                 <x-table label="Quantidade por ano" collapsable>
                     <x-slot name="header">
                         <tr>
@@ -93,7 +92,6 @@
                         </tr>
                     </x-slot>
                 </x-table>
-
                 <x-table label="Quantidade por tipo" collapsable>
                     <x-slot name="header">
                         <tr>
@@ -121,8 +119,8 @@
                         </tr>
                     </x-slot>
                 </x-table>
-
             </div>
         </div>
     </div>
+    @livewire('production.production-slide', ['project' => $project])
 </div>

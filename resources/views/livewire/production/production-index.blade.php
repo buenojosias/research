@@ -43,6 +43,7 @@
             <th x-show="city">Cidade</th>
             <th x-show="state">UF</th>
             <th x-show="url">URL</th>
+            <th width="10"></th>
         </x-slot>
         <x-slot name="body">
             @foreach ($productions as $production)
@@ -86,11 +87,13 @@
                             <a href="{{ $production->url }}" target="_black">{{ $production->url }}</a>
                         @endif
                     </td>
+                    <td>
+                        <x-ts-button icon="eye" x-on:click="$dispatch('preview-production', { id: {{$production->id}} })" sm flat />
+                    </td>
                 </tr>
             @endforeach
         </x-slot>
     </x-table>
-
     <x-ts-slide left title="Filtros" id="filters" size="sm">
         <div class="space-y-3">
             <div class="flex flex-wrap gap-4">
@@ -138,6 +141,7 @@
             <x-ts-toggle x-model="url" label="URL" />
         </div>
     </x-ts-slide>
+    @livewire('production.production-slide', ['project' => $project])
 </section>
 @push('scripts')
     <script>
