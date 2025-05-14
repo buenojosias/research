@@ -31,6 +31,6 @@ class GroupIndex extends Component
     public function render()
     {
         return view('livewire.group.group-index')
-            ->title('Groups de produções');
+            ->title('Grupos de produções');
     }
 }

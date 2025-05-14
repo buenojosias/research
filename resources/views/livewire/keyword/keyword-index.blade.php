@@ -26,10 +26,7 @@
                                 </td>
                                 <td class="!text-wrap">
                                     @foreach ($production->keywords as $keyword)
-                                        {{ $keyword->value }}
-                                        @if (!$loop->last)
-                                            /
-                                        @endif
+                                        {{ $keyword->value }}@if (!$loop->last); @endif
                                     @endforeach
                                 </td>
                                 <td>
