@@ -11,13 +11,13 @@
     state: false,
     url: false,
 }">
+    <x-ts-toast />
     <x-page-header title="Produções encontradas" :subtitle="$project->theme">
         <div class="flex flex-col gap-1">
             <x-ts-button text="Adicionar produção" :href="route('project.bibliometrics.productions.create', $project)" wire:navigate />
             <x-ts-button text="Grupos" icon="rectangle-group" :href="route('project.bibliometrics.productions.groups.index', $project)" flat />
         </div>
     </x-page-header>
-
     <x-table screen>
         <div class="table-header flex justify-between items-center">
             <div class="w-1/2">
@@ -31,6 +31,9 @@
             </div>
         </div>
         <x-slot name="header">
+            <th width="10">
+                @livewire('components.bulk-dropdown', ['project' => $project])
+            </th>
             <th @click="sortByColumn">Título</th>
             <th x-show="author">Autor(es)</th>
             <th x-show="year">Ano</th>
@@ -48,6 +51,9 @@
         <x-slot name="body">
             @foreach ($productions as $production)
                 <tr @class(['line-through text-gray-600' => $production->trashed()])>
+                    <td>
+                        @livewire('components.bulk-checkbox', ['production_id' => $production->id], key($production->id))
+                    </td>
                     <td class="!text-wrap flex gap-1">
                         @if ($production->highlighted)
                             <x-ts-icon name="star" class="w-4 h-4 text-amber-600" />
@@ -88,7 +94,8 @@
                         @endif
                     </td>
                     <td>
-                        <x-ts-button icon="eye" x-on:click="$dispatch('preview-production', { id: {{$production->id}} })" sm flat />
+                        <x-ts-button icon="eye"
+                            x-on:click="$dispatch('preview-production', { id: {{ $production->id }} })" sm flat />
                     </td>
                 </tr>
             @endforeach

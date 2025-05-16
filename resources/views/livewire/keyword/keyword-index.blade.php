@@ -1,4 +1,5 @@
 <section>
+    <x-ts-toast />
     <x-page-header title="Palavras-chave" :subtitle="$project->theme" />
     <div class="flex flex-col lg:flex-row-reverse gap-6">
         <div class="lg:w-2/3">
@@ -9,6 +10,9 @@
                         <x-ts-button wire:click="selectWord('')" icon="x-mark" flat />
                     </div>
                     <x-slot name="header">
+                        <th width="10">
+                            @livewire('components.bulk-dropdown', ['project' => $project])
+                        </th>
                         <th>Título</th>
                         <th>Tipo</th>
                         <th>Ano</th>
@@ -18,16 +22,23 @@
                     <x-slot name="body">
                         @forelse ($keywordProductions as $production)
                             <tr>
+                                <td>
+                                    @livewire('components.bulk-checkbox', ['production_id' => $production->id], key($production->id))
+                                </td>
                                 <td class="!text-wrap">{{ $production->full_title }}</td>
                                 <td>{{ $production->type }}</td>
                                 <td>{{ $production->year }}</td>
                                 <td class="!text-wrap">
                                     @foreach ($production->keywords as $keyword)
-                                        {{ $keyword->value }}@if (!$loop->last); @endif
+                                        {{ $keyword->value }}@if (!$loop->last)
+                                            ;
+                                        @endif
                                     @endforeach
                                 </td>
                                 <td>
-                                    <x-ts-button icon="eye" x-on:click="$dispatch('preview-production', { id: {{$production->id}} })" sm flat />
+                                    <x-ts-button icon="eye"
+                                        x-on:click="$dispatch('preview-production', { id: {{ $production->id }} })" sm
+                                        flat />
                                     <x-ts-button wire:click="deleteProduction({{ $production }})"
                                         icon="archive-box-arrow-down" color="red" flat sm />
                                 </td>
@@ -53,8 +64,8 @@
                         </x-slot:action>
                         @foreach ($bibliometric->types as $type)
                             <x-ts-dropdown.items>
-                                <x-ts-checkbox name="production_types[]" wire:model.live="production_types" :value="$type"
-                                    :label="$type" />
+                                <x-ts-checkbox name="production_types[]" wire:model.live="production_types"
+                                    :value="$type" :label="$type" />
                             </x-ts-dropdown.items>
                         @endforeach
                     </x-ts-dropdown>

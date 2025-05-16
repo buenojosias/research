@@ -32,13 +32,8 @@
                             <x-ts-button wire:click="selectWord('')" icon="x-mark" outline />
                         </div>
                         <x-slot name="header">
-                            <th width="20">
-                                @if (!empty($selectedProductions))
-                                    <x-ts-dropdown icon="ellipsis-vertical" static>
-                                        <x-ts-dropdown.items text="Adicionar a grupo"
-                                            wire:click="$dispatch('open-slide')" />
-                                    </x-ts-dropdown>
-                                @endif
+                            <th width="10">
+                                @livewire('components.bulk-dropdown', ['project' => $project])
                             </th>
                             <th>Título</th>
                             <th>Tipo</th>
@@ -50,8 +45,7 @@
                             @foreach ($records as $record)
                                 <tr>
                                     <td>
-                                        <x-ts-checkbox wire:model.live="selectedProductions"
-                                            name="selectedProductions[]" :value="$record->id" />
+                                        @livewire('components.bulk-checkbox', ['production_id' => $record->id], key($record->id))
                                     </td>
                                     <td class="!text-wrap">{{ $record->full_title }}</td>
                                     <td>{{ $record->type }}</td>
@@ -223,8 +217,5 @@
             </div>
         </div> --}}
     </div>
-    @if ($selectedWords && $records->count())
-        @livewire('group.attach-group', ['project' => $project])
-    @endif
     @livewire('production.production-slide', ['project' => $project])
 </div>

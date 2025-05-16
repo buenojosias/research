@@ -60,6 +60,7 @@ class AttachGroup extends Component
             $group->productions()->syncWithoutDetaching([$production => ['note' => $this->note]]);
         }
         $this->slide = false;
+        $this->dispatch('unselect-all')->to('components.bulk-checkbox');
         $this->reset(['selectedGroup', 'note']);
         $this->toast()->success('Produções adicionadas ao grupo.')->send();
     }
