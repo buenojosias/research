@@ -18,7 +18,7 @@
                 {{ $reference->institution }},
                 {{ $reference->city }},
                 {{ $reference->year }}.
-                @if($referece->url)
+                @if($reference->url)
                     Disponível em: <a href="{{ $reference->url }}" target="_blank">{{ $reference->url }}</a>.
                     Acesso em: {{ $reference->access_at }}.
                 @endif
@@ -31,7 +31,7 @@
                 p. {{ $reference->pages }},</span>
                 {{ $reference->month ? $reference->month . '.' : '' }}{{ $reference->year }}.
                 @if($reference->doi) DOI: <a href="{{ $reference->doi }}" target="_blank">{{ $reference->doi }}</a>. @endif
-                @if($referece->url)
+                @if($reference->url)
                     Disponível em: <a href="{{ $reference->url }}" target="_blank">{{ $reference->url }}</a>.
                     Acesso em: {{ $reference->access_at }}.
                 @endif
