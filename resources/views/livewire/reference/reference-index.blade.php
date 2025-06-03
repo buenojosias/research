@@ -1,5 +1,9 @@
 <div>
-    <x-page-header title="Referências" />
+    <x-page-header title="Referências">
+        <div class="flex flex-col gap-1">
+            <x-ts-button text="Referências do projeto" :href="route('project.bibliometrics.references.project', $project)" flat />
+        </div>
+    </x-page-header>
     <x-table>
         <div class="table-header flex justify-between items-center">
             <div class="w-1/2">

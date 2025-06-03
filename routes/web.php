@@ -36,6 +36,7 @@ use App\Livewire\Record\RecordPerState;
 use App\Livewire\Record\RecordPerYear;
 use App\Livewire\Reference\ReferenceCitation;
 use App\Livewire\Reference\ReferenceIndex;
+use App\Livewire\Reference\ReferenceProject;
 use App\Livewire\Reference\ReferenceShow;
 use App\Livewire\SearchResult\SearchResultIndex;
 use App\Livewire\Student\StudentForm;
@@ -54,6 +55,7 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome');
 Route::get('pdfs/{path}', [FileController::class, 'show'])->name('files');
 Route::get('pdfs', [FileController::class, 'index'])->name('files.index');
+Route::view('novo', 'new-layout')->name('new-layout');
 
 Route::middleware(['auth'])->group(function () {
 
@@ -89,6 +91,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('producoes/{production}/{section}/form', \App\Livewire\Internal\InternalForm::class)->name('productions.section.form');
 
         Route::get('referencias', ReferenceIndex::class)->name('references.index');
+        Route::get('referencias/projeto', ReferenceProject::class)->name('references.project');
         Route::get('referencias/{reference}', ReferenceShow::class)->name('references.show');
         Route::get('referencias/{reference}/citacoes', ReferenceCitation::class)->name('references.citations');
 
