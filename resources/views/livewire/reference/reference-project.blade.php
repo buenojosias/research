@@ -18,8 +18,10 @@
                 {{ $reference->institution }},
                 {{ $reference->city }},
                 {{ $reference->year }}.
-                Disponível em: <a href="{{ $reference->url }}" target="_blank">{{ $reference->url }}</a>.
-                Acesso em: {{ $reference->access_at }}.
+                @if($referece->url)
+                    Disponível em: <a href="{{ $reference->url }}" target="_blank">{{ $reference->url }}</a>.
+                    Acesso em: {{ $reference->access_at }}.
+                @endif
             @else
                 {{ $reference->title }}@if ($reference->subtitle){{ ': '. $reference->subtitle }}@endif.
                 <strong>{{ $reference->periodical }}</strong>,
@@ -29,8 +31,10 @@
                 p. {{ $reference->pages }},</span>
                 {{ $reference->month ? $reference->month . '.' : '' }}{{ $reference->year }}.
                 @if($reference->doi) DOI: <a href="{{ $reference->doi }}" target="_blank">{{ $reference->doi }}</a>. @endif
-                Disponível em: <a href="{{ $reference->url }}" target="_blank">{{ $reference->url }}</a>.
-                Acesso em: {{ $reference->access_at }}.
+                @if($referece->url)
+                    Disponível em: <a href="{{ $reference->url }}" target="_blank">{{ $reference->url }}</a>.
+                    Acesso em: {{ $reference->access_at }}.
+                @endif
             @endif
         </p>
     @endforeach
